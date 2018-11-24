@@ -20,7 +20,7 @@ public class LoginDialog extends JDialog {
     private boolean closed;
 
     public LoginDialog(Frame parent) {
-        super(parent, "component.Login", true);
+        super(parent, "Login", true);
 
         JPanel panel = new JPanel(new GridBagLayout());
         GridBagConstraints cs = new GridBagConstraints();
@@ -40,7 +40,7 @@ public class LoginDialog extends JDialog {
         panel.add(pfPassword, cs);
         panel.setBorder(new LineBorder(Color.GRAY));
 
-        btnLogin = new JButton("component.Login");
+        btnLogin = new JButton("Login");
 
         btnLogin.addActionListener(new ActionListener() {
 
@@ -55,7 +55,7 @@ public class LoginDialog extends JDialog {
                 } else {
                     JOptionPane.showMessageDialog(LoginDialog.this,
                             "Invalid username or password",
-                            "component.Login",
+                            "Login",
                             JOptionPane.ERROR_MESSAGE);
                     // reset password
                     pfPassword.setText("");

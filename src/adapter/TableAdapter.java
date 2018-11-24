@@ -1,9 +1,9 @@
 package adapter;
 
-import collector.TableDataCollector;
 import model.EditableTableModel;
 
 import javax.swing.*;
+import javax.swing.table.AbstractTableModel;
 import javax.swing.table.JTableHeader;
 
 
@@ -21,6 +21,12 @@ public class TableAdapter {
         JTableHeader header = tableModel.getTableHeader();
         header.setResizingAllowed(false);
         header.setReorderingAllowed(false);
+    }
+    public void setTableModel(AbstractTableModel model){
+        if(tableModel != null)
+            tableModel.setModel(model);
+        else
+            tableModel = new JTable(model);
     }
     public void setFrame(JFrame cur){
         //add the table to the frame

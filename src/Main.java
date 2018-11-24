@@ -1,5 +1,6 @@
 import adapter.TableAdapter;
 import collector.TableDataCollector;
+import component.EditableTableDisplay;
 import component.LoginDialog;
 import model.EditableTableModel;
 
@@ -27,15 +28,11 @@ public class Main {
         if(loginDlg.isSucceeded()) {
             loginDlg.dispose();
             frame.setVisible(true);
-
-            TableDataCollector collector = new TableDataCollector();
-
-            EditableTableModel model = new EditableTableModel(collector.getCols(),collector.getData());
+            EditableTableDisplay tableDisplay = new EditableTableDisplay();
+            EditableTableModel model = tableDisplay.getModel();
             model.addEditableCol(4);
-
-            TableAdapter adp = new TableAdapter(model);
-
-            adp.setFrame(frame);
+            tableDisplay.setTableModel(model);
+            tableDisplay.setFrame(frame);
         }
         if(loginDlg.isClosed()) {
             loginDlg.dispose();
