@@ -1,3 +1,8 @@
+import adapter.TableAdapter;
+import collector.TableDataCollector;
+import component.LoginDialog;
+import model.EditableTableModel;
+
 import java.awt.*;
 import javax.swing.*;
 
@@ -22,6 +27,15 @@ public class Main {
         if(loginDlg.isSucceeded()) {
             loginDlg.dispose();
             frame.setVisible(true);
+
+            TableDataCollector collector = new TableDataCollector();
+
+            EditableTableModel model = new EditableTableModel(collector.getCols(),collector.getData());
+            model.addEditableCol(4);
+
+            TableAdapter adp = new TableAdapter(model);
+
+            adp.setFrame(frame);
         }
         if(loginDlg.isClosed()) {
             loginDlg.dispose();

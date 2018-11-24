@@ -1,3 +1,5 @@
+package component;
+
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
@@ -18,7 +20,7 @@ public class LoginDialog extends JDialog {
     private boolean closed;
 
     public LoginDialog(Frame parent) {
-        super(parent, "Login", true);
+        super(parent, "component.Login", true);
 
         JPanel panel = new JPanel(new GridBagLayout());
         GridBagConstraints cs = new GridBagConstraints();
@@ -38,7 +40,7 @@ public class LoginDialog extends JDialog {
         panel.add(pfPassword, cs);
         panel.setBorder(new LineBorder(Color.GRAY));
 
-        btnLogin = new JButton("Login");
+        btnLogin = new JButton("component.Login");
 
         btnLogin.addActionListener(new ActionListener() {
 
@@ -46,14 +48,14 @@ public class LoginDialog extends JDialog {
                 if (Login.authenticate("admin", getPassword())) {
                     JOptionPane.showMessageDialog(LoginDialog.this,
                             "Hi professor"  + "! You have successfully logged in.",
-                            "Login",
+                            "component.Login",
                             JOptionPane.INFORMATION_MESSAGE);
                     succeeded = true;
                     dispose();
                 } else {
                     JOptionPane.showMessageDialog(LoginDialog.this,
                             "Invalid username or password",
-                            "Login",
+                            "component.Login",
                             JOptionPane.ERROR_MESSAGE);
                     // reset password
                     pfPassword.setText("");
