@@ -1,43 +1,59 @@
-import adapter.TableAdapter;
-import collector.TableDataCollector;
 import component.EditableTableDisplay;
 import component.LoginDialog;
 import model.EditableTableModel;
+import view.MainMenu;
 
 import java.awt.*;
 import javax.swing.*;
 
 
 public class Main {
+    private static JFrame curWindow;
+    private static JPanel topPanel;
     public static void main(String[] args) {
-        final JFrame frame = new JFrame("Grading system");
+        curWindow = new JFrame("Grading system");
+        topPanel = new JPanel();
 
-
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setSize(600, 400);
-        frame.setLayout(new FlowLayout());
+        curWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        curWindow.setSize(800, 600);
+        curWindow.setLayout(new BorderLayout());
 
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        frame.setLocation(dim.width/2-frame.getSize().width/2, dim.height/2-frame.getSize().height/2);
+        curWindow.setLocation(dim.width/2-curWindow.getSize().width/2, dim.height/2-curWindow.getSize().height/2);
 
-        LoginDialog loginDlg = new LoginDialog(frame);
+
+        LoginDialog loginDlg = new LoginDialog(curWindow);
 
         loginDlg.setVisible(true);
 
         // if login successfully
         if(loginDlg.isSucceeded()) {
             loginDlg.dispose();
-            frame.setVisible(true);
-            EditableTableDisplay tableDisplay = new EditableTableDisplay();
-            EditableTableModel model = tableDisplay.getModel();
-            model.addEditableCol(4);
-            tableDisplay.setTableModel(model);
-            tableDisplay.setFrame(frame);
+
+            curWindow.getContentPane().add(topPanel);
+            topPanel.setLayout(null);
+
+            constructMainView();
+
+            curWindow.setVisible(true);
         }
         if(loginDlg.isClosed()) {
             loginDlg.dispose();
-            frame.dispose();
+            curWindow.dispose();
         }
+    }
+    private static void constructMainView() {
+
+        MainMenu menu = MainMenu.getMainMenuInstance(curWindow);
+        menu.setPanel(topPanel);
+        EditableTableDisplay tableDisplay = new EditableTableDisplay();
+        EditableTableModel model = tableDisplay.getModel();
+
+        model.addEditableCol(3);
+        model.addEditableCol(4);
+
+        tableDisplay.setTableModel(model);
+        tableDisplay.setPanel(topPanel);
     }
 }
 
