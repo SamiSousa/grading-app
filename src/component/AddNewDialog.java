@@ -12,8 +12,9 @@ import java.awt.event.WindowEvent;
 
 public class AddNewDialog extends JDialog {
 
-    private boolean succeeded;
+    private String className;
     private boolean closed;
+    private boolean succeed;
 
     public AddNewDialog(Frame parent) {
         super(parent, "New class", true);
@@ -25,6 +26,10 @@ public class AddNewDialog extends JDialog {
 
             public void actionPerformed(ActionEvent e) {
             // todo submit new class name & info here
+                className = classForm.getClassName();
+                succeed = true;
+
+                dispose();
             }
         });
         JButton btnCancel = new JButton("Cancel");
@@ -56,10 +61,13 @@ public class AddNewDialog extends JDialog {
     }
 
 
-    public boolean isSucceeded() {
-        return succeeded;
+    public String getClassName() {
+        return className;
     }
     public boolean isClosed() {
         return closed;
+    }
+    public boolean isSucceed() {
+        return succeed;
     }
 }

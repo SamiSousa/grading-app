@@ -6,6 +6,7 @@ import component.AddNewDialog;
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
+import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -48,19 +49,25 @@ public class MainMenu{
 
             }
         });
-//        tree.setRootVisible(false);
 
     }
     void doubleClicked(MouseEvent me) {
         DefaultMutableTreeNode cur = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
+
         TreePath tp = tree.getPathForLocation(me.getX(), me.getY());
+
         if (cur != null)
             if(cur.toString().equals("add new")){
             // todo add new
                 System.out.println("new new new");
                 AddNewDialog addNew = new AddNewDialog(currentFrame);
                 addNew.setVisible(true);
+                System.out.println(addNew.isSucceed());
+                if (addNew.isSucceed()){
+                    addNewClassConfigNode(addNew, cur);
+                }
             }
+
         else
             System.out.println("null");
     }
@@ -88,4 +95,21 @@ public class MainMenu{
         }
         while (currentNode != null);
     }
+    private void addNewClassConfigNode(AddNewDialog addNew, DefaultMutableTreeNode cur) {
+        DefaultMutableTreeNode root = (DefaultMutableTreeNode) tree.getModel().getRoot();
+        DefaultMutableTreeNode newNode = new DefaultMutableTreeNode(addNew.getClassName(),true);
+        newNode.add(new DefaultMutableTreeNode("student info", true));
+
+
+        root.add(newNode);
+        root.add(new DefaultMutableTreeNode("add new", true));
+
+        removeNode(cur);
+    }
+    private void removeNode(DefaultMutableTreeNode cur){
+        DefaultTreeModel model = (DefaultTreeModel) tree.getModel();
+        model.removeNodeFromParent(cur);
+        model.reload();
+    }
+
 }

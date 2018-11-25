@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class NewClassForm extends JPanel{
+    private JTextField txClassName;
     public NewClassForm() {
         super();
         setLayout(new GridBagLayout());
@@ -22,13 +23,15 @@ public class NewClassForm extends JPanel{
         cs.gridwidth = 1;
         add(lbClassName, cs);
 
-        JTextField txClassName = new JTextField("",25);
+        txClassName = new JTextField("",25);
         cs.gridx = 1;
         cs.gridy = 1;
         cs.gridwidth = 2;
         add(txClassName,cs);
 
         lbClassName.setLabelFor(txClassName);
-
+    }
+    public String getClassName() {
+        return txClassName.getText();
     }
 }
