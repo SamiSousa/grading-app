@@ -1,6 +1,7 @@
 import component.EditableTableDisplay;
 import component.LoginDialog;
 import model.EditableTableModel;
+import view.GradeCenter;
 import view.MainMenu;
 
 import java.awt.*;
@@ -10,9 +11,10 @@ import javax.swing.*;
 public class Main {
     private static JFrame curWindow;
     private static JPanel topPanel;
+    private static JPanel menuPanel;
+    private static JPanel contentPanel;
     public static void main(String[] args) {
         curWindow = new JFrame("Grading system");
-        topPanel = new JPanel();
 
         curWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         curWindow.setSize(800, 600);
@@ -30,8 +32,10 @@ public class Main {
         if(loginDlg.isSucceeded()) {
             loginDlg.dispose();
 
+            configTopPanel();
+
             curWindow.getContentPane().add(topPanel);
-            topPanel.setLayout(null);
+//            topPanel.setLayout(null);
 
             constructMainView();
 
@@ -44,8 +48,8 @@ public class Main {
     }
     private static void constructMainView() {
 
-        MainMenu menu = MainMenu.getMainMenuInstance(curWindow);
-        menu.setPanel(topPanel);
+        MainMenu menu = MainMenu.getMainMenuInstance(contentPanel);
+        menu.setPanel(menuPanel);
         EditableTableDisplay tableDisplay = new EditableTableDisplay();
         EditableTableModel model = tableDisplay.getModel();
 
@@ -53,7 +57,23 @@ public class Main {
         model.addEditableCol(4);
 
         tableDisplay.setTableModel(model);
-        tableDisplay.setPanel(topPanel);
+        tableDisplay.setPanel(contentPanel);
+//        GradeCenter gradeCenter = new GradeCenter();
+//        topPanel.add(gradeCenter);
+    }
+    private static void configTopPanel() {
+        topPanel = new JPanel();
+        menuPanel = new JPanel();
+        contentPanel = new JPanel();
+
+        menuPanel.setLayout(new GridLayout(0, 1));
+        menuPanel.setMaximumSize(new Dimension(180,600));
+        menuPanel.setPreferredSize(new Dimension(180,600));
+        contentPanel.setLayout(new GridLayout(0, 1));
+
+        topPanel.setLayout(new BorderLayout());
+        topPanel.add(menuPanel,BorderLayout.WEST);
+        topPanel.add(contentPanel,BorderLayout.CENTER);
     }
 }
 

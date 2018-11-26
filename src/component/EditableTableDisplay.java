@@ -8,6 +8,7 @@ import javax.swing.*;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
+import java.awt.*;
 
 public class EditableTableDisplay implements TableModelListener {
 
@@ -25,7 +26,7 @@ public class EditableTableDisplay implements TableModelListener {
 
     public void setTableModel(EditableTableModel m) {
         model = m;
-        adapter.setTableModel(m);
+        adapter.setTableModel(model);
     }
 
     public void setPanel(JPanel panel){

@@ -12,7 +12,7 @@ public class TableDataCollector {
     // todo fetch data from database
     private String[] cols = {"First Name",
             "Last Name",
-            "Item",
+            "Assignment",
             "Negtive Score",
             "Label"};
     private Object[][] data = {
@@ -31,9 +31,9 @@ public class TableDataCollector {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/grading_system", "root", "htys123");
+                    "jdbc:mysql://localhost:3306/grading_sys", "root", "htys123");
             Statement stmt=con.createStatement();
-            String tname = "attemp";
+            String tname = "Grade";
             ResultSet rs=stmt.executeQuery("select * from "+tname);
 
             while(rs.next())

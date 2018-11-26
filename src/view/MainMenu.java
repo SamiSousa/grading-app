@@ -2,6 +2,7 @@ package view;
 
 
 import component.AddNewDialog;
+import model.CourseNode;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -16,17 +17,15 @@ public class MainMenu{
 
     private JTree tree;
     private static MainMenu MainMenuInstance;
-    private JFrame currentFrame;
-    private MainMenu(JFrame cur){
-        currentFrame = cur;
+    private JPanel currentPanel;
+    private MainMenu(JPanel cur){
+        currentPanel = cur;
 
         DefaultMutableTreeNode root = new DefaultMutableTreeNode("2018 Spring", true),
-                node1 = new DefaultMutableTreeNode("cs 591 d1", true), node2 = new DefaultMutableTreeNode(
-                "student info", true), node3 = new DefaultMutableTreeNode("add new", true);
+                node1 = new CourseNode("cs591 d1");
         tree = new JTree(root);
         root.add(node1);
-        node1.add(node2);
-        root.add(node3);
+        root.add(new DefaultMutableTreeNode("add new",false));
 
         ImageIcon listIcon = new ImageIcon(new ImageIcon(MainMenu.class.getResource("../resources/004-list.png")).getImage().getScaledInstance(18, 18, Image.SCALE_SMOOTH));
         ImageIcon studentIcon = new ImageIcon(new ImageIcon(MainMenu.class.getResource("../resources/003-pass.png")).getImage().getScaledInstance(18, 18, Image.SCALE_SMOOTH));
@@ -56,22 +55,30 @@ public class MainMenu{
 
         TreePath tp = tree.getPathForLocation(me.getX(), me.getY());
 
-        if (cur != null)
-            if(cur.toString().equals("add new")){
-            // todo add new
+        if (cur != null) {
+            if (cur.toString().equals("add new")) {
+                // todo add new
                 System.out.println("new new new");
-                AddNewDialog addNew = new AddNewDialog(currentFrame);
+                AddNewDialog addNew = new AddNewDialog((JFrame) SwingUtilities.getWindowAncestor(currentPanel));
                 addNew.setVisible(true);
                 System.out.println(addNew.isSucceed());
-                if (addNew.isSucceed()){
+                if (addNew.isSucceed()) {
                     addNewClassConfigNode(addNew, cur);
                 }
             }
-
+            if(cur.toString().equals("grade center")) {
+                System.out.println("grade");
+                GradeCenter gradeCenter = new GradeCenter(cur.getParent().toString(),cur.getRoot().toString());
+                currentPanel.removeAll();
+                currentPanel.add(gradeCenter);
+                currentPanel.revalidate();
+                currentPanel.repaint();
+            }
+        }
         else
             System.out.println("null");
     }
-    public static MainMenu getMainMenuInstance(JFrame cur){
+    public static MainMenu getMainMenuInstance(JPanel cur){
         if(MainMenuInstance == null){
             MainMenuInstance = new MainMenu(cur);
         }
@@ -79,8 +86,7 @@ public class MainMenu{
     }
     public void setPanel(JPanel panel){
         JScrollPane treePanel = new JScrollPane((JTree) tree);
-
-        treePanel.setBounds(10,10,180,500);
+//        treePanel.setLayout(new GridLayout(0, 1));
 
         panel.add(treePanel);
 //        setLayout(new BorderLayout());
@@ -97,11 +103,9 @@ public class MainMenu{
     }
     private void addNewClassConfigNode(AddNewDialog addNew, DefaultMutableTreeNode cur) {
         DefaultMutableTreeNode root = (DefaultMutableTreeNode) tree.getModel().getRoot();
-        DefaultMutableTreeNode newNode = new DefaultMutableTreeNode(addNew.getClassName(),true);
-        newNode.add(new DefaultMutableTreeNode("student info", true));
+        CourseNode newCourse = new CourseNode(addNew.getClassName());
 
-
-        root.add(newNode);
+        root.add(newCourse);
         root.add(new DefaultMutableTreeNode("add new", true));
 
         removeNode(cur);
