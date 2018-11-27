@@ -63,7 +63,9 @@ public class MainMenu{
                 addNew.setVisible(true);
 //                System.out.println(addNew.isSucceed());
                 if (addNew.isSucceed()) {
-                    addNewClassConfigNode(addNew, cur);
+                    if(!addNew.getClassName().isEmpty()) {
+                        addNewClassConfigNode(addNew, cur);
+                    }
                 }
             }
             if(cur.toString().equals("grade center")) {

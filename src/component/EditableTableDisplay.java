@@ -29,6 +29,8 @@ public class EditableTableDisplay implements TableModelListener {
     public void setTableModel(EditableTableModel m) {
         model = m;
         adapter.setTableModel(model);
+        adapter.getTableModel().getModel().removeTableModelListener(this);
+        adapter.getTableModel().getModel().addTableModelListener(this);
     }
 
     public void setPanel(JPanel panel){
@@ -56,7 +58,7 @@ public class EditableTableDisplay implements TableModelListener {
             if (note.isSucceed()) {
 //                // todo add note
             }
-        } else {
+        } else if(columnName.equals("Label")) {
             // todo delete note here
         }
     }
