@@ -24,6 +24,8 @@ public class TableAdapter {
         header.setFont(new Font("SansSerif", Font.ITALIC, 13));
         header.setReorderingAllowed(false);
         tableModel.setAutoCreateRowSorter(true);
+
+        tableModel.setFont(new Font("Serif", Font.PLAIN, 14));
     }
     public void setTableModel(AbstractTableModel model){
         if(tableModel != null)

@@ -13,19 +13,20 @@ public class TableDataCollector {
     private String[] cols = {"First Name",
             "Last Name",
             "Assignment",
-            "Negtive Score",
+            "Max points",
+            "Lost points",
             "Label"};
     private Object[][] data = {
             {"Kathy", "Smith",
-                    "Midterm", new Integer(5), new Boolean(false)},
+                    "Midterm", new Integer(100), new Integer(5), new Boolean(false)},
             {"John", "Doe",
-                    "Final", new Integer(3), new Boolean(true)},
+                    "Final", new Integer(100),new Integer(3), new Boolean(true)},
             {"Sue", "Black",
-                    "Midterm", new Integer(2), new Boolean(false)},
+                    "Midterm", new Integer(100),new Integer(2), new Boolean(false)},
             {"Jane", "White",
-                    "Project 1", new Integer(10), new Boolean(true)},
+                    "Project 1",new Integer(50), new Integer(10), new Boolean(true)},
             {"Joe", "Brown",
-                    "Project 2", new Integer(5), new Boolean(false)}
+                    "Project 2", new Integer(80),new Integer(5), new Boolean(false)}
     };
     public TableDataCollector() {
         try {

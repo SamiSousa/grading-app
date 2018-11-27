@@ -53,8 +53,8 @@ public class Main {
         EditableTableDisplay tableDisplay = new EditableTableDisplay();
         EditableTableModel model = tableDisplay.getModel();
 
-        model.addEditableCol(3);
         model.addEditableCol(4);
+        model.addEditableCol(5);
 
         tableDisplay.setTableModel(model);
         tableDisplay.setPanel(contentPanel);
