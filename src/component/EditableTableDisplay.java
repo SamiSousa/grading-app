@@ -47,4 +47,8 @@ public class EditableTableDisplay implements TableModelListener {
         // todo update to database;
         System.out.println(data);
     }
+
+    public TableAdapter getAdapter() {
+        return adapter;
+    }
 }

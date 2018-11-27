@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.HashSet;
+import java.util.Set;
 
 /***
  * collector responsible for fetching data from database
@@ -53,5 +55,12 @@ public class TableDataCollector {
 
     public Object[][] getData() {
         return data;
+    }
+    public Set<String> getColData(int col){
+        Set<String> assignments = new HashSet<>();
+        for(int i=0;i<data.length;i++){
+           assignments.add((String) data[i][col]);
+        }
+        return assignments;
     }
 }

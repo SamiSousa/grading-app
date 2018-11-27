@@ -45,4 +45,5 @@ public class TableAdapter {
     public JTable getTableModel() {
         return tableModel;
     }
+
 }
