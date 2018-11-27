@@ -2,15 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="397178e4-121f-457f-b37e-674492fe1668" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/grading-app/Main.class" afterPath="$PROJECT_DIR$/out/production/grading-app/Main.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/grading-app/component/EditableTableDisplay.class" afterPath="$PROJECT_DIR$/out/production/grading-app/component/EditableTableDisplay.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/component/NoteDialog.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/grading-app/view/GradeCenter.class" afterPath="$PROJECT_DIR$/out/production/grading-app/view/GradeCenter.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/grading-app/view/JComboBoxListener.class" afterPath="$PROJECT_DIR$/out/production/grading-app/view/JComboBoxListener.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/grading-app/view/TableCellRender.class" afterPath="$PROJECT_DIR$/out/production/grading-app/view/TableCellRender.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Main.java" afterPath="$PROJECT_DIR$/src/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/adapter/TableAdapter.java" afterPath="$PROJECT_DIR$/src/adapter/TableAdapter.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/component/EditableTableDisplay.java" afterPath="$PROJECT_DIR$/src/component/EditableTableDisplay.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/component/collector/TableDataCollector.java" afterPath="$PROJECT_DIR$/src/component/collector/TableDataCollector.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/view/GradeCenter.java" afterPath="$PROJECT_DIR$/src/view/GradeCenter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/view/MainMenu.java" afterPath="$PROJECT_DIR$/src/view/MainMenu.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -25,18 +25,8 @@
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="222">
-              <caret line="72" column="53" lean-forward="false" selection-start-line="72" selection-start-column="53" selection-end-line="72" selection-end-column="53" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="LoginDialog.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/component/LoginDialog.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="329">
-              <caret line="40" column="52" lean-forward="true" selection-start-line="24" selection-start-column="7" selection-end-line="40" selection-end-column="52" />
+            <state relative-caret-position="229">
+              <caret line="53" column="81" lean-forward="false" selection-start-line="53" selection-start-column="81" selection-end-line="53" selection-end-column="81" />
               <folding />
             </state>
           </provider>
@@ -45,12 +35,9 @@
       <file leaf-file-name="TableAdapter.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/adapter/TableAdapter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="21" column="14" lean-forward="true" selection-start-line="21" selection-start-column="14" selection-end-line="21" selection-end-column="14" />
-              <folding>
-                <element signature="e#1311#1312#0" expanded="true" />
-                <element signature="e#1344#1345#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="162">
+              <caret line="19" column="39" lean-forward="true" selection-start-line="13" selection-start-column="30" selection-end-line="19" selection-end-column="39" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -58,7 +45,7 @@
       <file leaf-file-name="TableDataCollector.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/component/collector/TableDataCollector.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="297">
+            <state relative-caret-position="469">
               <caret line="63" column="26" lean-forward="false" selection-start-line="63" selection-start-column="26" selection-end-line="63" selection-end-column="26" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -72,8 +59,8 @@
       <file leaf-file-name="MainMenu.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/view/MainMenu.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-60">
-              <caret line="45" column="0" lean-forward="false" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
+            <state relative-caret-position="213">
+              <caret line="63" column="18" lean-forward="false" selection-start-line="63" selection-start-column="18" selection-end-line="63" selection-end-column="57" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -81,11 +68,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GradeCenter.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="GradeCenter.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/view/GradeCenter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1349">
-              <caret line="145" column="32" lean-forward="false" selection-start-line="145" selection-start-column="32" selection-end-line="145" selection-end-column="32" />
+            <state relative-caret-position="235">
+              <caret line="66" column="52" lean-forward="false" selection-start-line="66" selection-start-column="52" selection-end-line="66" selection-end-column="52" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#setCellColorRender#0;class#GradeCenter#0" expanded="false" />
@@ -94,42 +81,45 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="EditableTableModel.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/model/EditableTableModel.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="95">
-              <caret line="33" column="0" lean-forward="true" selection-start-line="30" selection-start-column="18" selection-end-line="33" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#683#684#0" expanded="true" />
-                <element signature="e#733#734#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="EditableTableDisplay.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="EditableTableDisplay.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/component/EditableTableDisplay.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="259">
-              <caret line="24" column="5" lean-forward="true" selection-start-line="18" selection-start-column="10" selection-end-line="24" selection-end-column="5" />
+            <state relative-caret-position="337">
+              <caret line="59" column="36" lean-forward="false" selection-start-line="59" selection-start-column="36" selection-end-line="59" selection-end-column="36" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#971#972#0" expanded="true" />
-                <element signature="e#1010#1011#0" expanded="true" />
-                <element signature="e#1485#1486#0" expanded="true" />
-                <element signature="e#1515#1516#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CourseNode.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/model/CourseNode.java">
+      <file leaf-file-name="NoteDialog.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/component/NoteDialog.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="15" column="85" lean-forward="false" selection-start-line="15" selection-start-column="73" selection-end-line="15" selection-end-column="85" />
-              <folding />
+            <state relative-caret-position="384">
+              <caret line="38" column="38" lean-forward="false" selection-start-line="38" selection-start-column="38" selection-end-line="38" selection-end-column="38" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1370#1523#0" expanded="true" />
+                <element signature="e#1522#1523#0" expanded="true" />
+                <element signature="e#1563#1564#0" expanded="true" />
+                <element signature="e#1592#1593#0" expanded="true" />
+                <element signature="e#1626#1627#0" expanded="true" />
+                <element signature="e#1656#1657#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AddNewDialog.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/component/AddNewDialog.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="236">
+              <caret line="50" column="0" lean-forward="false" selection-start-line="50" selection-start-column="0" selection-end-line="59" selection-end-column="11" />
+              <folding>
+                <element signature="e#1469#1622#0" expanded="true" />
+                <element signature="e#1621#1622#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -196,15 +186,16 @@
         <option value="$PROJECT_DIR$/src/model/ClassConfigNode.java" />
         <option value="$PROJECT_DIR$/src/model/GradeCenterNode.java" />
         <option value="$PROJECT_DIR$/src/model/CourseNode.java" />
-        <option value="$PROJECT_DIR$/src/view/MainMenu.java" />
         <option value="$PROJECT_DIR$/src/model/TableRowRender.java" />
         <option value="$PROJECT_DIR$/src/model/TableCellRender.java" />
-        <option value="$PROJECT_DIR$/src/component/EditableTableDisplay.java" />
         <option value="$PROJECT_DIR$/src/adapter/TableAdapter.java" />
-        <option value="$PROJECT_DIR$/src/Main.java" />
         <option value="$PROJECT_DIR$/src/model/Filter.java" />
         <option value="$PROJECT_DIR$/src/component/collector/TableDataCollector.java" />
         <option value="$PROJECT_DIR$/src/view/GradeCenter.java" />
+        <option value="$PROJECT_DIR$/src/Main.java" />
+        <option value="$PROJECT_DIR$/src/view/MainMenu.java" />
+        <option value="$PROJECT_DIR$/src/component/NoteDialog.java" />
+        <option value="$PROJECT_DIR$/src/component/EditableTableDisplay.java" />
       </list>
     </option>
   </component>
@@ -233,9 +224,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="Scratches" />
-      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -290,6 +278,9 @@
           <select />
         </subPane>
       </pane>
+      <pane id="AndroidView" />
+      <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="PackagesPane" />
     </panes>
   </component>
@@ -474,12 +465,13 @@
       <updated>1542233126025</updated>
       <workItem from="1542233127399" duration="234000" />
       <workItem from="1542233365316" duration="746000" />
-      <workItem from="1543027123837" duration="46420000" />
+      <workItem from="1543027123837" duration="46488000" />
+      <workItem from="1543293298720" duration="2633000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="47400000" />
+    <option name="totallyTimeSpent" value="50101000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
@@ -498,9 +490,8 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1987076" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20193861" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32954547" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -513,6 +504,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32954547" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -560,6 +552,91 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/Main.java">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="960">
+          <caret line="72" column="53" lean-forward="false" selection-start-line="72" selection-start-column="53" selection-end-line="72" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/adapter/TableAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="21" column="14" lean-forward="true" selection-start-line="21" selection-start-column="14" selection-end-line="21" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/component/LoginDialog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="40" column="52" lean-forward="true" selection-start-line="24" selection-start-column="7" selection-end-line="40" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/component/collector/TableDataCollector.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="810">
+          <caret line="63" column="26" lean-forward="false" selection-start-line="63" selection-start-column="26" selection-end-line="63" selection-end-column="26" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <marker date="1543290771535" expanded="true" signature="1479:1492" ph="select * fro... " />
+            <marker date="1543290771535" expanded="true" signature="1479:1493" ph="select * fro... attemp" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/MainMenu.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="525">
+          <caret line="45" column="0" lean-forward="false" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/EditableTableModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="33" column="0" lean-forward="true" selection-start-line="30" selection-start-column="18" selection-end-line="33" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/component/EditableTableDisplay.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="24" column="5" lean-forward="true" selection-start-line="18" selection-start-column="10" selection-end-line="24" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/CourseNode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="15" column="85" lean-forward="false" selection-start-line="15" selection-start-column="73" selection-end-line="15" selection-end-column="85" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/GradeCenter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1995">
+          <caret line="145" column="32" lean-forward="false" selection-start-line="145" selection-start-column="32" selection-end-line="145" selection-end-column="32" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#setCellColorRender#0;class#GradeCenter#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
@@ -570,7 +647,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
           <caret line="5" column="10" lean-forward="false" selection-start-line="5" selection-start-column="10" selection-end-line="5" selection-end-column="10" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -578,39 +654,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <marker date="1543292947374" expanded="true" signature="50416:50433" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="50416:50451" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="50416:50464" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="50416:50479" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="68492:68767" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="68492:68752" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="50581:50846" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="50600:50831" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="50633:50811" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="50673:50777" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="50694:50755" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="50897:51162" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="50916:51147" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="50949:51127" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="50989:51093" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="51010:51071" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="51205:51511" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="51224:51496" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="51298:51476" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="51338:51442" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="51359:51420" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="51546:51852" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="51565:51837" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="51639:51817" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="51679:51783" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="51700:51761" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="68492:68738" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="68492:68723" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="68525:68703" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="68565:68669" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="68586:68647" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -618,7 +661,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -626,7 +668,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -650,7 +691,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
           <caret line="5" column="10" lean-forward="true" selection-start-line="5" selection-start-column="10" selection-end-line="5" selection-end-column="10" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -658,39 +698,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <marker date="1543292947374" expanded="true" signature="50416:50433" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="50416:50451" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="50416:50464" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="50416:50479" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="68492:68767" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="68492:68752" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="50581:50846" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="50600:50831" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="50633:50811" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="50673:50777" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="50694:50755" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="50897:51162" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="50916:51147" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="50949:51127" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="50989:51093" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="51010:51071" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="51205:51511" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="51224:51496" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="51298:51476" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="51338:51442" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="51359:51420" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="51546:51852" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="51565:51837" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="51639:51817" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="51679:51783" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="51700:51761" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="68492:68738" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="68492:68723" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="68525:68703" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="68565:68669" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="68586:68647" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -698,7 +705,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -706,7 +712,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -714,39 +719,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <marker date="1543292947374" expanded="true" signature="50416:50433" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="50416:50451" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="50416:50464" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="50416:50479" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="68492:68767" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="68492:68752" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="50581:50846" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="50600:50831" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="50633:50811" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="50673:50777" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="50694:50755" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="50897:51162" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="50916:51147" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="50949:51127" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="50989:51093" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="51010:51071" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="51205:51511" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="51224:51496" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="51298:51476" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="51338:51442" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="51359:51420" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="51546:51852" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="51565:51837" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="51639:51817" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="51679:51783" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="51700:51761" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="68492:68738" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="68492:68723" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="68525:68703" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="68565:68669" ph="..." />
-            <marker date="1543292947374" expanded="true" signature="68586:68647" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -754,7 +726,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -762,7 +733,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -770,7 +740,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
           <caret line="5" column="10" lean-forward="false" selection-start-line="5" selection-start-column="10" selection-end-line="5" selection-end-column="10" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -778,20 +747,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="576">
           <caret line="62" column="13" lean-forward="true" selection-start-line="57" selection-start-column="10" selection-end-line="62" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Interface/CellEditable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="52" lean-forward="false" selection-start-line="3" selection-start-column="52" selection-end-line="3" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Interface/CellEditable.java" />
     <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/src.zip!/javax/swing/table/TableColumnModel.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1004">
@@ -800,14 +759,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/TableDisplay.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="42">
-          <caret line="18" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/TableDisplay.java" />
     <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/src.zip!/javax/swing/table/JTableHeader.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-11503">
@@ -823,7 +775,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
           <caret line="8" column="56" lean-forward="false" selection-start-line="8" selection-start-column="56" selection-end-line="8" selection-end-column="56" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -850,7 +801,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
           <caret line="3" column="55" lean-forward="false" selection-start-line="3" selection-start-column="55" selection-end-line="3" selection-end-column="55" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -866,41 +816,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/component/AddNewDialog.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="191">
-          <caret line="30" column="0" lean-forward="false" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
-          <folding>
-            <element signature="e#1792#1793#0" expanded="false" />
-            <element signature="e#1822#1823#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/StudentInfoNode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="27" lean-forward="false" selection-start-line="6" selection-start-column="27" selection-end-line="6" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/ClassConfigNode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="27" lean-forward="false" selection-start-line="6" selection-start-column="27" selection-end-line="6" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/GradeCenterNode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="59" lean-forward="false" selection-start-line="5" selection-start-column="37" selection-end-line="5" selection-end-column="59" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/StudentInfoNode.java" />
+    <entry file="file://$PROJECT_DIR$/src/model/ClassConfigNode.java" />
+    <entry file="file://$PROJECT_DIR$/src/model/GradeCenterNode.java" />
     <entry file="file://$PROJECT_DIR$/src/model/CourseNode.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
@@ -909,88 +827,56 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/TableCellRender.java">
+    <entry file="file://$PROJECT_DIR$/src/model/TableCellRender.java" />
+    <entry file="file://$PROJECT_DIR$/src/model/Filter.java" />
+    <entry file="file://$PROJECT_DIR$/src/model/EditableTableModel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="-14">
+          <caret line="33" column="0" lean-forward="false" selection-start-line="30" selection-start-column="18" selection-end-line="33" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/Filter.java">
+    <entry file="file://$PROJECT_DIR$/src/component/AddNewDialog.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="34" lean-forward="false" selection-start-line="4" selection-start-column="34" selection-end-line="4" selection-end-column="34" />
+        <state relative-caret-position="236">
+          <caret line="50" column="0" lean-forward="false" selection-start-line="50" selection-start-column="0" selection-end-line="59" selection-end-column="11" />
+          <folding>
+            <element signature="e#1469#1622#0" expanded="true" />
+            <element signature="e#1621#1622#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/adapter/TableAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="19" column="39" lean-forward="true" selection-start-line="13" selection-start-column="30" selection-end-line="19" selection-end-column="39" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/component/LoginDialog.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="329">
-          <caret line="40" column="52" lean-forward="true" selection-start-line="24" selection-start-column="7" selection-end-line="40" selection-end-column="52" />
+        <state relative-caret-position="59">
+          <caret line="40" column="52" lean-forward="false" selection-start-line="24" selection-start-column="7" selection-end-line="40" selection-end-column="52" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="222">
-          <caret line="72" column="53" lean-forward="false" selection-start-line="72" selection-start-column="53" selection-end-line="72" selection-end-column="53" />
+        <state relative-caret-position="229">
+          <caret line="53" column="81" lean-forward="false" selection-start-line="53" selection-start-column="81" selection-end-line="53" selection-end-column="81" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/adapter/TableAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="21" column="14" lean-forward="true" selection-start-line="21" selection-start-column="14" selection-end-line="21" selection-end-column="14" />
-          <folding>
-            <element signature="e#1311#1312#0" expanded="true" />
-            <element signature="e#1344#1345#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/component/EditableTableDisplay.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="259">
-          <caret line="24" column="5" lean-forward="true" selection-start-line="18" selection-start-column="10" selection-end-line="24" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#971#972#0" expanded="true" />
-            <element signature="e#1010#1011#0" expanded="true" />
-            <element signature="e#1485#1486#0" expanded="true" />
-            <element signature="e#1515#1516#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/MainMenu.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-60">
-          <caret line="45" column="0" lean-forward="false" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/EditableTableModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="33" column="0" lean-forward="true" selection-start-line="30" selection-start-column="18" selection-end-line="33" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#683#684#0" expanded="true" />
-            <element signature="e#733#734#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/component/collector/TableDataCollector.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
+        <state relative-caret-position="469">
           <caret line="63" column="26" lean-forward="false" selection-start-line="63" selection-start-column="26" selection-end-line="63" selection-end-column="26" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -1000,13 +886,49 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/MainMenu.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="213">
+          <caret line="63" column="18" lean-forward="false" selection-start-line="63" selection-start-column="18" selection-end-line="63" selection-end-column="57" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/view/GradeCenter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1349">
-          <caret line="145" column="32" lean-forward="false" selection-start-line="145" selection-start-column="32" selection-end-line="145" selection-end-column="32" />
+        <state relative-caret-position="235">
+          <caret line="66" column="52" lean-forward="false" selection-start-line="66" selection-start-column="52" selection-end-line="66" selection-end-column="52" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#setCellColorRender#0;class#GradeCenter#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/component/NoteDialog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="384">
+          <caret line="38" column="38" lean-forward="false" selection-start-line="38" selection-start-column="38" selection-end-line="38" selection-end-column="38" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1370#1523#0" expanded="true" />
+            <element signature="e#1522#1523#0" expanded="true" />
+            <element signature="e#1563#1564#0" expanded="true" />
+            <element signature="e#1592#1593#0" expanded="true" />
+            <element signature="e#1626#1627#0" expanded="true" />
+            <element signature="e#1656#1657#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/component/EditableTableDisplay.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="337">
+          <caret line="59" column="36" lean-forward="false" selection-start-line="59" selection-start-column="36" selection-end-line="59" selection-end-column="36" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>

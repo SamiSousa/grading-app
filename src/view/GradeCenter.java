@@ -52,6 +52,7 @@ public class GradeCenter extends JPanel{
         Set<String> filterList = (new TableDataCollector()).getColData(2);
         filterList.add("All");
         JComboBox dropMenu = new JComboBox(filterList.toArray());
+        dropMenu.setSelectedItem("All");
         dropMenu.addActionListener(new JComboBoxListener(2,tableDisplay));
         cs.gridx = 1;
         cs.gridy = 1;
@@ -63,7 +64,7 @@ public class GradeCenter extends JPanel{
     }
     private void composeCenter() {
 
-        tableDisplay = new EditableTableDisplay();
+        tableDisplay = new EditableTableDisplay(this);
         EditableTableModel model = tableDisplay.getModel();
 
         model.addEditableCol(4);

@@ -51,7 +51,7 @@ public class Main {
 
         MainMenu menu = MainMenu.getMainMenuInstance(contentPanel);
         menu.setPanel(menuPanel);
-        EditableTableDisplay tableDisplay = new EditableTableDisplay();
+        EditableTableDisplay tableDisplay = new EditableTableDisplay(contentPanel);
         EditableTableModel model = tableDisplay.getModel();
 
         model.addEditableCol(4);

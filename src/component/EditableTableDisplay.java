@@ -15,13 +15,15 @@ public class EditableTableDisplay implements TableModelListener {
     private TableDataCollector collector;
     private EditableTableModel model;
     private TableAdapter adapter;
+    private JPanel currentPanel;
 
-    public EditableTableDisplay(){
+    public EditableTableDisplay(JPanel cur){
         collector = new TableDataCollector();
         // todo fetch data using component.collector
         model = new EditableTableModel(collector.getCols(),collector.getData());
         adapter = new TableAdapter(model);
         adapter.getTableModel().getModel().addTableModelListener(this);
+        currentPanel = cur;
     }
 
     public void setTableModel(EditableTableModel m) {
@@ -45,7 +47,18 @@ public class EditableTableDisplay implements TableModelListener {
         Object data = model.getValueAt(row, column);
 
         // todo update to database;
+
         System.out.println(data);
+        if(columnName.equals("Label") && data.toString().equals("true")){
+            System.out.println("label");
+            NoteDialog note = new NoteDialog((JFrame) SwingUtilities.getWindowAncestor(currentPanel), (String) model.getValueAt(row, 0),(String) model.getValueAt(row, 2));
+            note.setVisible(true);
+            if (note.isSucceed()) {
+//                // todo add note
+            }
+        } else {
+            // todo delete note here
+        }
     }
 
     public TableAdapter getAdapter() {

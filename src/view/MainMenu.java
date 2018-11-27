@@ -61,7 +61,7 @@ public class MainMenu{
                 System.out.println("new new new");
                 AddNewDialog addNew = new AddNewDialog((JFrame) SwingUtilities.getWindowAncestor(currentPanel));
                 addNew.setVisible(true);
-                System.out.println(addNew.isSucceed());
+//                System.out.println(addNew.isSucceed());
                 if (addNew.isSucceed()) {
                     addNewClassConfigNode(addNew, cur);
                 }
