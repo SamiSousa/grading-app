@@ -1,10 +1,12 @@
 package adapter;
 
-import collector.TableDataCollector;
 import model.EditableTableModel;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import javax.swing.table.AbstractTableModel;
 import javax.swing.table.JTableHeader;
+import java.awt.*;
 
 
 public class TableAdapter {
@@ -19,15 +21,29 @@ public class TableAdapter {
         else
             tableModel = new JTable(model);
         JTableHeader header = tableModel.getTableHeader();
-        header.setResizingAllowed(false);
+        header.setFont(new Font("SansSerif", Font.ITALIC, 13));
         header.setReorderingAllowed(false);
+        tableModel.setAutoCreateRowSorter(true);
+
+        tableModel.setFont(new Font("Serif", Font.PLAIN, 14));
     }
-    public void setFrame(JFrame cur){
+    public void setTableModel(AbstractTableModel model){
+        if(tableModel != null)
+            tableModel.setModel(model);
+        else
+            tableModel = new JTable(model);
+    }
+    public void setPanel(JPanel cur){
         //add the table to the frame
-        cur.add(new JScrollPane(tableModel));
-//        cur.setTitle("Table Example");
-//        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        cur.pack();
-        cur.setVisible(true);
+        JScrollPane tablePanel = new JScrollPane(tableModel);
+        // todo customize table style
+
+        cur.add(tablePanel);
+
     }
+
+    public JTable getTableModel() {
+        return tableModel;
+    }
+
 }

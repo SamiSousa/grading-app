@@ -1,46 +1,80 @@
-import adapter.TableAdapter;
-import collector.TableDataCollector;
+import component.EditableTableDisplay;
 import component.LoginDialog;
 import model.EditableTableModel;
+import view.GradeCenter;
+import view.MainMenu;
 
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 
 
 public class Main {
+    private static JFrame curWindow;
+    private static JPanel topPanel;
+    private static JPanel menuPanel;
+    private static JPanel contentPanel;
     public static void main(String[] args) {
-        final JFrame frame = new JFrame("Grading system");
+        curWindow = new JFrame("Grading system");
 
-
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setSize(600, 400);
-        frame.setLayout(new FlowLayout());
+        curWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        curWindow.setSize(800, 600);
+        curWindow.setLayout(new BorderLayout());
 
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        frame.setLocation(dim.width/2-frame.getSize().width/2, dim.height/2-frame.getSize().height/2);
+        curWindow.setLocation(dim.width/2-curWindow.getSize().width/2, dim.height/2-curWindow.getSize().height/2);
 
-        LoginDialog loginDlg = new LoginDialog(frame);
+
+        LoginDialog loginDlg = new LoginDialog(curWindow);
 
         loginDlg.setVisible(true);
 
         // if login successfully
         if(loginDlg.isSucceeded()) {
             loginDlg.dispose();
-            frame.setVisible(true);
 
-            TableDataCollector collector = new TableDataCollector();
+            configTopPanel();
 
-            EditableTableModel model = new EditableTableModel(collector.getCols(),collector.getData());
-            model.addEditableCol(4);
+            curWindow.getContentPane().add(topPanel);
+//            topPanel.setLayout(null);
 
-            TableAdapter adp = new TableAdapter(model);
+            constructMainView();
 
-            adp.setFrame(frame);
+            curWindow.setVisible(true);
         }
         if(loginDlg.isClosed()) {
             loginDlg.dispose();
-            frame.dispose();
+            curWindow.dispose();
         }
+    }
+    private static void constructMainView() {
+
+        MainMenu menu = MainMenu.getMainMenuInstance(contentPanel);
+        menu.setPanel(menuPanel);
+        EditableTableDisplay tableDisplay = new EditableTableDisplay(contentPanel);
+        EditableTableModel model = tableDisplay.getModel();
+
+        model.addEditableCol(4);
+        model.addEditableCol(5);
+
+        tableDisplay.setTableModel(model);
+        tableDisplay.setPanel(contentPanel);
+//        GradeCenter gradeCenter = new GradeCenter();
+//        topPanel.add(gradeCenter);
+    }
+    private static void configTopPanel() {
+        topPanel = new JPanel();
+        menuPanel = new JPanel();
+        contentPanel = new JPanel();
+
+        menuPanel.setLayout(new GridLayout(0, 1));
+        menuPanel.setMaximumSize(new Dimension(180,600));
+        menuPanel.setPreferredSize(new Dimension(180,600));
+        contentPanel.setLayout(new GridLayout(0, 1));
+
+        topPanel.setLayout(new BorderLayout());
+        topPanel.add(menuPanel,BorderLayout.WEST);
+        topPanel.add(contentPanel,BorderLayout.CENTER);
     }
 }
 
