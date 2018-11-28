@@ -1,0 +1,3 @@
+Sami,Shahin,U11111111,ssshahin@bu.edu,Master 1
+Richard,Tianyu,U22222222,rt@bu.edu,UnderGrad 4
+Connor,Gileany,U33333333,connorg@bu.edu,UnderGrad 4
