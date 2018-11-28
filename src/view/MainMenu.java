@@ -76,6 +76,13 @@ public class MainMenu{
                 currentPanel.revalidate();
                 currentPanel.repaint();
             }
+            if (cur.toString().equals("student info")){
+                StudentInfo studentInfo = new StudentInfo();
+                currentPanel.removeAll();
+                currentPanel.add(studentInfo);
+                currentPanel.revalidate();
+                currentPanel.repaint();
+            }
         }
         else
             System.out.println("null");

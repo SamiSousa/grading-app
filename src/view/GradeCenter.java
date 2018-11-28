@@ -72,18 +72,9 @@ public class GradeCenter extends JPanel{
 
         tableDisplay.setTableModel(model);
         tableDisplay.setPanel(this);
-        setCellColorRender();
+        tableDisplay.getAdapter().setCellColorRender(new TableCellRender());
     }
-    private void setCellColorRender() {
-        JTable table = tableDisplay.getAdapter().getTableModel();
 
-        for (int i =0; i<table.getColumnCount();i++) {
-            if(table.getColumnName(i).equals("Lost points")){
-                table.getColumnModel().getColumn(i).setCellRenderer(new TableCellRender());
-                break;
-            }
-        }
-    }
 
 }
 class TableCellRender extends DefaultTableCellRenderer {
@@ -127,7 +118,7 @@ class JComboBoxListener implements ActionListener{
             model.addEditableCol(4);
             model.addEditableCol(5);
             tableDisplay.setTableModel(model);
-            setCellColorRender();
+            tableDisplay.getAdapter().setCellColorRender(new TableCellRender());
             return;
         }
         int leng = data[0].length;
@@ -147,16 +138,7 @@ class JComboBoxListener implements ActionListener{
         model.addEditableCol(4);
         model.addEditableCol(5);
         tableDisplay.setTableModel(model);
-        setCellColorRender();
+        tableDisplay.getAdapter().setCellColorRender(new TableCellRender());
     }
-    private void setCellColorRender() {
-        JTable table = tableDisplay.getAdapter().getTableModel();
 
-        for (int i =0; i<table.getColumnCount();i++) {
-            if(table.getColumnName(i).equals("Lost points")){
-                table.getColumnModel().getColumn(i).setCellRenderer(new TableCellRender());
-                break;
-            }
-        }
-    }
 }

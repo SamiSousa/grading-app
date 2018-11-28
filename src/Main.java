@@ -3,6 +3,7 @@ import component.LoginDialog;
 import model.EditableTableModel;
 import view.GradeCenter;
 import view.MainMenu;
+import view.StudentInfo;
 
 import java.awt.*;
 import javax.swing.*;
@@ -51,16 +52,22 @@ public class Main {
 
         MainMenu menu = MainMenu.getMainMenuInstance(contentPanel);
         menu.setPanel(menuPanel);
-        EditableTableDisplay tableDisplay = new EditableTableDisplay(contentPanel);
-        EditableTableModel model = tableDisplay.getModel();
+//        EditableTableDisplay tableDisplay = new EditableTableDisplay(contentPanel);
+//        EditableTableModel model = tableDisplay.getModel();
+//
+//        model.addEditableCol(4);
+//        model.addEditableCol(5);
+//
+//        tableDisplay.setTableModel(model);
+//        tableDisplay.setPanel(contentPanel);
+        JPanel panel = new JPanel(new BorderLayout());
+        JLabel lbClassName = new JLabel("Demo Dashboard",SwingConstants.CENTER);
+        lbClassName.setFont(lbClassName.getFont().deriveFont (16.0f));
+        StudentInfo studentInfo = new StudentInfo();
+        panel.add(lbClassName,BorderLayout.NORTH);
+        panel.add(studentInfo,BorderLayout.CENTER);
 
-        model.addEditableCol(4);
-        model.addEditableCol(5);
-
-        tableDisplay.setTableModel(model);
-        tableDisplay.setPanel(contentPanel);
-//        GradeCenter gradeCenter = new GradeCenter();
-//        topPanel.add(gradeCenter);
+        contentPanel.add(panel);
     }
     private static void configTopPanel() {
         topPanel = new JPanel();

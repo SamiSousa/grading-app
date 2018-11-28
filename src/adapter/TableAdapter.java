@@ -5,6 +5,7 @@ import model.EditableTableModel;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
 
@@ -45,5 +46,13 @@ public class TableAdapter {
     public JTable getTableModel() {
         return tableModel;
     }
+    public void setCellColorRender(DefaultTableCellRenderer render) {
 
+        for (int i =0; i<tableModel.getColumnCount();i++) {
+            if(tableModel.getColumnName(i).equals("Lost points")){
+                tableModel.getColumnModel().getColumn(i).setCellRenderer(render);
+                break;
+            }
+        }
+    }
 }
