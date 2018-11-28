@@ -57,6 +57,8 @@ public class EditableTableDisplay implements TableModelListener {
             note.setVisible(true);
             if (note.isSucceed()) {
 //                // todo add note
+
+
             }
         } else if(columnName.equals("Label")) {
             // todo delete note here

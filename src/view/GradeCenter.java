@@ -127,6 +127,7 @@ class JComboBoxListener implements ActionListener{
             model.addEditableCol(4);
             model.addEditableCol(5);
             tableDisplay.setTableModel(model);
+            setCellColorRender();
             return;
         }
         int leng = data[0].length;
@@ -146,5 +147,16 @@ class JComboBoxListener implements ActionListener{
         model.addEditableCol(4);
         model.addEditableCol(5);
         tableDisplay.setTableModel(model);
+        setCellColorRender();
+    }
+    private void setCellColorRender() {
+        JTable table = tableDisplay.getAdapter().getTableModel();
+
+        for (int i =0; i<table.getColumnCount();i++) {
+            if(table.getColumnName(i).equals("Lost points")){
+                table.getColumnModel().getColumn(i).setCellRenderer(new TableCellRender());
+                break;
+            }
+        }
     }
 }
