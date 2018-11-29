@@ -31,22 +31,22 @@ public class TableDataCollector {
                     "Project 2", new Integer(80),new Integer(5), new Boolean(false)}
     };
     public TableDataCollector() {
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/grading_sys", "root", "htys123");
-            Statement stmt=con.createStatement();
-            String tname = "Grade";
-            ResultSet rs=stmt.executeQuery("select * from "+tname);
-
-            while(rs.next())
-                System.out.println(rs.getString(1));
-            con.close();
-
-
-        } catch (Exception e){
-            e.printStackTrace();
-        }
+//        try {
+//            Class.forName("com.mysql.jdbc.Driver");
+//            Connection con = DriverManager.getConnection(
+//                    "jdbc:mysql://localhost:3306/grading_sys", "root", "htys123");
+//            Statement stmt=con.createStatement();
+//            String tname = "Grade";
+//            ResultSet rs=stmt.executeQuery("select * from "+tname);
+//
+//            while(rs.next())
+//                System.out.println(rs.getString(1));
+//            con.close();
+//
+//
+//        } catch (Exception e){
+//            e.printStackTrace();
+//        }
     }
 
     public String[] getCols() {
