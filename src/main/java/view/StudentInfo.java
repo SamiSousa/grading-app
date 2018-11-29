@@ -9,7 +9,7 @@ import java.io.File;
 
 public class StudentInfo extends JPanel{
     public StudentInfo(){
-        Student[] stuList = Student.loadStudentsFromFile(new File("/Users/richard/Desktop/fall18/cs591 d1/grade/grading-app/src/view/stu.txt"));
+        Student[] stuList = Student.loadStudentsFromFile(new File("/Users/connorgilheany/School/Fall18/CS591/Project/grading-app-real/src/main/java/view/stu.txt"));
         EditableTableDisplay display = new EditableTableDisplay(this);
         Object[][] data = new Object[stuList.length][stuList[0].getDataRow().length];
         for(int i=0;i<stuList.length;i++){

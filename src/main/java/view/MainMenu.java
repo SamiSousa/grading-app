@@ -27,13 +27,13 @@ public class MainMenu{
         root.add(node1);
         root.add(new DefaultMutableTreeNode("add new",false));
 
-        ImageIcon listIcon = new ImageIcon(new ImageIcon(MainMenu.class.getResource("../resources/004-list.png")).getImage().getScaledInstance(18, 18, Image.SCALE_SMOOTH));
-        ImageIcon studentIcon = new ImageIcon(new ImageIcon(MainMenu.class.getResource("../resources/003-pass.png")).getImage().getScaledInstance(18, 18, Image.SCALE_SMOOTH));
+//        ImageIcon listIcon = new ImageIcon(new ImageIcon(MainMenu.class.getResource("../resources/004-list.png")).getImage().getScaledInstance(18, 18, Image.SCALE_SMOOTH));
+//        ImageIcon studentIcon = new ImageIcon(new ImageIcon(MainMenu.class.getResource("../resources/003-pass.png")).getImage().getScaledInstance(18, 18, Image.SCALE_SMOOTH));
 
         DefaultTreeCellRenderer renderer = new DefaultTreeCellRenderer();
-        renderer.setClosedIcon(listIcon);
-        renderer.setOpenIcon(listIcon);
-        renderer.setLeafIcon(studentIcon);
+//        renderer.setClosedIcon(listIcon);
+//        renderer.setOpenIcon(listIcon);
+//        renderer.setLeafIcon(studentIcon);
 
         tree.setCellRenderer(renderer);
         tree.setShowsRootHandles(true);
