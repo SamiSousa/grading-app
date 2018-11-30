@@ -1,5 +1,7 @@
 import component.EditableTableDisplay;
 import component.LoginDialog;
+import database.GetClassesQuery;
+import model.ClassModel;
 import model.EditableTableModel;
 import view.GradeCenter;
 import view.MainMenu;
@@ -16,6 +18,11 @@ public class Main {
     private static JPanel menuPanel;
     private static JPanel contentPanel;
     public static void main(String[] args) {
+        GetClassesQuery query = new GetClassesQuery();
+        java.util.List<ClassModel> list =  query.execute();
+        list.forEach(x -> System.out.println(x.CourseNumber));
+
+
         curWindow = new JFrame("Grading system");
 
         curWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
