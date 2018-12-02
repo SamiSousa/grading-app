@@ -1,5 +1,7 @@
 import component.EditableTableDisplay;
 import component.LoginDialog;
+import database.GetClassesQuery;
+import model.ClassModel;
 import model.EditableTableModel;
 import view.GradeCenter;
 import view.MainMenu;
