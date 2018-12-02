@@ -9,7 +9,9 @@ import java.awt.event.*;
 
 public class CourseNode extends DefaultMutableTreeNode {
 
-    public CourseNode(String courseName) {
+    int classID;
+
+    public CourseNode(String courseName, int classID) {
         super(courseName,true);
         DefaultMutableTreeNode stuInfo     = new DefaultMutableTreeNode("student info", false);
         DefaultMutableTreeNode classConfig = new DefaultMutableTreeNode("class configuration", false);
@@ -18,6 +20,7 @@ public class CourseNode extends DefaultMutableTreeNode {
         this.add(stuInfo);
         this.add(classConfig);
         this.add(gradeCenter);
+        this.classID = classID;
     }
 
 

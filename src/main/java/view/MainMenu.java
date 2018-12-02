@@ -20,7 +20,8 @@ public class MainMenu{
     private JPanel currentPanel;
     private MainMenu(JPanel cur){
         currentPanel = cur;
-
+        //LOAD: Semesters, classes. create a CourseNode for each class and
+        //Make a root for each semester, then add CourseNodes for each class in that semester
         DefaultMutableTreeNode root = new DefaultMutableTreeNode("2018 Spring", true),
                 node1 = new CourseNode("cs591 d1");
         tree = new JTree(root);
@@ -54,6 +55,9 @@ public class MainMenu{
         DefaultMutableTreeNode cur = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
 
         TreePath tp = tree.getPathForLocation(me.getX(), me.getY());
+        String classString = tp.getPathComponent(1).toString();
+        System.out.println(classString);
+
 
         if (cur != null) {
             if (cur.toString().equals("add new")) {

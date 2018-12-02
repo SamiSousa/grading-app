@@ -29,3 +29,12 @@ class GetClassesMapper implements RowMapper<ClassModel> {
         return new ClassModel(rs.getInt("ClassID"), rs.getString("CourseNumber"), rs.getString("Semester"));
     }
 }
+
+/*
+    EXAMPLE USAGE
+        GetClassesQuery query = new GetClassesQuery();
+        List<ClassModel> list = query.execute();
+        list.forEach(x -> System.out.println(x.CourseNumber));
+
+        When creating our view for
+ */
