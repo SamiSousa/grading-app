@@ -21,7 +21,6 @@ public class GradeCenter extends JPanel{
     private String title;
     private EditableTableDisplay tableDisplay;
 
-
     public GradeCenter(CourseNode course) {
     	this.course = course;
         setLayout(new BorderLayout());
@@ -33,7 +32,6 @@ public class GradeCenter extends JPanel{
         JPanel header = new JPanel(new BorderLayout());
         composeHeader(header);
         add(header, BorderLayout.NORTH);
-
     }
     private void composeHeader(JPanel header) {
 
