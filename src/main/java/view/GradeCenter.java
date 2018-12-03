@@ -22,18 +22,16 @@ public class GradeCenter extends JPanel{
     private EditableTableDisplay tableDisplay;
     public GradeCenter(String courseName, String semester) {
 
-        setLayout(new BoxLayout(this,BoxLayout.PAGE_AXIS));
+        setLayout(new BorderLayout());
         this.courseName = courseName;
         this.semester = semester;
         title = "Grade center for "  + courseName + " in "+semester;
 
-        JPanel header = new JPanel(new BorderLayout());
-        composeHeader(header);
-        add(header);
-
         composeCenter();
 
-
+        JPanel header = new JPanel(new BorderLayout());
+        composeHeader(header);
+        add(header, BorderLayout.NORTH);
     }
     private void composeHeader(JPanel header) {
 
@@ -64,7 +62,6 @@ public class GradeCenter extends JPanel{
         header.add(panel, BorderLayout.CENTER);
     }
     private void composeCenter() {
-
 
         tableDisplay = new EditableTableDisplay(this);
         EditableTableModel model = tableDisplay.getModel();
