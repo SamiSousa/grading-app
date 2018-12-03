@@ -1,5 +1,5 @@
-
-/out/
-/.classpath
-/.project
+out/
+.idea/
+*.iml
+target/
 
