@@ -62,14 +62,7 @@ public class Main {
 //
 //        tableDisplay.setTableModel(model);
 //        tableDisplay.setPanel(contentPanel);
-        JPanel panel = new JPanel(new BorderLayout());
-        JLabel lbClassName = new JLabel("Demo Dashboard",SwingConstants.CENTER);
-        lbClassName.setFont(lbClassName.getFont().deriveFont (16.0f));
-        StudentInfo studentInfo = new StudentInfo();
-        panel.add(lbClassName,BorderLayout.NORTH);
-        panel.add(studentInfo,BorderLayout.CENTER);
-
-        contentPanel.add(panel);
+        
     }
     private static void configTopPanel() {
         topPanel = new JPanel();
