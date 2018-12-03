@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 
 public class NewClassForm extends JPanel{
     private JTextField txClassName;
+    private EditableTableModel tableModel;
     public NewClassForm() {
         super();
         setLayout(new BorderLayout());
@@ -56,7 +57,7 @@ public class NewClassForm extends JPanel{
         JPanel tablePanel = new JPanel();
         tablePanel.setPreferredSize(new Dimension(200,120));
         tablePanel.setMaximumSize(new Dimension(200,120));
-        EditableTableModel tableModel = new EditableTableModel(configName,configValue);
+        tableModel = new EditableTableModel(configName,configValue);
         tableModel.addEditableCol(0);
         tableModel.addEditableCol(1);
         tableModel.addEditableCol(2);
@@ -71,5 +72,19 @@ public class NewClassForm extends JPanel{
     }
     public String getClassName() {
         return txClassName.getText();
+    }
+    public Object getValueAt(int row, int col){
+        return tableModel.getValueAt(row, col);
+    }
+    public Object[][] getArray(){
+        int colCount = tableModel.getColumnCount();
+        int rowCount = tableModel.getRowCount();
+        Object[][] data = new Object[rowCount][colCount];
+        for(int i=0;i<rowCount;i++){
+            for(int j=0;j<colCount;j++){
+                data[i][j] = tableModel.getValueAt(i,j);
+            }
+        }
+        return data;
     }
 }

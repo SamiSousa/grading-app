@@ -21,14 +21,13 @@ public class GradeCenter extends JPanel{
     private String title;
     private EditableTableDisplay tableDisplay;
     public GradeCenter(String courseName, String semester) {
-        setLayout(new BorderLayout());
 
+        setLayout(new BorderLayout());
         this.courseName = courseName;
         this.semester = semester;
         title = "Grade center for "  + courseName + " in "+semester;
 
         composeCenter();
-
 
         JPanel header = new JPanel(new BorderLayout());
         composeHeader(header);
@@ -72,7 +71,9 @@ public class GradeCenter extends JPanel{
 
         tableDisplay.setTableModel(model);
         tableDisplay.setPanel(this);
+        
         tableDisplay.getAdapter().setCellColorRender(new TableCellRender());
+
     }
 
 

@@ -23,18 +23,20 @@ public class MainMenu{
         //LOAD: Semesters, classes. create a CourseNode for each class and
         //Make a root for each semester, then add CourseNodes for each class in that semester
         DefaultMutableTreeNode root = new DefaultMutableTreeNode("2018 Spring", true),
-                node1 = new CourseNode("cs591 d1");
+                node1 = new CourseNode("cs591 d1",233);
         tree = new JTree(root);
         root.add(node1);
         root.add(new DefaultMutableTreeNode("add new",false));
 
-//        ImageIcon listIcon = new ImageIcon(new ImageIcon(MainMenu.class.getResource("../resources/004-list.png")).getImage().getScaledInstance(18, 18, Image.SCALE_SMOOTH));
-//        ImageIcon studentIcon = new ImageIcon(new ImageIcon(MainMenu.class.getResource("../resources/003-pass.png")).getImage().getScaledInstance(18, 18, Image.SCALE_SMOOTH));
+//        System.out.println(MainMenu.class.getResource(""));
+
+        ImageIcon listIcon = new ImageIcon(new ImageIcon(getClass().getClassLoader().getResource("004-list.png")).getImage().getScaledInstance(18, 18, Image.SCALE_SMOOTH));
+        ImageIcon studentIcon = new ImageIcon(new ImageIcon(getClass().getClassLoader().getResource("003-pass.png")).getImage().getScaledInstance(18, 18, Image.SCALE_SMOOTH));
 
         DefaultTreeCellRenderer renderer = new DefaultTreeCellRenderer();
-//        renderer.setClosedIcon(listIcon);
-//        renderer.setOpenIcon(listIcon);
-//        renderer.setLeafIcon(studentIcon);
+        renderer.setClosedIcon(listIcon);
+        renderer.setOpenIcon(listIcon);
+        renderer.setLeafIcon(studentIcon);
 
         tree.setCellRenderer(renderer);
         tree.setShowsRootHandles(true);
@@ -87,6 +89,15 @@ public class MainMenu{
                 currentPanel.revalidate();
                 currentPanel.repaint();
             }
+            if (cur.toString().equals("class configuration")){
+
+                ClassConfig config = new ClassConfig(cur.getParent().toString(),cur.getRoot().toString(),currentPanel);
+                JScrollPane panel = new JScrollPane(config);
+                currentPanel.removeAll();
+                currentPanel.add(panel);
+                currentPanel.revalidate();
+                currentPanel.repaint();
+            }
         }
         else
             System.out.println("null");
@@ -116,7 +127,7 @@ public class MainMenu{
     }
     private void addNewClassConfigNode(AddNewDialog addNew, DefaultMutableTreeNode cur) {
         DefaultMutableTreeNode root = (DefaultMutableTreeNode) tree.getModel().getRoot();
-        CourseNode newCourse = new CourseNode(addNew.getClassName());
+        CourseNode newCourse = new CourseNode(addNew.getClassName(),2334);
 
         root.add(newCourse);
         root.add(new DefaultMutableTreeNode("add new", true));
