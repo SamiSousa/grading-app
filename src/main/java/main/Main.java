@@ -1,3 +1,5 @@
+package main;
+
 import component.EditableTableDisplay;
 import component.LoginDialog;
 import database.GetClassesQuery;

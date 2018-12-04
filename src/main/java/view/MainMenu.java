@@ -111,12 +111,10 @@ public class MainMenu{
             	setCourseView((CourseNode) cur.getParent(), ((CourseNode) cur.getParent()).getStudentInfo());
             }
             if (cur.toString().equals("class configuration")){
-                ClassConfig config = new ClassConfig(cur.getParent().toString(),cur.getRoot().toString(),currentPanel);
-                JScrollPane panel = new JScrollPane(config);
-                currentPanel.removeAll();
-                currentPanel.add(panel);
-                currentPanel.revalidate();
-                currentPanel.repaint();
+            	JPanel panel = new JPanel();
+                JScrollPane scroll = new JScrollPane(((CourseNode) cur.getParent()).getClassConfig());
+                panel.add(scroll);
+                setCourseView((CourseNode) cur.getParent(), panel);
             }
         }
         else

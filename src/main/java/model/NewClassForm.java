@@ -125,7 +125,7 @@ public class NewClassForm extends JPanel{
             }
         }
         return data;
-    
+    }
     public File getStudentFile() {
     	if (studentFile != null && studentFile.getAbsolutePath().equals(txStudentFileName.getText())) {
     		return studentFile;
