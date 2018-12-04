@@ -24,7 +24,6 @@ public class GradeCenter extends JPanel{
     public GradeCenter(CourseNode course) {
     	this.course = course;
         setLayout(new BorderLayout());
-
         title = "Grade center";
 
         composeCenter();

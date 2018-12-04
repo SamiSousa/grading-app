@@ -48,6 +48,7 @@ public class MainMenu{
         
         setCourseView(node1, node1.getGradeCenter());
 
+
         ImageIcon listIcon = new ImageIcon(new ImageIcon(getClass().getClassLoader().getResource("004-list.png")).getImage().getScaledInstance(18, 18, Image.SCALE_SMOOTH));
         ImageIcon studentIcon = new ImageIcon(new ImageIcon(getClass().getClassLoader().getResource("003-pass.png")).getImage().getScaledInstance(18, 18, Image.SCALE_SMOOTH));
 
