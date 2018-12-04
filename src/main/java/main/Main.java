@@ -1,17 +1,10 @@
 package main;
 
-import component.EditableTableDisplay;
 import component.LoginDialog;
-import database.GetClassesQuery;
-import model.ClassModel;
-import model.EditableTableModel;
-import view.GradeCenter;
 import view.MainMenu;
-import view.StudentInfo;
 
 import java.awt.*;
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 
 
 public class Main {
