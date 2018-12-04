@@ -1,8 +1,6 @@
 package component;
 
 import model.NewAssignmentForm;
-import model.NewClassForm;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

@@ -2,6 +2,7 @@ package view;
 
 import component.EditableTableDisplay;
 import component.collector.TableDataCollector;
+import model.CourseNode;
 import model.EditableTableModel;
 
 import javax.swing.*;
@@ -16,23 +17,22 @@ import java.util.Set;
 
 public class GradeCenter extends JPanel{
 
-    private String courseName;
-    private String semester;
+	private final CourseNode course;
     private String title;
     private EditableTableDisplay tableDisplay;
-    public GradeCenter(String courseName, String semester) {
 
-        setLayout(new BoxLayout(this,BoxLayout.PAGE_AXIS));
-        this.courseName = courseName;
-        this.semester = semester;
-        title = "Grade center for "  + courseName + " in "+semester;
 
-        JPanel header = new JPanel(new BorderLayout());
-        composeHeader(header);
-        add(header);
+    public GradeCenter(CourseNode course) {
+    	this.course = course;
+        setLayout(new BorderLayout());
+
+        title = "Grade center";
 
         composeCenter();
 
+        JPanel header = new JPanel(new BorderLayout());
+        composeHeader(header);
+        add(header, BorderLayout.NORTH);
 
     }
     private void composeHeader(JPanel header) {
@@ -65,7 +65,6 @@ public class GradeCenter extends JPanel{
     }
     private void composeCenter() {
 
-
         tableDisplay = new EditableTableDisplay(this);
         EditableTableModel model = tableDisplay.getModel();
 
@@ -79,6 +78,9 @@ public class GradeCenter extends JPanel{
 
     }
 
+    public CourseNode getCourse() {
+    	return this.course;
+    }
 
 }
 class TableCellRender extends DefaultTableCellRenderer {

@@ -1,6 +1,5 @@
 package component;
 
-import model.NewAssignmentForm;
 import model.NewCategoryForm;
 
 import javax.swing.*;

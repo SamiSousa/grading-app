@@ -86,8 +86,16 @@ public class Student implements TableReady {
 	}
 	
 	public String[] getDataColumns() {
+		return Student.getStudentDataColumns();
+	}
+	
+	public static String[] getStudentDataColumns() {
 		String[] cols = {"First Name", "Last Name", "BUID", "Email", "Year"};
 		return cols;
+	}
+	
+	public static Student getDefualtStudent() {
+		return new Student("", "", "", "", "");
 	}
 	
 	public String toString() {
