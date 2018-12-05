@@ -50,21 +50,22 @@ public class CourseNode extends DefaultMutableTreeNode {
 			needsUpdate = true;
     	}
     }
-    
+
     public void addStudents(Student[] students) {
     	for(Student s : students) {
     		addStudent(s);
     	}
     }
-    
+
     public void addStudents(File studentFile) {
     	addStudents(Student.loadStudentsFromFile(studentFile));
     }
-    
+
     public StudentInfo getStudentInfo() {
+//        return new StudentInfo(this);
     	if (needsUpdate) {
-    		updateViews();
-    	}
+            updateViews();
+        }
     	return studentInfo;
     }
     
@@ -83,9 +84,7 @@ public class CourseNode extends DefaultMutableTreeNode {
     }
     
     private void updateViews() {
-    	Student[] stuList = new Student[students.size()];
-    	students.toArray(stuList);
-    	studentInfo.setStudents(stuList);
+    	studentInfo.setStudentsModel();
     	needsUpdate = false;
     }
 }

@@ -1,18 +1,18 @@
 package view;
 
-import component.AddNewDialog;
 import component.AddStudentDialog;
 import component.EditableTableDisplay;
 import data.Student;
+import database.GetStudentsInClassQuery;
+import database.SQLQuery;
 import model.CourseNode;
 import model.EditableTableModel;
 
 import javax.swing.*;
 
 import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.List;
 
 public class StudentInfo extends JPanel{
 	private final CourseNode course;
@@ -23,12 +23,9 @@ public class StudentInfo extends JPanel{
     public StudentInfo(CourseNode course){
     	this.course = course;
         display = new EditableTableDisplay(this);
-        // TODO: Create an empty table to start
-        // Use a dummy student row to initialize the table
-        data = new Object[1][];
-        data[0] = Student.getDefualtStudent().getDataRow();
-        model = new EditableTableModel(Student.getStudentDataColumns(),data);
-        display.setTableModel(model);
+
+        setStudentsModel();
+
         JPanel tablePanel = new JPanel();
         display.setPanel(tablePanel);
         
@@ -49,6 +46,7 @@ public class StudentInfo extends JPanel{
                 // Add Student object if valid
                 boolean updated = false;
                 Student s = addStudent.getAddedStudent();
+                System.out.println("Added student: "+s);
                 if (s != null) {
                     panel.getCourse().addStudent(s);
                     updated = true;
@@ -62,7 +60,9 @@ public class StudentInfo extends JPanel{
                 }
 
                 if (updated) {
-                    panel.getCourse().getStudentInfo();
+                    System.out.println("Repainting views...");
+
+                    panel.getCourse().getStudentInfo().setStudentsModel();
                     panel.revalidate();
                     panel.repaint();
                 }
@@ -70,15 +70,26 @@ public class StudentInfo extends JPanel{
         });
         
     }
-    
-    public void setStudents(Student[] students) {
-    	data = new Object[students.length][students[0].getDataRow().length];
-        for(int i=0;i<students.length;i++){
-            data[i] = students[i].getDataRow();
+
+    public void setStudentsModel() {
+
+        SQLQuery query = new GetStudentsInClassQuery(this.course.getClassModel().ClassID);
+        List<Student> students = query.execute();
+        data = new Object[students.size()][];
+        for(int i = 0; i < students.size(); i++) {
+            data[i] = students.get(i).getDataRow();
         }
-        model = new EditableTableModel(Student.getStudentDataColumns(),data);
+//
+//        // TODO: Create an empty table to start
+//        // Use a dummy student row to initialize the table
+//
+//        data[0] = Student.getDefualtStudent().getDataRow();
+
+        //if this area is causing problems, make data default to new Object[1][]
+        this.model = new EditableTableModel(Student.getStudentDataColumns(),data);
         display.setTableModel(model);
     }
+
 
     public CourseNode getCourse() {
     	return this.course;

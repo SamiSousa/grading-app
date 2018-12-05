@@ -127,18 +127,22 @@ public class MainMenu{
                     }
                 }
             }
+            CourseNode clickedClassNode = (CourseNode)cur.getParent();
+            ClassModel model = clickedClassNode.getClassModel();
+
             if(cur.toString().equals("grade center")) {
                 System.out.println("grade");
-                setCourseView((CourseNode) cur.getParent(), ((CourseNode) cur.getParent()).getGradeCenter());
+
+                setCourseView(clickedClassNode, clickedClassNode.getGradeCenter());
             }
             if (cur.toString().equals("student info")){
-                setCourseView((CourseNode) cur.getParent(), ((CourseNode) cur.getParent()).getStudentInfo());
+                setCourseView(clickedClassNode, clickedClassNode.getStudentInfo());
             }
             if (cur.toString().equals("class configuration")){
                 JPanel panel = new JPanel();
-                JScrollPane scroll = new JScrollPane(((CourseNode) cur.getParent()).getClassConfig());
+                JScrollPane scroll = new JScrollPane(clickedClassNode.getClassConfig());
                 panel.add(scroll);
-                setCourseView((CourseNode) cur.getParent(), panel);
+                setCourseView(clickedClassNode, panel);
             }
         }
         else
@@ -183,6 +187,7 @@ public class MainMenu{
     private void addNewClassConfigNode(AddNewDialog addNew, DefaultMutableTreeNode cur) {
         DefaultMutableTreeNode semester = (DefaultMutableTreeNode) cur.getParent();
         CourseNode newCourse = null;//new CourseNode(addNew.getClassName(), semester.toString(), getNextCourseId());
+//        InsertNewClass.
         //todo new course saving
         if (addNew.getStudentFile() != null) {
         	newCourse.addStudents(addNew.getStudentFile());

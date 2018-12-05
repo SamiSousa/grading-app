@@ -23,9 +23,10 @@ public class GetStudentsInClassQuery extends SQLQuery<Student> {
 
     @Override
     public String getQueryString() {
-        return "SELECT s.StudentID, s.FirstName, s.LastName, S.Email, s.ClassYear, s.BUID " +
+        System.out.println("Finding students in classID: "+this.classID);
+        return "SELECT s.StudentID, s.FirstName, s.LastName, s.Email, s.ClassYear, s.BUID " +
                 "FROM Enrolled e " +
-                "JOIN Student s ON s.Email = e.StudentID " +
+                "JOIN Student s ON s.StudentID = e.StudentID " +
                 "WHERE e.ClassID="+this.classID+";";
     }
 }
@@ -35,6 +36,7 @@ class GetStudentsInClassMapper implements RowMapper<Student> {
 
     @Override
     public Student map(ResultSet rs, StatementContext ctx) throws SQLException {
-        return new Student(rs.getInt(0), rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5));
+        return new Student(rs.getInt("s.StudentID"), rs.getString("s.FirstName"), rs.getString("s.LastName"), rs.getString("s.BUID"), rs.getString("s.Email"), rs.getString("s.ClassYear"));
+        //TODO make this mapping work
     }
 }

@@ -31,25 +31,18 @@ public class AddStudentDialog extends JDialog {
         JPanel studentForm = populateForm();
         JButton btnAdd = new JButton("Submit");
 
-        btnAdd.addActionListener(new ActionListener() {
-
-            public void actionPerformed(ActionEvent e) {
-            // todo submit new student(s) here
-                String[] studentData = getStudentData();
-                studentFile = getStudentFile();
-                succeed = true;
-                addedStudent = InsertStudentIntoClass.insert(studentData, classID);
-
-                dispose();
-            }
+        btnAdd.addActionListener(e -> {
+        // todo submit new student(s) here
+            String[] studentData = getStudentData();
+            studentFile = getStudentFile();
+            addedStudent = InsertStudentIntoClass.insert(studentData, classID);
+            succeed = true;
+            dispose();
         });
         JButton btnCancel = new JButton("Cancel");
-        btnCancel.addActionListener(new ActionListener() {
-
-            public void actionPerformed(ActionEvent e) {
-                closed = true;
-                dispose();
-            }
+        btnCancel.addActionListener(e -> {
+            closed = true;
+            dispose();
         });
 
         JPanel bp = new JPanel();
