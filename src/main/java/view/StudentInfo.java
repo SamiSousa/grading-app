@@ -44,12 +44,12 @@ public class StudentInfo extends JPanel{
         btnAdd.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	StudentInfo panel = (StudentInfo) ((JButton) e.getSource()).getParent();
-            	AddStudentDialog addStudent = new AddStudentDialog((JFrame) SwingUtilities.getWindowAncestor(panel));
+            	AddStudentDialog addStudent = new AddStudentDialog((JFrame) SwingUtilities.getWindowAncestor(panel), course.classID);
                 addStudent.setVisible(true);
                 if (addStudent.isSucceed()) {
                     // Add Student object if valid
                 	boolean updated = false;
-                	Student s = addStudent.getStudentFromForm();
+                	Student s = addStudent.getAddedStudent();
                 	if (s != null) {
                 		panel.getCourse().addStudent(s);
                 		updated = true;

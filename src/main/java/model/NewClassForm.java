@@ -115,16 +115,17 @@ public class NewClassForm extends JPanel{
     public Object getValueAt(int row, int col){
         return tableModel.getValueAt(row, col);
     }
-    public Object[][] getArray(){
+    public Object[][] getArray() {
         int colCount = tableModel.getColumnCount();
         int rowCount = tableModel.getRowCount();
         Object[][] data = new Object[rowCount][colCount];
-        for(int i=0;i<rowCount;i++){
-            for(int j=0;j<colCount;j++){
-                data[i][j] = tableModel.getValueAt(i,j);
+        for (int i = 0; i < rowCount; i++) {
+            for (int j = 0; j < colCount; j++) {
+                data[i][j] = tableModel.getValueAt(i, j);
             }
         }
         return data;
+    }
     
     public File getStudentFile() {
     	if (studentFile != null && studentFile.getAbsolutePath().equals(txStudentFileName.getText())) {

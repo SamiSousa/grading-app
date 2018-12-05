@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 public class CourseNode extends DefaultMutableTreeNode {
 
-    int classID;
+    public int classID;
     private String courseName;
     private String semester;
     private GradeCenter gradeCenter;

@@ -1,5 +1,6 @@
 package component;
 
+import database.InsertStudentIntoClass;
 import model.NewClassForm;
 
 import javax.swing.*;
@@ -15,16 +16,16 @@ import java.awt.event.WindowEvent;
 import java.io.File;
 
 public class AddStudentDialog extends JDialog {
-	private Student student;
     private File studentFile;
     private boolean closed;
     private boolean succeed;
+    private Student addedStudent;
     
     private JTextField txFirst, txLast, txId, txEmail, txYear;
     private JTextField txStudentFileName;
     final private JFileChooser fc = new JFileChooser();
 
-    public AddStudentDialog(Frame parent) {
+    public AddStudentDialog(Frame parent, int classID) {
         super(parent, "Add student", true);
 
         JPanel studentForm = populateForm();
@@ -34,9 +35,10 @@ public class AddStudentDialog extends JDialog {
 
             public void actionPerformed(ActionEvent e) {
             // todo submit new student(s) here
-                student = getStudentFromForm();
+                String[] studentData = getStudentData();
                 studentFile = getStudentFile();
                 succeed = true;
+                addedStudent = InsertStudentIntoClass.insert(studentData, classID);
 
                 dispose();
             }
@@ -152,14 +154,18 @@ public class AddStudentDialog extends JDialog {
         return form;
 	}
 
-    public Student getStudentFromForm() {
+    public String[] getStudentData() {
     	// Check that each field is at least partially filled
+        String[] studentData = new String[5];
     	if (txFirst.getText().length() > 0 && txLast.getText().length() > 0 && txId.getText().length() > 0 &&
         		txEmail.getText().length() > 0 && txYear.getText().length() > 0) {
-    		return new Student(txFirst.getText(), txLast.getText(), txId.getText(),
-    				txEmail.getText(), txYear.getText());
+            studentData[0] = txFirst.getText();
+            studentData[1] = txLast.getText();
+            studentData[2] = txEmail.getText();
+            studentData[3] = txYear.getText();
+            studentData[4] = txId.getText();
     	}
-    	return null;
+    	return studentData;
     }
     public File getStudentFile() {
     	if (studentFile != null && studentFile.getAbsolutePath().equals(txStudentFileName.getText())) {
@@ -177,5 +183,9 @@ public class AddStudentDialog extends JDialog {
     }
     public boolean isSucceed() {
         return succeed;
+    }
+
+    public Student getAddedStudent() {
+        return addedStudent;
     }
 }
