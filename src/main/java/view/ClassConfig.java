@@ -5,6 +5,7 @@ import component.NewCategoryDialog;
 import data.Assignment;
 import model.AssignmentEntry;
 import model.ClassConfigCard;
+import model.CourseNode;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,13 +21,12 @@ public class ClassConfig extends JPanel{
     private String courseName;
     private String semester;
     private List<ClassConfigCard> categories;
-    private JPanel curPanel;
     private JButton btnAdd;
+    private final JPanel thisComponent = this;
 
-    public ClassConfig(String courseName, String semester, JPanel curPanel){
-        this.courseName = courseName;
-        this.semester = semester;
-        this.curPanel = curPanel;
+    public ClassConfig(CourseNode course){
+        this.courseName = course.getCourseName();
+        this.semester = course.getSemester();
         this.categories = new ArrayList<>();
 
         setLayout(new BoxLayout(this,BoxLayout.PAGE_AXIS));
@@ -38,7 +38,7 @@ public class ClassConfig extends JPanel{
         btnAdd.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
-                NewCategoryDialog dialog = new NewCategoryDialog((JFrame) SwingUtilities.getWindowAncestor(curPanel));
+                NewCategoryDialog dialog = new NewCategoryDialog((JFrame) SwingUtilities.getWindowAncestor(thisComponent));
                 dialog.setVisible(true);
                 if (dialog.isSucceed()){
 
@@ -47,7 +47,7 @@ public class ClassConfig extends JPanel{
                     // todo add new assignment to database
                     List<AssignmentEntry> entries = new ArrayList<>();
                     entries.add(new AssignmentEntry());
-                    ClassConfigCard card = new ClassConfigCard(newCategory,weight,entries,curPanel);
+                    ClassConfigCard card = new ClassConfigCard(newCategory,weight,entries,thisComponent);
                     add(card);
                     categories.add(card);
 
@@ -112,7 +112,7 @@ public class ClassConfig extends JPanel{
         };
 
         for(Object[] categoryInfo : categoryList){
-            ClassConfigCard card = new ClassConfigCard((String)categoryInfo[0],(Integer)categoryInfo[1],assignmentInfo.get((String)categoryInfo[0]),curPanel);
+            ClassConfigCard card = new ClassConfigCard((String)categoryInfo[0],(Integer)categoryInfo[1],assignmentInfo.get((String)categoryInfo[0]),thisComponent);
             categories.add(card);
             add(card);
         }

@@ -7,6 +7,7 @@ import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 
 import data.Student;
+import view.ClassConfig;
 import view.GradeCenter;
 import view.StudentInfo;
 
@@ -21,6 +22,7 @@ public class CourseNode extends DefaultMutableTreeNode {
     private String semester;
     private GradeCenter gradeCenter;
     private StudentInfo studentInfo;
+    private ClassConfig classConfig;
     private boolean needsUpdate = false;
     private ArrayList<Student> students = new ArrayList<Student>();
 
@@ -39,10 +41,19 @@ public class CourseNode extends DefaultMutableTreeNode {
         
         this.gradeCenter = new GradeCenter(this);
         this.studentInfo = new StudentInfo(this);
+        this.classConfig = new ClassConfig(this);
     }
     
     public int getCourseId() {
     	return classID;
+    }
+    
+    public String getCourseName() {
+    	return this.courseName;
+    }
+    
+    public String getSemester() {
+    	return this.semester;
     }
     
     public void addStudent(Student student) {
@@ -74,6 +85,13 @@ public class CourseNode extends DefaultMutableTreeNode {
     		updateViews();
     	}
     	return gradeCenter;
+    }
+    
+    public ClassConfig getClassConfig() {
+    	if (needsUpdate) {
+    		updateViews();
+    	}
+    	return this.classConfig;
     }
     
     private void updateViews() {
