@@ -35,26 +35,23 @@ public class ClassConfig extends JPanel{
         loadAssignmentCards();
 
         btnAdd = new JButton("add new category");
-        btnAdd.addActionListener(new ActionListener() {
+        btnAdd.addActionListener(e -> {
+            NewCategoryDialog dialog = new NewCategoryDialog((JFrame) SwingUtilities.getWindowAncestor(thisComponent));
+            dialog.setVisible(true);
+            if (dialog.isSucceed()){
 
-            public void actionPerformed(ActionEvent e) {
-                NewCategoryDialog dialog = new NewCategoryDialog((JFrame) SwingUtilities.getWindowAncestor(thisComponent));
-                dialog.setVisible(true);
-                if (dialog.isSucceed()){
+                String newCategory = dialog.getCategoryName();
+                int weight = dialog.getWeight();
+                // todo add new assignment to database
+                List<AssignmentEntry> entries = new ArrayList<>();
+                entries.add(new AssignmentEntry());
+                ClassConfigCard card = new ClassConfigCard(newCategory,weight,entries,thisComponent);
+                add(card);
+                categories.add(card);
 
-                    String newCategory = dialog.getCategoryName();
-                    int weight = dialog.getWeight();
-                    // todo add new assignment to database
-                    List<AssignmentEntry> entries = new ArrayList<>();
-                    entries.add(new AssignmentEntry());
-                    ClassConfigCard card = new ClassConfigCard(newCategory,weight,entries,thisComponent);
-                    add(card);
-                    categories.add(card);
+                System.out.println(newCategory+" "+weight);
 
-                    System.out.println(newCategory+" "+weight);
-
-                    refreshLayout();
-                }
+                refreshLayout();
             }
         });
         add(btnAdd);

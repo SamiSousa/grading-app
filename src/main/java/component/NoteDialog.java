@@ -26,14 +26,11 @@ public class NoteDialog extends JDialog {
         textField.add(noteField);
 
         JButton btnSubmit = new JButton("Submit");
-        btnSubmit.addActionListener(new ActionListener() {
+        btnSubmit.addActionListener(e -> {
+            // todo submit info here
+            succeed = true;
 
-            public void actionPerformed(ActionEvent e) {
-                // todo submit info here
-                succeed = true;
-
-                dispose();
-            }
+            dispose();
         });
 
         getContentPane().add(textField, BorderLayout.CENTER);

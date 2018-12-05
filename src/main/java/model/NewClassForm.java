@@ -54,16 +54,14 @@ public class NewClassForm extends JPanel{
         
         JButton fileSelectButton = new JButton("Select File");
         fileSelectButton.setActionCommand("selectfile");
-        fileSelectButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-            	System.out.println("Selecting student file...");
-        		int returnVal = fc.showOpenDialog(null);
-            	if (returnVal == JFileChooser.APPROVE_OPTION) {
-            		studentFile = fc.getSelectedFile();
-            		txStudentFileName.setText(fc.getSelectedFile().getAbsolutePath());
-            	} else {
-            		System.out.println("Cancelled file select");
-            	}
+        fileSelectButton.addActionListener(e -> {
+            System.out.println("Selecting student file...");
+            int returnVal = fc.showOpenDialog(null);
+            if (returnVal == JFileChooser.APPROVE_OPTION) {
+                studentFile = fc.getSelectedFile();
+                txStudentFileName.setText(fc.getSelectedFile().getAbsolutePath());
+            } else {
+                System.out.println("Cancelled file select");
             }
         });
         

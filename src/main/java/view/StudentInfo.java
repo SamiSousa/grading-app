@@ -41,32 +41,30 @@ public class StudentInfo extends JPanel{
         JButton btnAdd = new JButton("Add Student(s)");
         this.add(btnAdd, BorderLayout.SOUTH);
 
-        btnAdd.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-            	StudentInfo panel = (StudentInfo) ((JButton) e.getSource()).getParent();
-            	AddStudentDialog addStudent = new AddStudentDialog((JFrame) SwingUtilities.getWindowAncestor(panel), course.classID);
-                addStudent.setVisible(true);
-                if (addStudent.isSucceed()) {
-                    // Add Student object if valid
-                	boolean updated = false;
-                	Student s = addStudent.getAddedStudent();
-                	if (s != null) {
-                		panel.getCourse().addStudent(s);
-                		updated = true;
-                	}
-                	
-                	// Add Students from file if given
-                	File f = addStudent.getStudentFile();
-                	if (f != null && f.exists()) {
-                		panel.getCourse().addStudents(f);
-                		updated = true;
-                	}
-                	
-                	if (updated) {
-                		panel.getCourse().getStudentInfo();
-                		panel.revalidate();
-                        panel.repaint();
-                	}
+        btnAdd.addActionListener(e -> {
+            StudentInfo panel = (StudentInfo) ((JButton) e.getSource()).getParent();
+            AddStudentDialog addStudent = new AddStudentDialog((JFrame) SwingUtilities.getWindowAncestor(panel), course.classID);
+            addStudent.setVisible(true);
+            if (addStudent.isSucceed()) {
+                // Add Student object if valid
+                boolean updated = false;
+                Student s = addStudent.getAddedStudent();
+                if (s != null) {
+                    panel.getCourse().addStudent(s);
+                    updated = true;
+                }
+
+                // Add Students from file if given
+                File f = addStudent.getStudentFile();
+                if (f != null && f.exists()) {
+                    panel.getCourse().addStudents(f);
+                    updated = true;
+                }
+
+                if (updated) {
+                    panel.getCourse().getStudentInfo();
+                    panel.revalidate();
+                    panel.repaint();
                 }
             }
         });
