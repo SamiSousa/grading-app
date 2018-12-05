@@ -46,10 +46,6 @@ public class LoginDialog extends JDialog {
 
             public void actionPerformed(ActionEvent e) {
                 if (Login.authenticate("admin", getPassword())) {
-                    JOptionPane.showMessageDialog(LoginDialog.this,
-                            "Hi professor"  + "! You have successfully logged in.",
-                            "component.Login",
-                            JOptionPane.INFORMATION_MESSAGE);
                     succeeded = true;
                     dispose();
                 } else {
