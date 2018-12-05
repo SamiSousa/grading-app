@@ -17,17 +17,15 @@ import java.util.ArrayList;
 
 public class CourseNode extends DefaultMutableTreeNode {
 
-    public int classID;
-    private String courseName;
-    private String semester;
+    private ClassModel classModel;
     private GradeCenter gradeCenter;
     private StudentInfo studentInfo;
     private ClassConfig classConfig;
     private boolean needsUpdate = false;
     private ArrayList<Student> students = new ArrayList<Student>();
 
-    public CourseNode(String courseName, String semester, int classID) {
-        super(courseName,true);
+    public CourseNode(ClassModel classModel) {
+        super(classModel.CourseNumber, true);
         DefaultMutableTreeNode stuInfo     = new DefaultMutableTreeNode("student info", false);
         DefaultMutableTreeNode classConfig = new DefaultMutableTreeNode("class configuration", false);
         DefaultMutableTreeNode gradeCenter = new DefaultMutableTreeNode("grade center", false);
@@ -35,27 +33,17 @@ public class CourseNode extends DefaultMutableTreeNode {
         this.add(stuInfo);
         this.add(classConfig);
         this.add(gradeCenter);
-        this.classID = classID;
-        this.courseName = courseName;
-        this.semester = semester;
-        
+        this.classModel = classModel;
+
         this.gradeCenter = new GradeCenter(this);
         this.studentInfo = new StudentInfo(this);
         this.classConfig = new ClassConfig(this);
     }
-    
-    public int getCourseId() {
-    	return classID;
+
+    public ClassModel getClassModel() {
+        return classModel;
     }
-    
-    public String getCourseName() {
-    	return this.courseName;
-    }
-    
-    public String getSemester() {
-    	return this.semester;
-    }
-    
+
     public void addStudent(Student student) {
     	if (student != null) {
 			this.students.add(student);

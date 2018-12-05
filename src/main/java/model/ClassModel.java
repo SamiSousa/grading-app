@@ -3,9 +3,10 @@ package model;
 
 public class ClassModel {
 
-    int ClassID;
+    public int ClassID;
     public String CourseNumber;
-    String Semester;
+    public String Semester;
+
 
     public ClassModel(int classID, String courseNumber, String semester) {
         ClassID = classID;

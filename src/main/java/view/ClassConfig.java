@@ -25,8 +25,8 @@ public class ClassConfig extends JPanel{
     private final JPanel thisComponent = this;
 
     public ClassConfig(CourseNode course){
-        this.courseName = course.getCourseName();
-        this.semester = course.getSemester();
+        this.courseName = course.getClassModel().CourseNumber;
+        this.semester = course.getClassModel().Semester;
         this.categories = new ArrayList<>();
 
         setLayout(new BoxLayout(this,BoxLayout.PAGE_AXIS));

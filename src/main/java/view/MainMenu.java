@@ -4,6 +4,9 @@ package view;
 import component.AddNewDialog;
 import component.AddSemesterDialog;
 import data.Student;
+import database.GetClassesQuery;
+import database.GetStudentsInClassQuery;
+import model.ClassModel;
 import model.CourseNode;
 
 import javax.swing.*;
@@ -17,6 +20,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainMenu{
 
@@ -34,17 +39,31 @@ public class MainMenu{
         //each semester, then add CourseNodes for each class in that semester
         // Root is used to keep semesters together
         DefaultMutableTreeNode root = new DefaultMutableTreeNode("Root", true);
-        DefaultMutableTreeNode semester = new DefaultMutableTreeNode("2018 Spring", true);
-        CourseNode node1 = new CourseNode("cs591 d1", semester.toString(), getNextCourseId());
-        node1.addStudents(Student.loadStudentsFromFile(new File("./src/main/java/view/stu.txt")));
+
+        java.util.List<ClassModel> classes = loadClasses();
+        Map<String, DefaultMutableTreeNode> semesters = new HashMap<>(); //Maps semesters to their coursenodes
+        for(ClassModel clazz: classes) {
+            System.out.println(clazz.CourseNumber);
+            DefaultMutableTreeNode semester;
+            if(semesters.containsKey(clazz.Semester)) {
+                semester = semesters.get(clazz.Semester);
+            } else {
+                semester = new DefaultMutableTreeNode(clazz.Semester, true);
+                root.add(semester);
+                semesters.put(clazz.Semester, semester);
+            }
+            CourseNode course = new CourseNode(clazz);
+            semester.add(course);
+        }
+        for(DefaultMutableTreeNode semester: semesters.values()) {
+            semester.add(newCourseNode());
+        }
+
+        root.add(newSemesterNode());
         tree = new JTree(root);
         tree.setRootVisible(false);
-        semester.add(node1);
-        semester.add(newCourseNode());
-        root.add(semester);
-        root.add(newSemesterNode());
         
-        setCourseView(node1, node1.getGradeCenter());
+//        setCourseView(node1, node1.getGradeCenter());
 
 //        System.out.println(MainMenu.class.getResource(""));
 
@@ -71,6 +90,11 @@ public class MainMenu{
             }
         });
 
+    }
+
+    private java.util.List<ClassModel> loadClasses() {
+        GetClassesQuery query = new GetClassesQuery();
+        return query.execute();
     }
     void doubleClicked(MouseEvent me) {
         DefaultMutableTreeNode cur = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
@@ -108,10 +132,10 @@ public class MainMenu{
                 setCourseView((CourseNode) cur.getParent(), ((CourseNode) cur.getParent()).getGradeCenter());
             }
             if (cur.toString().equals("student info")){
-            	setCourseView((CourseNode) cur.getParent(), ((CourseNode) cur.getParent()).getStudentInfo());
+                setCourseView((CourseNode) cur.getParent(), ((CourseNode) cur.getParent()).getStudentInfo());
             }
             if (cur.toString().equals("class configuration")){
-            	JPanel panel = new JPanel();
+                JPanel panel = new JPanel();
                 JScrollPane scroll = new JScrollPane(((CourseNode) cur.getParent()).getClassConfig());
                 panel.add(scroll);
                 setCourseView((CourseNode) cur.getParent(), panel);
@@ -158,8 +182,8 @@ public class MainMenu{
     }
     private void addNewClassConfigNode(AddNewDialog addNew, DefaultMutableTreeNode cur) {
         DefaultMutableTreeNode semester = (DefaultMutableTreeNode) cur.getParent();
-        CourseNode newCourse = new CourseNode(addNew.getClassName(), semester.toString(), getNextCourseId());
-
+        CourseNode newCourse = null;//new CourseNode(addNew.getClassName(), semester.toString(), getNextCourseId());
+        //todo new course saving
         if (addNew.getStudentFile() != null) {
         	newCourse.addStudents(addNew.getStudentFile());
         }
