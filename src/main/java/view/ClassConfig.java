@@ -6,6 +6,7 @@ import data.Assignment;
 import model.AssignmentEntry;
 import model.ClassConfigCard;
 import model.CourseNode;
+import model.SemesterNode;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,9 +25,9 @@ public class ClassConfig extends JPanel{
     private JButton btnAdd;
     private final JPanel thisComponent = this;
 
-    public ClassConfig(CourseNode course){
+    public ClassConfig(CourseNode course, String semester){
         this.courseName = course.getClassModel().CourseNumber;
-        this.semester = course.getClassModel().Semester;
+        this.semester = semester;
         this.categories = new ArrayList<>();
 
         setLayout(new BoxLayout(this,BoxLayout.PAGE_AXIS));

@@ -3,11 +3,13 @@ package view;
 
 import component.AddNewDialog;
 import component.AddSemesterDialog;
-import data.Student;
 import database.GetClassesQuery;
-import database.GetStudentsInClassQuery;
+import database.GetSemestersQuery;
+import database.InsertNewClass;
 import model.ClassModel;
 import model.CourseNode;
+import model.Semester;
+import model.SemesterNode;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -15,11 +17,8 @@ import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -41,21 +40,30 @@ public class MainMenu{
         DefaultMutableTreeNode root = new DefaultMutableTreeNode("Root", true);
 
         java.util.List<ClassModel> classes = loadClasses();
-        Map<String, DefaultMutableTreeNode> semesters = new HashMap<>(); //Maps semesters to their coursenodes
-        for(ClassModel clazz: classes) {
-            System.out.println(clazz.CourseNumber);
-            DefaultMutableTreeNode semester;
-            if(semesters.containsKey(clazz.Semester)) {
-                semester = semesters.get(clazz.Semester);
-            } else {
-                semester = new DefaultMutableTreeNode(clazz.Semester, true);
-                root.add(semester);
-                semesters.put(clazz.Semester, semester);
-            }
-            CourseNode course = new CourseNode(clazz);
-            semester.add(course);
+        java.util.List<Semester> semesters = loadSemesters();
+        Map<Integer, SemesterNode> semesterMap = new HashMap<>(); //Maps semesters to their SemesterNode
+
+        for(Semester sem: semesters) {
+            SemesterNode semester = new SemesterNode(sem.getName(), true, sem.getId());
+            System.out.println(sem.getName());
+            root.add(semester);
+            semesterMap.put(sem.getId(), semester);
         }
-        for(DefaultMutableTreeNode semester: semesters.values()) {
+        System.out.println(semesterMap);
+        for(ClassModel clazz: classes) {
+            if(semesterMap.containsKey(clazz.SemesterID)) {
+                System.out.println("Adding to semester node: "+clazz.CourseNumber);
+                SemesterNode semester = semesterMap.get(clazz.SemesterID);
+                CourseNode course = new CourseNode(clazz, semester.getSemesterName());
+                semester.add(course);
+            } else {
+                System.out.println("Adding to root node: "+clazz.CourseNumber);
+                CourseNode course = new CourseNode(clazz, "");
+                root.add(course);
+            }
+
+        }
+        for(DefaultMutableTreeNode semester: semesterMap.values()) {
             semester.add(newCourseNode());
         }
 
@@ -94,6 +102,11 @@ public class MainMenu{
 
     private java.util.List<ClassModel> loadClasses() {
         GetClassesQuery query = new GetClassesQuery();
+        return query.execute();
+    }
+
+    private java.util.List<Semester> loadSemesters() {
+        GetSemestersQuery query = new GetSemestersQuery();
         return query.execute();
     }
     void doubleClicked(MouseEvent me) {
@@ -185,10 +198,13 @@ public class MainMenu{
         while (currentNode != null);
     }
     private void addNewClassConfigNode(AddNewDialog addNew, DefaultMutableTreeNode cur) {
-        DefaultMutableTreeNode semester = (DefaultMutableTreeNode) cur.getParent();
-        CourseNode newCourse = null;//new CourseNode(addNew.getClassName(), semester.toString(), getNextCourseId());
-//        InsertNewClass.
+        SemesterNode semester = (SemesterNode) cur.getParent();
+        System.out.println("Adding class to semester: "+semester.getSemesterID());
+        InsertNewClass query = new InsertNewClass();
+        ClassModel newClassModel = query.insertNewClass(addNew.getClassName(), semester.getSemesterID());
+        CourseNode newCourse = new CourseNode(newClassModel, semester.getSemesterName());
         //todo new course saving
+
         if (addNew.getStudentFile() != null) {
         	newCourse.addStudents(addNew.getStudentFile());
         }

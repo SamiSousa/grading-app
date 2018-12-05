@@ -24,7 +24,7 @@ public class CourseNode extends DefaultMutableTreeNode {
     private boolean needsUpdate = false;
     private ArrayList<Student> students = new ArrayList<Student>();
 
-    public CourseNode(ClassModel classModel) {
+    public CourseNode(ClassModel classModel, String semester) {
         super(classModel.CourseNumber, true);
         DefaultMutableTreeNode stuInfo     = new DefaultMutableTreeNode("student info", false);
         DefaultMutableTreeNode classConfig = new DefaultMutableTreeNode("class configuration", false);
@@ -37,7 +37,7 @@ public class CourseNode extends DefaultMutableTreeNode {
 
         this.gradeCenter = new GradeCenter(this);
         this.studentInfo = new StudentInfo(this);
-        this.classConfig = new ClassConfig(this);
+        this.classConfig = new ClassConfig(this, semester);
     }
 
     public ClassModel getClassModel() {
@@ -62,7 +62,6 @@ public class CourseNode extends DefaultMutableTreeNode {
     }
 
     public StudentInfo getStudentInfo() {
-//        return new StudentInfo(this);
     	if (needsUpdate) {
             updateViews();
         }

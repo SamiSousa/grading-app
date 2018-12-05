@@ -5,12 +5,12 @@ public class ClassModel {
 
     public int ClassID;
     public String CourseNumber;
-    public String Semester;
+    public int SemesterID;
 
 
-    public ClassModel(int classID, String courseNumber, String semester) {
+    public ClassModel(int classID, String courseNumber, int semesterID) {
         ClassID = classID;
         CourseNumber = courseNumber;
-        Semester = semester;
+        SemesterID = semesterID;
     }
 }
