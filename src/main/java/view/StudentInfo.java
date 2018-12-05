@@ -46,7 +46,6 @@ public class StudentInfo extends JPanel{
                 // Add Student object if valid
                 boolean updated = false;
                 Student s = addStudent.getAddedStudent();
-                System.out.println("Added student: "+s);
                 if (s != null) {
                     panel.getCourse().addStudent(s);
                     updated = true;
@@ -75,17 +74,18 @@ public class StudentInfo extends JPanel{
 
         SQLQuery query = new GetStudentsInClassQuery(this.course.getClassModel().ClassID);
         List<Student> students = query.execute();
-        data = new Object[students.size()][];
-        for(int i = 0; i < students.size(); i++) {
-            data[i] = students.get(i).getDataRow();
+        System.out.println("Number of students in "+course.getClassModel().CourseNumber+":" +students.size());
+        if(students.size() == 0) {
+            //fixes weird error with adding the first student to a class
+            data = new Object[1][];
+            data[0] = Student.getDefaultStudent().getDataRow();
+        } else {
+            data = new Object[students.size()][];
+            for(int i = 0; i < students.size(); i++) {
+                data[i] = students.get(i).getDataRow();
+            }
         }
-//
-//        // TODO: Create an empty table to start
-//        // Use a dummy student row to initialize the table
-//
-//        data[0] = Student.getDefualtStudent().getDataRow();
 
-        //if this area is causing problems, make data default to new Object[1][]
         this.model = new EditableTableModel(Student.getStudentDataColumns(),data);
         display.setTableModel(model);
     }

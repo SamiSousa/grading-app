@@ -32,7 +32,6 @@ public class AddStudentDialog extends JDialog {
         JButton btnAdd = new JButton("Submit");
 
         btnAdd.addActionListener(e -> {
-        // todo submit new student(s) here
             String[] studentData = getStudentData();
             studentFile = getStudentFile();
             addedStudent = InsertStudentIntoClass.insert(studentData, classID);

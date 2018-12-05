@@ -12,6 +12,7 @@ public class InsertStudentIntoClass {
         return SQLConnection.jdbi.withExtension(InsertStudentDAO.class, dao -> {
             int studentID = dao.insertStudent(studentData[0], studentData[1], studentData[2], studentData[3], studentData[4]);
             dao.enroll(studentID, classID);
+            System.out.println("Added student ");
             return new Student(studentID, studentData[0], studentData[1], studentData[2], studentData[3], studentData[4]);
         });
     }

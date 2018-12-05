@@ -108,7 +108,7 @@ public class Student implements TableReady {
 		return cols;
 	}
 	
-	public static Student getDefualtStudent() {
+	public static Student getDefaultStudent() {
 		return new Student(-1, "", "", "", "", "");
 	}
 	

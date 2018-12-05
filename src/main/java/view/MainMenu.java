@@ -129,7 +129,7 @@ public class MainMenu{
                     }
                 }
             }
-            if (cur.toString().equals(newSemesterNode().toString())) {
+            else if (cur.toString().equals(newSemesterNode().toString())) {
                 // todo add new semester
                 System.out.println("new semester");
                 AddSemesterDialog addNew = new AddSemesterDialog((JFrame) SwingUtilities.getWindowAncestor(currentPanel));
@@ -139,23 +139,23 @@ public class MainMenu{
                         addNewSemesterNode(addNew.getSemesterName(), cur);
                     }
                 }
-            }
-            CourseNode clickedClassNode = (CourseNode)cur.getParent();
-            ClassModel model = clickedClassNode.getClassModel();
+            }else {
+                CourseNode clickedClassNode = (CourseNode)cur.getParent();
+                ClassModel model = clickedClassNode.getClassModel();
+                if(cur.toString().equals("grade center")) {
+                    System.out.println("grade");
 
-            if(cur.toString().equals("grade center")) {
-                System.out.println("grade");
-
-                setCourseView(clickedClassNode, clickedClassNode.getGradeCenter());
-            }
-            if (cur.toString().equals("student info")){
-                setCourseView(clickedClassNode, clickedClassNode.getStudentInfo());
-            }
-            if (cur.toString().equals("class configuration")){
-                JPanel panel = new JPanel();
-                JScrollPane scroll = new JScrollPane(clickedClassNode.getClassConfig());
-                panel.add(scroll);
-                setCourseView(clickedClassNode, panel);
+                    setCourseView(clickedClassNode, clickedClassNode.getGradeCenter());
+                }
+                if (cur.toString().equals("student info")){
+                    setCourseView(clickedClassNode, clickedClassNode.getStudentInfo());
+                }
+                if (cur.toString().equals("class configuration")){
+                    JPanel panel = new JPanel();
+                    JScrollPane scroll = new JScrollPane(clickedClassNode.getClassConfig());
+                    panel.add(scroll);
+                    setCourseView(clickedClassNode, panel);
+                }
             }
         }
         else
@@ -203,7 +203,6 @@ public class MainMenu{
         InsertNewClass query = new InsertNewClass();
         ClassModel newClassModel = query.insertNewClass(addNew.getClassName(), semester.getSemesterID());
         CourseNode newCourse = new CourseNode(newClassModel, semester.getSemesterName());
-        //todo new course saving
 
         if (addNew.getStudentFile() != null) {
         	newCourse.addStudents(addNew.getStudentFile());

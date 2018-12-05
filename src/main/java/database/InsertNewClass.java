@@ -17,7 +17,4 @@ interface InsertNewClassDAO {
     @SqlUpdate("INSERT INTO Class(CourseNumber, SemesterID) VALUES (?, ?)")
     @GetGeneratedKeys("ClassID")
     int insertNewClass(String courseNumber, int SemesterID);
-
-    String getSemesterName(int semesterID);
-
 }
