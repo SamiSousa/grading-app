@@ -6,6 +6,7 @@ import component.AddSemesterDialog;
 import database.GetClassesQuery;
 import database.GetSemestersQuery;
 import database.InsertNewClass;
+import database.InsertNewSemester;
 import model.ClassModel;
 import model.CourseNode;
 import model.Semester;
@@ -200,8 +201,7 @@ public class MainMenu{
     private void addNewClassConfigNode(AddNewDialog addNew, DefaultMutableTreeNode cur) {
         SemesterNode semester = (SemesterNode) cur.getParent();
         System.out.println("Adding class to semester: "+semester.getSemesterID());
-        InsertNewClass query = new InsertNewClass();
-        ClassModel newClassModel = query.insertNewClass(addNew.getClassName(), semester.getSemesterID());
+        ClassModel newClassModel = InsertNewClass.insertNewClass(addNew.getClassName(), semester.getSemesterID());
         CourseNode newCourse = new CourseNode(newClassModel, semester.getSemesterName());
 
         if (addNew.getStudentFile() != null) {
@@ -213,10 +213,11 @@ public class MainMenu{
     }
     private void addNewSemesterNode(String semesterName, DefaultMutableTreeNode cur) {
     	DefaultMutableTreeNode root = (DefaultMutableTreeNode) tree.getModel().getRoot();
-    	DefaultMutableTreeNode newSemester = new DefaultMutableTreeNode(semesterName, true);
-    	newSemester.add(newCourseNode());
+        Semester newSemester = InsertNewSemester.insertNewSemester(semesterName);
+    	DefaultMutableTreeNode newSemesterNode = new SemesterNode(newSemester.getName(), true, newSemester.getId());
+    	newSemesterNode.add(newCourseNode());
     	
-    	root.add(newSemester);
+    	root.add(newSemesterNode);
     	root.add(newSemesterNode());
     	removeNode(cur);
     }
