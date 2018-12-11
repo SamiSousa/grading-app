@@ -80,7 +80,7 @@ public class ClassConfigCard extends JPanel {
         }
         EditableTableDisplay display = new EditableTableDisplay(this);
         EditableTableModel model = new EditableTableModel(AssignmentEntry.getColName(),data);
-        for(int i=0;i<data.length;i++){
+        for(int i=0;i<AssignmentEntry.getFieldsCount();i++){
             model.addEditableCol(i);
         }
         display.setTableModel(model);

@@ -23,17 +23,16 @@ public class StudentInfo extends JPanel{
     public StudentInfo(CourseNode course){
     	this.course = course;
         display = new EditableTableDisplay(this);
-
         setStudentsModel();
 
         JPanel tablePanel = new JPanel();
         display.setPanel(tablePanel);
         
         this.setLayout(new BorderLayout());
+
         JLabel lbClassName = new JLabel("Students",SwingConstants.CENTER);
         lbClassName.setFont(lbClassName.getFont().deriveFont (16.0f));
         this.add(lbClassName,BorderLayout.NORTH);
-        this.add(tablePanel,BorderLayout.CENTER);
         
         JButton btnAdd = new JButton("Add Student(s)");
         this.add(btnAdd, BorderLayout.SOUTH);

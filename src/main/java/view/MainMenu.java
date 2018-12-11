@@ -40,6 +40,7 @@ public class MainMenu{
         // Root is used to keep semesters together
         DefaultMutableTreeNode root = new DefaultMutableTreeNode("Root", true);
 
+
         java.util.List<ClassModel> classes = loadClasses();
         java.util.List<Semester> semesters = loadSemesters();
         Map<Integer, SemesterNode> semesterMap = new HashMap<>(); //Maps semesters to their SemesterNode
@@ -69,6 +70,7 @@ public class MainMenu{
         }
 
         root.add(newSemesterNode());
+
         tree = new JTree(root);
         tree.setRootVisible(false);
         
@@ -88,7 +90,7 @@ public class MainMenu{
         tree.setCellRenderer(renderer);
         tree.setShowsRootHandles(true);
 
-        expandOneLevel();
+        expandToCourseLevel(semester);
 
         tree.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent me) {
@@ -126,7 +128,9 @@ public class MainMenu{
                 addNew.setVisible(true);
                 if (addNew.isSucceed()) {
                     if(!addNew.getClassName().isEmpty()) {
+                        DefaultMutableTreeNode semester = (DefaultMutableTreeNode) cur.getParent();
                         addNewClassConfigNode(addNew, cur);
+                        expandToCourseLevel(semester);
                     }
                 }
             }
@@ -162,7 +166,7 @@ public class MainMenu{
         else
             System.out.println("null");
     }
-    public void setCourseView(CourseNode course, JPanel view) {
+    public void setCourseView(CourseNode course, Component view) {
     	String title = course.toString() + ", " + course.getParent().toString();
     	JLabel lbClassName = new JLabel(title,SwingConstants.CENTER);
         lbClassName.setFont(lbClassName.getFont().deriveFont (16.0f));
@@ -189,10 +193,10 @@ public class MainMenu{
 //        setLayout(new BorderLayout());
 //        add(new JScrollPane((JTree) tree), "Center");
     }
-    private void expandOneLevel() {
-        DefaultMutableTreeNode currentNode = (DefaultMutableTreeNode) tree.getModel().getRoot();
+    private void expandToCourseLevel(DefaultMutableTreeNode currentNode) {
+        if(currentNode == null) return;
         do {
-            if (currentNode.getLevel() < 1)
+            if (currentNode.getLevel() < 2)
                 tree.expandPath(new TreePath(currentNode.getPath()));
             currentNode = currentNode.getNextNode();
         }
