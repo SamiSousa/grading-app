@@ -23,20 +23,19 @@ public class StudentInfo extends JPanel{
     public StudentInfo(CourseNode course){
     	this.course = course;
         display = new EditableTableDisplay(this);
+        this.setLayout(new BorderLayout());
         // TODO: Create an empty table to start
         // Use a dummy student row to initialize the table
         data = new Object[1][];
         data[0] = Student.getDefualtStudent().getDataRow();
         model = new EditableTableModel(Student.getStudentDataColumns(),data);
         display.setTableModel(model);
-        JPanel tablePanel = new JPanel();
-        display.setPanel(tablePanel);
-        
-        this.setLayout(new BorderLayout());
+
+        display.setPanel(this);
+
         JLabel lbClassName = new JLabel("Students",SwingConstants.CENTER);
         lbClassName.setFont(lbClassName.getFont().deriveFont (16.0f));
         this.add(lbClassName,BorderLayout.NORTH);
-        this.add(tablePanel,BorderLayout.CENTER);
         
         JButton btnAdd = new JButton("Add Student(s)");
         this.add(btnAdd, BorderLayout.SOUTH);
