@@ -74,6 +74,7 @@ public class MainMenu{
 //        CourseNode node1 = new CourseNode("cs591 d1", semester.toString(), getNextCourseId());
 //        node1.addStudents(Student.loadStudentsFromFile(new File("./src/main/java/view/stu.txt")));
 //>>>>>>> master
+
         tree = new JTree(root);
         tree.setRootVisible(false);
         
