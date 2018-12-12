@@ -3,8 +3,14 @@ package view;
 
 import component.AddNewDialog;
 import component.AddSemesterDialog;
-import data.Student;
+import database.GetClassesQuery;
+import database.GetSemestersQuery;
+import database.InsertNewClass;
+import database.InsertNewSemester;
+import model.ClassModel;
 import model.CourseNode;
+import model.Semester;
+import model.SemesterNode;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -12,11 +18,10 @@ import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainMenu{
 
@@ -34,17 +39,46 @@ public class MainMenu{
         //each semester, then add CourseNodes for each class in that semester
         // Root is used to keep semesters together
         DefaultMutableTreeNode root = new DefaultMutableTreeNode("Root", true);
-        DefaultMutableTreeNode semester = new DefaultMutableTreeNode("2018 Fall", true);
-        CourseNode node1 = new CourseNode("cs591 d1", semester.toString(), getNextCourseId());
-        node1.addStudents(Student.loadStudentsFromFile(new File("./src/main/java/view/stu.txt")));
+
+        java.util.List<ClassModel> classes = loadClasses();
+        java.util.List<Semester> semesters = loadSemesters();
+        Map<Integer, SemesterNode> semesterMap = new HashMap<>(); //Maps semesters to their SemesterNode
+
+        for(Semester sem: semesters) {
+            SemesterNode semester = new SemesterNode(sem.getName(), true, sem.getId());
+            System.out.println(sem.getName());
+            root.add(semester);
+            semesterMap.put(sem.getId(), semester);
+        }
+        System.out.println(semesterMap);
+        for(ClassModel clazz: classes) {
+            if(semesterMap.containsKey(clazz.SemesterID)) {
+                System.out.println("Adding to semester node: "+clazz.CourseNumber);
+                SemesterNode semester = semesterMap.get(clazz.SemesterID);
+                CourseNode course = new CourseNode(clazz, semester.getSemesterName());
+                semester.add(course);
+            } else {
+                System.out.println("Adding to root node: "+clazz.CourseNumber);
+                CourseNode course = new CourseNode(clazz, "");
+                root.add(course);
+            }
+
+        }
+        for(DefaultMutableTreeNode semester: semesterMap.values()) {
+            semester.add(newCourseNode());
+        }
+
+        root.add(newSemesterNode());
+//=======
+//        DefaultMutableTreeNode semester = new DefaultMutableTreeNode("2018 Fall", true);
+//        CourseNode node1 = new CourseNode("cs591 d1", semester.toString(), getNextCourseId());
+//        node1.addStudents(Student.loadStudentsFromFile(new File("./src/main/java/view/stu.txt")));
+//>>>>>>> master
+
         tree = new JTree(root);
         tree.setRootVisible(false);
-        semester.add(node1);
-        semester.add(newCourseNode());
-        root.add(semester);
-        root.add(newSemesterNode());
         
-        setCourseView(node1, node1.getGradeCenter());
+//        setCourseView(node1, node1.getGradeCenter());
 
 //        System.out.println(MainMenu.class.getResource(""));
 
@@ -60,7 +94,7 @@ public class MainMenu{
         tree.setCellRenderer(renderer);
         tree.setShowsRootHandles(true);
 
-        expandToCourseLevel(semester);
+//        expandToCourseLevel(semester);
 
         tree.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent me) {
@@ -71,6 +105,16 @@ public class MainMenu{
             }
         });
 
+    }
+
+    private java.util.List<ClassModel> loadClasses() {
+        GetClassesQuery query = new GetClassesQuery();
+        return query.execute();
+    }
+
+    private java.util.List<Semester> loadSemesters() {
+        GetSemestersQuery query = new GetSemestersQuery();
+        return query.execute();
     }
     void doubleClicked(MouseEvent me) {
         DefaultMutableTreeNode cur = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
@@ -94,7 +138,7 @@ public class MainMenu{
                     }
                 }
             }
-            if (cur.toString().equals(newSemesterNode().toString())) {
+            else if (cur.toString().equals(newSemesterNode().toString())) {
                 // todo add new semester
                 System.out.println("new semester");
                 AddSemesterDialog addNew = new AddSemesterDialog((JFrame) SwingUtilities.getWindowAncestor(currentPanel));
@@ -104,17 +148,23 @@ public class MainMenu{
                         addNewSemesterNode(addNew.getSemesterName(), cur);
                     }
                 }
-            }
-            if(cur.toString().equals("grade center")) {
-                System.out.println("grade");
-                setCourseView((CourseNode) cur.getParent(), ((CourseNode) cur.getParent()).getGradeCenter());
-            }
-            if (cur.toString().equals("student info")){
-            	setCourseView((CourseNode) cur.getParent(), ((CourseNode) cur.getParent()).getStudentInfo());
-            }
-            if (cur.toString().equals("class configuration")){
-                JScrollPane scroll = new JScrollPane(((CourseNode) cur.getParent()).getClassConfig());
-                setCourseView((CourseNode) cur.getParent(), scroll);
+            }else {
+                CourseNode clickedClassNode = (CourseNode)cur.getParent();
+                ClassModel model = clickedClassNode.getClassModel();
+                if(cur.toString().equals("grade center")) {
+                    System.out.println("grade");
+
+                    setCourseView(clickedClassNode, clickedClassNode.getGradeCenter());
+                }
+                if (cur.toString().equals("student info")){
+                    setCourseView(clickedClassNode, clickedClassNode.getStudentInfo());
+                }
+                if (cur.toString().equals("class configuration")){
+                    JPanel panel = new JPanel();
+                    JScrollPane scroll = new JScrollPane(clickedClassNode.getClassConfig());
+                    panel.add(scroll);
+                    setCourseView(clickedClassNode, panel);
+                }
             }
         }
         else
@@ -157,8 +207,10 @@ public class MainMenu{
         while (currentNode != null);
     }
     private void addNewClassConfigNode(AddNewDialog addNew, DefaultMutableTreeNode cur) {
-        DefaultMutableTreeNode semester = (DefaultMutableTreeNode) cur.getParent();
-        CourseNode newCourse = new CourseNode(addNew.getClassName(), semester.toString(), getNextCourseId());
+        SemesterNode semester = (SemesterNode) cur.getParent();
+        System.out.println("Adding class to semester: "+semester.getSemesterID());
+        ClassModel newClassModel = InsertNewClass.insertNewClass(addNew.getClassName(), semester.getSemesterID());
+        CourseNode newCourse = new CourseNode(newClassModel, semester.getSemesterName());
 
         if (addNew.getStudentFile() != null) {
         	newCourse.addStudents(addNew.getStudentFile());
@@ -169,10 +221,11 @@ public class MainMenu{
     }
     private void addNewSemesterNode(String semesterName, DefaultMutableTreeNode cur) {
     	DefaultMutableTreeNode root = (DefaultMutableTreeNode) tree.getModel().getRoot();
-    	DefaultMutableTreeNode newSemester = new DefaultMutableTreeNode(semesterName, true);
-    	newSemester.add(newCourseNode());
+        Semester newSemester = InsertNewSemester.insertNewSemester(semesterName);
+    	DefaultMutableTreeNode newSemesterNode = new SemesterNode(newSemester.getName(), true, newSemester.getId());
+    	newSemesterNode.add(newCourseNode());
     	
-    	root.add(newSemester);
+    	root.add(newSemesterNode);
     	root.add(newSemesterNode());
     	removeNode(cur);
     }

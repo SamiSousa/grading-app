@@ -24,24 +24,18 @@ public class AddNewDialog extends JDialog {
         NewClassForm classForm = new NewClassForm();
         JButton btnAdd = new JButton("Submit");
 
-        btnAdd.addActionListener(new ActionListener() {
+        btnAdd.addActionListener(e -> {
+        // todo submit new class name & info here
+            className = classForm.getClassName();
+            studentFile = classForm.getStudentFile();
+            succeed = true;
 
-            public void actionPerformed(ActionEvent e) {
-            // todo submit new class name & info here
-                className = classForm.getClassName();
-                studentFile = classForm.getStudentFile();
-                succeed = true;
-
-                dispose();
-            }
+            dispose();
         });
         JButton btnCancel = new JButton("Cancel");
-        btnCancel.addActionListener(new ActionListener() {
-
-            public void actionPerformed(ActionEvent e) {
-                closed = true;
-                dispose();
-            }
+        btnCancel.addActionListener(e -> {
+            closed = true;
+            dispose();
         });
 
         JPanel bp = new JPanel();

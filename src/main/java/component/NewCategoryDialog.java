@@ -22,24 +22,18 @@ public class NewCategoryDialog extends JDialog{
         NewCategoryForm categoryForm = new NewCategoryForm();
         JButton btnAdd = new JButton("Submit");
 
-        btnAdd.addActionListener(new ActionListener() {
+        btnAdd.addActionListener(e -> {
+            // todo submit new category name & info here
+            categoryName = categoryForm.getCategoryName();
+            weight = categoryForm.getCategoryWeight();
+            succeed = true;
 
-            public void actionPerformed(ActionEvent e) {
-                // todo submit new category name & info here
-                categoryName = categoryForm.getCategoryName();
-                weight = categoryForm.getCategoryWeight();
-                succeed = true;
-
-                dispose();
-            }
+            dispose();
         });
         JButton btnCancel = new JButton("Cancel");
-        btnCancel.addActionListener(new ActionListener() {
-
-            public void actionPerformed(ActionEvent e) {
-                closed = true;
-                dispose();
-            }
+        btnCancel.addActionListener(e -> {
+            closed = true;
+            dispose();
         });
 
         JPanel bp = new JPanel();

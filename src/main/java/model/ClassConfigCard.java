@@ -41,24 +41,21 @@ public class ClassConfigCard extends JPanel {
 
         control.add(btnAdd);
 
-        btnAdd.addActionListener(new ActionListener() {
-
-            public void actionPerformed(ActionEvent e) {
-                NewAssignmentDialog dialog = new NewAssignmentDialog((JFrame) SwingUtilities.getWindowAncestor(curPanel));
-                dialog.setVisible(true);
-                if (dialog.isSucceed()){
-                    String newAssignment = dialog.getAssignmentName();
-                    int maxPoints = dialog.getMaxPoints();
-                    // todo add new assignment to database
-                    form.add(new AssignmentEntry(newAssignment,maxPoints,0));
-                    int weight = 100 / form.size();
-                    for(AssignmentEntry entry:form){
-                        entry.setWeight(weight);
-                    }
-                    System.out.println(newAssignment+" "+maxPoints+" "+weight);
-
-                    refreshLayout();
+        btnAdd.addActionListener(e -> {
+            NewAssignmentDialog dialog = new NewAssignmentDialog((JFrame) SwingUtilities.getWindowAncestor(curPanel));
+            dialog.setVisible(true);
+            if (dialog.isSucceed()){
+                String newAssignment = dialog.getAssignmentName();
+                int maxPoints = dialog.getMaxPoints();
+                // todo add new assignment to database
+                form.add(new AssignmentEntry(newAssignment,maxPoints,0));
+                int weight1 = 100 / form.size();
+                for(AssignmentEntry entry:form){
+                    entry.setWeight(weight1);
                 }
+                System.out.println(newAssignment+" "+maxPoints+" "+ weight1);
+
+                refreshLayout();
             }
         });
         return control;

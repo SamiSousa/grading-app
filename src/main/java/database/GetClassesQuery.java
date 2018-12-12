@@ -17,7 +17,7 @@ public class GetClassesQuery extends SQLQuery<ClassModel> {
 
     @Override
     public String getQueryString() {
-        return "SELECT * FROM Class";
+        return "SELECT c.ClassID, c.CourseNumber, s.SemesterID FROM Class c NATURAL JOIN Semester s";
     }
 }
 
@@ -26,7 +26,7 @@ class GetClassesMapper implements RowMapper<ClassModel> {
 
     @Override
     public ClassModel map(ResultSet rs, StatementContext ctx) throws SQLException {
-        return new ClassModel(rs.getInt("ClassID"), rs.getString("CourseNumber"), rs.getString("Semester"));
+        return new ClassModel(rs.getInt("c.ClassID"), rs.getString("c.CourseNumber"), rs.getInt("s.SemesterID"));
     }
 }
 

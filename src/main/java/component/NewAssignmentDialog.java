@@ -22,24 +22,18 @@ public class NewAssignmentDialog extends JDialog{
         NewAssignmentForm assignmentForm = new NewAssignmentForm();
         JButton btnAdd = new JButton("Submit");
 
-        btnAdd.addActionListener(new ActionListener() {
+        btnAdd.addActionListener(e -> {
+            // todo submit new assignment name & info here
+            assignmentName = assignmentForm.getTxAssignmentName();
+            maxPoints = assignmentForm.getTxMaxPoint();
+            succeed = true;
 
-            public void actionPerformed(ActionEvent e) {
-                // todo submit new assignment name & info here
-                assignmentName = assignmentForm.getTxAssignmentName();
-                maxPoints = assignmentForm.getTxMaxPoint();
-                succeed = true;
-
-                dispose();
-            }
+            dispose();
         });
         JButton btnCancel = new JButton("Cancel");
-        btnCancel.addActionListener(new ActionListener() {
-
-            public void actionPerformed(ActionEvent e) {
-                closed = true;
-                dispose();
-            }
+        btnCancel.addActionListener(e -> {
+            closed = true;
+            dispose();
         });
 
         JPanel bp = new JPanel();

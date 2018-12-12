@@ -42,34 +42,24 @@ public class LoginDialog extends JDialog {
 
         btnLogin = new JButton("Login");
 
-        btnLogin.addActionListener(new ActionListener() {
-
-            public void actionPerformed(ActionEvent e) {
-                if (Login.authenticate("admin", getPassword())) {
-                    JOptionPane.showMessageDialog(LoginDialog.this,
-                            "Hi professor"  + "! You have successfully logged in.",
-                            "component.Login",
-                            JOptionPane.INFORMATION_MESSAGE);
-                    succeeded = true;
-                    dispose();
-                } else {
-                    JOptionPane.showMessageDialog(LoginDialog.this,
-                            "Invalid username or password",
-                            "Login",
-                            JOptionPane.ERROR_MESSAGE);
-                    // reset password
-                    pfPassword.setText("");
-                    succeeded = false;
-                }
+        btnLogin.addActionListener(e -> {
+            if (Login.authenticate("admin", getPassword())) {
+                succeeded = true;
+                dispose();
+            } else {
+                JOptionPane.showMessageDialog(LoginDialog.this,
+                        "Invalid username or password",
+                        "Login",
+                        JOptionPane.ERROR_MESSAGE);
+                // reset password
+                pfPassword.setText("");
+                succeeded = false;
             }
         });
         btnCancel = new JButton("Cancel");
-        btnCancel.addActionListener(new ActionListener() {
-
-            public void actionPerformed(ActionEvent e) {
-                closed = true;
-                dispose();
-            }
+        btnCancel.addActionListener(e -> {
+            closed = true;
+            dispose();
         });
         JPanel bp = new JPanel();
         bp.add(btnLogin);

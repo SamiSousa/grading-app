@@ -2,11 +2,16 @@ DROP DATABASE GradingApp;
 CREATE DATABASE GradingApp;
 USE GradingApp;
 
+CREATE TABLE Semester (
+    SemesterID INT AUTO_INCREMENT PRIMARY KEY,
+    Name VARCHAR(64) NOT NULL
+);
 
 CREATE TABLE Class (
     ClassID INT AUTO_INCREMENT PRIMARY KEY,
     CourseNumber VARCHAR(64),
-    Semester VARCHAR(64)
+    SemesterID INT,
+    FOREIGN KEY (SemesterID) REFERENCES Semester(SemesterID)
 );
 
 CREATE TABLE AssignmentCategory (
@@ -27,29 +32,32 @@ CREATE TABLE Assignment (
 );
 
 CREATE TABLE Student (
-    Name VARCHAR(255) NOT NULL,
-    Email VARCHAR(255) PRIMARY KEY,
+    StudentID INT AUTO_INCREMENT PRIMARY KEY,
+    FirstName VARCHAR(255) NOT NULL,
+    LastName VARCHAR(255) NOT NULL,
+    Email VARCHAR(255),
+    ClassYear VARCHAR(255),
     BUID VARCHAR(20)
 );
 
 CREATE TABLE Enrolled (
-    StudentID VARCHAR(255),
+    StudentID INT,
     ClassID INT,
     PRIMARY KEY (StudentID, ClassID),
-    FOREIGN KEY (StudentID) REFERENCES Student(Email),
+    FOREIGN KEY (StudentID) REFERENCES Student(StudentID),
     FOREIGN KEY (ClassID) REFERENCES Class(ClassID)
 );
 
 CREATE TABLE Grade (
     AssignmentID INT,
-    StudentID VARCHAR(255),
+    StudentID INT,
     LostPoints INT DEFAULT 0,
+    Comment VARCHAR(1000) DEFAULT '',
     PRIMARY KEY (AssignmentID, StudentID),
     FOREIGN KEY (AssignmentID) REFERENCES Assignment(AssignmentID),
-    FOREIGN KEY (StudentID) REFERENCES Student(Email)
+    FOREIGN KEY (StudentID) REFERENCES Student(StudentID)
 );
 
-INSERT INTO Class(ClassID, CourseNumber, Semester) VALUES (1, "CS591", "Fall 2018");
-INSERT INTO Class(ClassID, CourseNumber, Semester) VALUES (2, "CS591", "Spring 2019");
-INSERT INTO Class(ClassID, CourseNumber, Semester) VALUES (3, "CS506", "Fall 2018");
-INSERT INTO Class(ClassID, CourseNumber, Semester) VALUES (4, "CS460", "Spring 2019");
+INSERT INTO Semester(Name) VALUES ("Fall 2018");
+INSERT INTO Class(ClassID, CourseNumber, SemesterID) VALUES (1, "CS591", 1);
+INSERT INTO Class(ClassID, CourseNumber, SemesterID) VALUES (3, "CS506", 1);

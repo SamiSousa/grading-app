@@ -7,14 +7,16 @@ import java.util.Iterator;
 import java.util.Scanner;
 
 public class Student implements TableReady {
-	
+
+	private int studentID;
 	private String firstName;
 	private String lastName;
 	private String buID;
 	private String email; // Primary key
 	private String year;
 	
-	public Student(String firstName, String lastName, String BUID, String email, String year) {
+	public Student(int studentID, String firstName, String lastName, String BUID, String email, String year) {
+		this.studentID = studentID;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.buID = BUID;
@@ -28,6 +30,18 @@ public class Student implements TableReady {
 	
 	public String getLastName() {
 		return this.lastName;
+	}
+
+	public String getBuID() {
+		return buID;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public String getYear() {
+		return year;
 	}
 	
 	public static Student[] loadStudentsFromFile(File f) {
@@ -65,7 +79,7 @@ public class Student implements TableReady {
 		int i = 0;
 		while(it.hasNext()) {
 			String[] studentInfo = it.next();
-			students[i] = new Student(studentInfo[0], studentInfo[1], studentInfo[2], studentInfo[3], studentInfo[4]);
+			students[i] = new Student(-1, studentInfo[0], studentInfo[1], studentInfo[2], studentInfo[3], studentInfo[4]);
 			i++;
 		}
 		
@@ -94,11 +108,15 @@ public class Student implements TableReady {
 		return cols;
 	}
 	
-	public static Student getDefualtStudent() {
-		return new Student("", "", "", "", "");
+	public static Student getDefaultStudent() {
+		return new Student(-1, "", "", "", "", "");
 	}
 	
 	public String toString() {
 		return String.format("Name: %s, BUID: %s, Email: %s, Year: %s\n", this.firstName + " " + this.lastName, this.buID, this.email, this.year);
+	}
+
+	public int getStudentID() {
+		return studentID;
 	}
 }

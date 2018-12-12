@@ -3,13 +3,14 @@ package model;
 
 public class ClassModel {
 
-    int ClassID;
+    public int ClassID;
     public String CourseNumber;
-    String Semester;
+    public int SemesterID;
 
-    public ClassModel(int classID, String courseNumber, String semester) {
+
+    public ClassModel(int classID, String courseNumber, int semesterID) {
         ClassID = classID;
         CourseNumber = courseNumber;
-        Semester = semester;
+        SemesterID = semesterID;
     }
 }
