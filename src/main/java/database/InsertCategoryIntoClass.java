@@ -9,6 +9,7 @@ public class InsertCategoryIntoClass {
         public static ClassCategory insert(String categoryName, int weight, int classID) {
             return SQLConnection.jdbi.withExtension(database.InsertCategoryDAO.class, dao -> {
                 int categoryID = dao.insertCategory(classID,categoryName,weight);
+                System.out.println("insert into category "+categoryName);
                 return new ClassCategory(categoryID, classID, categoryName, weight);
 
             });

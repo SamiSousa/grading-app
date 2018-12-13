@@ -36,20 +36,19 @@ public class ClassConfig extends JPanel{
         this.courseId = course.getClassModel().ClassID;
 
         setLayout(new BoxLayout(this,BoxLayout.PAGE_AXIS));
-
-        composeHeader(new JPanel());
+        composeHeader();
         loadAssignmentCards();
 
         btnAdd = new JButton("add new category");
+
         btnAdd.addActionListener(e -> {
             NewCategoryDialog dialog = new NewCategoryDialog((JFrame) SwingUtilities.getWindowAncestor(thisComponent), courseId);
             dialog.setVisible(true);
             if (dialog.isSucceed()){
-
                 String newCategory = dialog.getCategoryName();
                 int weight = dialog.getWeight();
-                // todo add new category to database
                 ClassCategory c = InsertCategoryIntoClass.insert(newCategory,weight,courseId);
+                System.out.println(c.toString());
                 List<Assignment> entries = new ArrayList<>();
                 Assignment defautAssignment = InsertNewAssignment.insert(courseId,c.getCategoryID(),"default",100,100);
                 entries.add(defautAssignment);
@@ -65,14 +64,14 @@ public class ClassConfig extends JPanel{
         add(btnAdd);
 
     }
-    private void refreshLayout(){
+    public void refreshLayout(){
         remove(btnAdd);
         add(btnAdd);
         revalidate();
         repaint();
     }
     private void loadAssignmentCards() {
-        // todo get all categories from database, if null, use default
+        // get all categories from database, if null, use default
         GetClassCategoriesMap query = new GetClassCategoriesMap(courseId);
         List<ClassCategory> list = query.execute();
         if(list.size() == 0){
@@ -82,13 +81,12 @@ public class ClassConfig extends JPanel{
         }
 
     }
-    private void composeHeader(JPanel header) {
+    private void composeHeader() {
         String title = "Class configuration";
         JLabel lbClassName = new JLabel(title,SwingConstants.CENTER);
         lbClassName.setFont(lbClassName.getFont().deriveFont (16.0f));
 
-        header.add(lbClassName);
-        add(header);
+        add(lbClassName);
     }
     private void defaultCategories() {
 
@@ -162,7 +160,6 @@ public class ClassConfig extends JPanel{
             ClassConfigCard card = new ClassConfigCard(c.getName(), c.getWeight(), c.getCategoryID(), courseId, assignmentInfo.get(c.getCategoryID()), thisComponent);
             categories.add(card);
             add(card);
-
         }
 
 

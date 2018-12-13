@@ -10,6 +10,7 @@ public class InsertNewAssignment {
     public static Assignment insert(int classID, int categoryId, String name, int MaxPoints, int weight) {
         return SQLConnection.jdbi.withExtension(database.InsertAssignmentDAO.class, dao -> {
             int assignmentId = dao.insertAssignment(classID, categoryId, name, MaxPoints, weight);
+            System.out.println("insert into assignment "+name);
             return new Assignment(name, categoryId, MaxPoints , weight,assignmentId);
 
         });

@@ -24,12 +24,9 @@ public class NewCategoryDialog extends JDialog{
         JButton btnAdd = new JButton("Submit");
 
         btnAdd.addActionListener(e -> {
-            // todo submit new category name & info here
             categoryName = categoryForm.getCategoryName();
             weight = categoryForm.getCategoryWeight();
             succeed = true;
-
-            InsertCategoryIntoClass.insert(categoryName,weight,classId);
 
             dispose();
         });
