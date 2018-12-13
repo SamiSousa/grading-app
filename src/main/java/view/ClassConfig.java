@@ -3,6 +3,11 @@ package view;
 import component.NewAssignmentDialog;
 import component.NewCategoryDialog;
 import data.Assignment;
+import data.ClassCategory;
+import database.GetAssignmentFromCategory;
+import database.GetClassCategoriesMap;
+import database.InsertCategoryIntoClass;
+import database.InsertNewAssignment;
 import model.AssignmentEntry;
 import model.ClassConfigCard;
 import model.CourseNode;
@@ -12,10 +17,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
 
 
 public class ClassConfig extends JPanel{
@@ -24,11 +27,13 @@ public class ClassConfig extends JPanel{
     private List<ClassConfigCard> categories;
     private JButton btnAdd;
     private final JPanel thisComponent = this;
+    private int courseId;
 
     public ClassConfig(CourseNode course, String semester){
         this.courseName = course.getClassModel().CourseNumber;
         this.semester = semester;
         this.categories = new ArrayList<>();
+        this.courseId = course.getClassModel().ClassID;
 
         setLayout(new BoxLayout(this,BoxLayout.PAGE_AXIS));
 
@@ -37,16 +42,18 @@ public class ClassConfig extends JPanel{
 
         btnAdd = new JButton("add new category");
         btnAdd.addActionListener(e -> {
-            NewCategoryDialog dialog = new NewCategoryDialog((JFrame) SwingUtilities.getWindowAncestor(thisComponent));
+            NewCategoryDialog dialog = new NewCategoryDialog((JFrame) SwingUtilities.getWindowAncestor(thisComponent), courseId);
             dialog.setVisible(true);
             if (dialog.isSucceed()){
 
                 String newCategory = dialog.getCategoryName();
                 int weight = dialog.getWeight();
-                // todo add new assignment to database
-                List<AssignmentEntry> entries = new ArrayList<>();
-                entries.add(new AssignmentEntry());
-                ClassConfigCard card = new ClassConfigCard(newCategory,weight,entries,thisComponent);
+                // todo add new category to database
+                ClassCategory c = InsertCategoryIntoClass.insert(newCategory,weight,courseId);
+                List<Assignment> entries = new ArrayList<>();
+                Assignment defautAssignment = InsertNewAssignment.insert(courseId,c.getCategoryID(),"default",100,100);
+                entries.add(defautAssignment);
+                ClassConfigCard card = new ClassConfigCard(newCategory,weight,c.getCategoryID(),courseId,entries,thisComponent);
                 add(card);
                 categories.add(card);
 
@@ -66,7 +73,13 @@ public class ClassConfig extends JPanel{
     }
     private void loadAssignmentCards() {
         // todo get all categories from database, if null, use default
-        defaultCategories();
+        GetClassCategoriesMap query = new GetClassCategoriesMap(courseId);
+        List<ClassCategory> list = query.execute();
+        if(list.size() == 0){
+            defaultCategories();
+        } else {
+            loadClassConfig(list);
+        }
 
     }
     private void composeHeader(JPanel header) {
@@ -78,44 +91,83 @@ public class ClassConfig extends JPanel{
         add(header);
     }
     private void defaultCategories() {
-        // todo better if we can use hashmap
+
+        Map<String, List<Assignment>> assignmentInfo = new HashMap<>();
+
+        Object[][] categoryList = {
+                {"Assignment", new Integer(30), 0},
+                {"Project", new Integer(40), 0},
+                {"Midterm", new Integer(10), 0},
+                {"Final", new Integer(20), 0}
+        };
+
+        for(int i = 0;i<categoryList.length;i++){
+            ClassCategory c = InsertCategoryIntoClass.insert((String)categoryList[i][0],(Integer)categoryList[i][1],courseId);
+            categoryList[i][2] = c.getCategoryID();
+        }
+        List<Assignment> assignment = new ArrayList<>();
+        Assignment temp = InsertNewAssignment.insert(courseId, (Integer) categoryList[0][2],"assignment1",100,50);
+        assignment.add(temp);
+        temp = InsertNewAssignment.insert(courseId, (Integer) categoryList[0][2],"assignment2",100,50);
+        assignment.add(temp);
 
 
-        Map<String, List<AssignmentEntry>> assignmentInfo = new HashMap<>();
+        List<Assignment> project = new ArrayList<>();
+        temp = InsertNewAssignment.insert(courseId, (Integer) categoryList[1][2],"project1",100,100);
+        project.add(temp);
 
-        List<AssignmentEntry> assignment = new ArrayList<>();
-        assignment.add(new AssignmentEntry("assignment1",100,50));
-        assignment.add(new AssignmentEntry("assignment2",100,50));
+        List<Assignment> midterm = new ArrayList<>();
+        temp = InsertNewAssignment.insert(courseId, (Integer) categoryList[2][2],"midterm",100,100);
+        midterm.add(temp);
 
-
-        List<AssignmentEntry> project = new ArrayList<>();
-        project.add(new AssignmentEntry("project1",100,100));
-
-        List<AssignmentEntry> midterm = new ArrayList<>();
-        midterm.add(new AssignmentEntry("midterm1",100,100));
-
-        List<AssignmentEntry> finalExam = new ArrayList<>();
-        finalExam.add(new AssignmentEntry("final",100,100));
+        List<Assignment> finalExam = new ArrayList<>();
+        temp = InsertNewAssignment.insert(courseId, (Integer) categoryList[3][2],"final",100,100);
+        finalExam.add(temp);
 
         assignmentInfo.put("Assignment", assignment);
         assignmentInfo.put("Project", project);
         assignmentInfo.put("Midterm", midterm);
         assignmentInfo.put("Final", finalExam);
 
-        Object[][] categoryList = {
-                {"Assignment", new Integer(30)},
-                {"Project", new Integer(40)},
-                {"Midterm", new Integer(10)},
-                {"Final", new Integer(20)}
-        };
+
 
         for(Object[] categoryInfo : categoryList){
-            ClassConfigCard card = new ClassConfigCard((String)categoryInfo[0],(Integer)categoryInfo[1],assignmentInfo.get((String)categoryInfo[0]),thisComponent);
+            ClassConfigCard card = new ClassConfigCard((String)categoryInfo[0],(Integer)categoryInfo[1],(Integer) categoryInfo[2],courseId,assignmentInfo.get((String)categoryInfo[0]),thisComponent);
             categories.add(card);
             add(card);
+        }
+    }
+    private void loadClassConfig (List<ClassCategory> list) {
+        Map<Integer, List<Assignment>> assignmentInfo = new HashMap<>();
+        Map<Integer, Integer> categorySet = new HashMap<>();
+        for(int i=0;i<list.size();i++){
+            ClassCategory c  = list.get(i);
+            categorySet.put(c.getCategoryID(),i);
+            int cId = c.getCategoryID();
+            GetAssignmentFromCategory query = new GetAssignmentFromCategory(c.getAssigmentId());
+            Assignment assignment = query.execute().get(0);
+
+            if(assignmentInfo.containsKey(cId)){
+                List<Assignment> temp = assignmentInfo.get(cId);
+                temp.add(assignment);
+                assignmentInfo.put(cId, temp);
+            } else {
+                List<Assignment> temp = new ArrayList<>();
+                temp.add(assignment);
+                assignmentInfo.put(cId, temp);
+            }
+        }
+        for(int i:categorySet.keySet()){
+            ClassCategory c  = list.get(categorySet.get(i));
+            ClassConfigCard card = new ClassConfigCard(c.getName(), c.getWeight(), c.getCategoryID(), courseId, assignmentInfo.get(c.getCategoryID()), thisComponent);
+            categories.add(card);
+            add(card);
+
         }
 
 
     }
+
+
 
 }

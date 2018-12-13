@@ -126,7 +126,7 @@ public class MainMenu{
 
         if (cur != null) {
             if (cur.toString().equals(newCourseNode().toString())) {
-                // todo add new
+      
                 System.out.println("new course");
                 AddNewDialog addNew = new AddNewDialog((JFrame) SwingUtilities.getWindowAncestor(currentPanel));
                 addNew.setVisible(true);
@@ -139,7 +139,7 @@ public class MainMenu{
                 }
             }
             else if (cur.toString().equals(newSemesterNode().toString())) {
-                // todo add new semester
+
                 System.out.println("new semester");
                 AddSemesterDialog addNew = new AddSemesterDialog((JFrame) SwingUtilities.getWindowAncestor(currentPanel));
                 addNew.setVisible(true);
@@ -148,7 +148,7 @@ public class MainMenu{
                         addNewSemesterNode(addNew.getSemesterName(), cur);
                     }
                 }
-            }else {
+            }else if(cur.isLeaf()){
                 CourseNode clickedClassNode = (CourseNode)cur.getParent();
                 ClassModel model = clickedClassNode.getClassModel();
                 if(cur.toString().equals("grade center")) {
@@ -160,10 +160,8 @@ public class MainMenu{
                     setCourseView(clickedClassNode, clickedClassNode.getStudentInfo());
                 }
                 if (cur.toString().equals("class configuration")){
-                    JPanel panel = new JPanel();
                     JScrollPane scroll = new JScrollPane(clickedClassNode.getClassConfig());
-                    panel.add(scroll);
-                    setCourseView(clickedClassNode, panel);
+                    setCourseView(clickedClassNode, scroll);
                 }
             }
         }

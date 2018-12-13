@@ -1,5 +1,6 @@
 package component;
 
+import database.InsertCategoryIntoClass;
 import model.NewAssignmentForm;
 import model.NewCategoryForm;
 
@@ -16,7 +17,7 @@ public class NewCategoryDialog extends JDialog{
     private boolean closed;
     private boolean succeed;
 
-    public NewCategoryDialog(Frame parent) {
+    public NewCategoryDialog(Frame parent, int classId) {
         super(parent, "New category", true);
 
         NewCategoryForm categoryForm = new NewCategoryForm();
@@ -27,6 +28,8 @@ public class NewCategoryDialog extends JDialog{
             categoryName = categoryForm.getCategoryName();
             weight = categoryForm.getCategoryWeight();
             succeed = true;
+
+            InsertCategoryIntoClass.insert(categoryName,weight,classId);
 
             dispose();
         });

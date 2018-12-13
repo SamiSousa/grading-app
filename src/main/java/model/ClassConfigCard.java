@@ -4,6 +4,7 @@ package model;
 import component.EditableTableDisplay;
 import component.NewAssignmentDialog;
 import data.Assignment;
+import database.InsertNewAssignment;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -16,14 +17,18 @@ import java.util.Set;
 public class ClassConfigCard extends JPanel {
     private String categoryName;
     private int weight;
-    private List<AssignmentEntry> form;
+    private List<Assignment> form;
     private JPanel curPanel;
+    private int categoryId;
+    private int classId;
 
-    public ClassConfigCard(String name,int weight, List<AssignmentEntry> fm, JPanel curPanel){
+    public ClassConfigCard(String name,int weight, int categoryId, int classId, List<Assignment> fm, JPanel curPanel){
         this.categoryName = name;
         this.weight = weight;
         this.form = fm;
         this.curPanel = curPanel;
+        this.categoryId = categoryId;
+        this.classId = classId;
 
         setLayout(new BorderLayout());
         setBorder(new EmptyBorder(5,15,0,15));
@@ -45,15 +50,16 @@ public class ClassConfigCard extends JPanel {
             NewAssignmentDialog dialog = new NewAssignmentDialog((JFrame) SwingUtilities.getWindowAncestor(curPanel));
             dialog.setVisible(true);
             if (dialog.isSucceed()){
-                String newAssignment = dialog.getAssignmentName();
+                String newAssignmentName = dialog.getAssignmentName();
                 int maxPoints = dialog.getMaxPoints();
                 // todo add new assignment to database
-                form.add(new AssignmentEntry(newAssignment,maxPoints,0));
-                int weight1 = 100 / form.size();
-                for(AssignmentEntry entry:form){
-                    entry.setWeight(weight1);
-                }
-                System.out.println(newAssignment+" "+maxPoints+" "+ weight1);
+                Assignment newAssignment = InsertNewAssignment.insert(classId,categoryId,newAssignmentName,maxPoints,0);
+                form.add(newAssignment);
+//                int weight1 = 100 / form.size();
+//                for(Assignment entry:form){
+//                    entry.setWeight(weight1);
+//                }
+//                System.out.println(newAssignment+" "+maxPoints+" "+ weight1);
 
                 refreshLayout();
             }
@@ -73,10 +79,9 @@ public class ClassConfigCard extends JPanel {
         Object[][] data = new Object[form.size()][AssignmentEntry.getFieldsCount()];
 
         for(int i = 0;i<data.length;i++){
-            data[i][0] = form.get(i).getAssignmentName();
+            data[i][0] = form.get(i).getName();
             data[i][1] = form.get(i).getMaxPoints();
             data[i][2] = form.get(i).getWeight();
-
         }
         EditableTableDisplay display = new EditableTableDisplay(this);
         EditableTableModel model = new EditableTableModel(AssignmentEntry.getColName(),data);
@@ -128,11 +133,11 @@ public class ClassConfigCard extends JPanel {
         this.weight = weight;
     }
 
-    public List<AssignmentEntry> getForm() {
+    public List<Assignment> getForm() {
         return form;
     }
 
-    public void setForm(List<AssignmentEntry> form) {
+    public void setForm(List<Assignment> form) {
         this.form = form;
     }
 }

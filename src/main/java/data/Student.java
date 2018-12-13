@@ -81,6 +81,7 @@ public class Student implements TableReady {
 			String[] studentInfo = it.next();
 			students[i] = new Student(-1, studentInfo[0], studentInfo[1], studentInfo[2], studentInfo[3], studentInfo[4]);
 			i++;
+			System.out.println(students[i]);
 		}
 		
 		return students;
