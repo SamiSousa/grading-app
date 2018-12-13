@@ -21,15 +21,15 @@ public class StudentInfo extends JPanel{
 	private EditableTableModel model;
 	
     public StudentInfo(CourseNode course){
-    	this.course = course;
+        this.course = course;
         display = new EditableTableDisplay(this);
 
-        this.setLayout(new BorderLayout());
         setStudentsModel();
 
-        display.setPanel(this);
-        
+        JPanel tablePanel = new JPanel();
+        display.setPanel(tablePanel);
 
+        this.setLayout(new BorderLayout());
 
         JLabel lbClassName = new JLabel("Students",SwingConstants.CENTER);
         lbClassName.setFont(lbClassName.getFont().deriveFont (16.0f));

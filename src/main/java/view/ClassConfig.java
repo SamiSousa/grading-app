@@ -81,7 +81,9 @@ public class ClassConfig extends JPanel{
         }
 
     }
+
     private void composeHeader() {
+
         String title = "Class configuration";
         JLabel lbClassName = new JLabel(title,SwingConstants.CENTER);
         lbClassName.setFont(lbClassName.getFont().deriveFont (16.0f));

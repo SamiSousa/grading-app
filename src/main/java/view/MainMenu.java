@@ -148,6 +148,7 @@ public class MainMenu{
                         addNewSemesterNode(addNew.getSemesterName(), cur);
                     }
                 }
+
             }else if(cur.isLeaf()){
                 CourseNode clickedClassNode = (CourseNode)cur.getParent();
                 ClassModel model = clickedClassNode.getClassModel();
@@ -163,6 +164,7 @@ public class MainMenu{
                     JScrollPane scroll = new JScrollPane(clickedClassNode.getClassConfig());
                     setCourseView(clickedClassNode, scroll);
                 }
+
             }
         }
         else
