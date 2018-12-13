@@ -153,9 +153,9 @@ public class MainMenu{
                 CourseNode clickedClassNode = (CourseNode)cur.getParent();
                 ClassModel model = clickedClassNode.getClassModel();
                 if(cur.toString().equals("grade center")) {
-                    System.out.println("grade");
-
+                    clickedClassNode.setGradeCenter(new GradeCenter(clickedClassNode));
                     setCourseView(clickedClassNode, clickedClassNode.getGradeCenter());
+
                 }
                 if (cur.toString().equals("student info")){
                     setCourseView(clickedClassNode, clickedClassNode.getStudentInfo());
@@ -177,11 +177,12 @@ public class MainMenu{
         JPanel coursePanel = new JPanel(new BorderLayout());
         coursePanel.add(lbClassName, BorderLayout.NORTH);
         coursePanel.add(view, BorderLayout.CENTER);
-        
+
     	currentPanel.removeAll();
         currentPanel.add(coursePanel);
         currentPanel.revalidate();
         currentPanel.repaint();
+
     }
     public static MainMenu getMainMenuInstance(JPanel cur){
         if(MainMenuInstance == null){

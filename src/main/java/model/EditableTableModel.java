@@ -16,7 +16,9 @@ public class EditableTableModel extends AbstractTableModel{
         tableData = data;
         editableCol = new HashSet<>();
     }
-
+    public EditableTableModel(){
+        editableCol = new HashSet<>();
+    }
     public void setEditableColumn(Set<Integer> set) {
         editableCol = set;
     }

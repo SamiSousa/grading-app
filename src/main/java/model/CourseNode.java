@@ -69,19 +69,19 @@ public class CourseNode extends DefaultMutableTreeNode {
     }
     
     public GradeCenter getGradeCenter() {
-    	if (needsUpdate) {
-    		updateViews();
-    	}
+
     	return gradeCenter;
     }
     
     public ClassConfig getClassConfig() {
-    	if (needsUpdate) {
-    		updateViews();
-    	}
+
     	return this.classConfig;
     }
-    
+
+    public void setGradeCenter(GradeCenter gradeCenter) {
+        this.gradeCenter = gradeCenter;
+    }
+
     private void updateViews() {
     	studentInfo.setStudentsModel();
     	needsUpdate = false;
