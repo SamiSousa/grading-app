@@ -126,7 +126,7 @@ public class MainMenu{
 
         if (cur != null) {
             if (cur.toString().equals(newCourseNode().toString())) {
-      
+
                 System.out.println("new course");
                 AddNewDialog addNew = new AddNewDialog((JFrame) SwingUtilities.getWindowAncestor(currentPanel));
                 addNew.setVisible(true);

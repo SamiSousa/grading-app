@@ -19,7 +19,7 @@ public class EditableTableDisplay implements TableModelListener {
 
     public EditableTableDisplay(JPanel cur){
         collector = new TableDataCollector();
-        // todo fetch data using component.collector
+
         model = new EditableTableModel(collector.getCols(),collector.getData());
         adapter = new TableAdapter(model);
         adapter.getTableModel().getModel().addTableModelListener(this);

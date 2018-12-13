@@ -28,7 +28,19 @@ public class Assignment implements TableReady {
 	public void setMaxPoints(Integer newPoints) {
 		this.maxPoints = newPoints;
 	}
-	
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Integer getAssignmentId() {
+		return assignmentId;
+	}
+
+	public void setWeight(Integer weight) {
+		this.weight = weight;
+	}
+
 	public Integer getMaxPoints() {
 		return this.maxPoints;
 	}
