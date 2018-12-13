@@ -63,7 +63,7 @@ public class ClassConfigCard extends JPanel {
             if (dialog.isSucceed()){
                 String newAssignmentName = dialog.getAssignmentName();
                 int maxPoints = dialog.getMaxPoints();
-                // todo add new assignment to database
+
                 Assignment newAssignment = InsertNewAssignment.insert(classId,categoryId,newAssignmentName,maxPoints,0);
                 form.add(newAssignment);
 //                int weight1 = 100 / form.size();
