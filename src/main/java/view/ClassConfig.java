@@ -56,7 +56,6 @@ public class ClassConfig extends JPanel{
                 add(card);
                 categories.add(card);
 
-                System.out.println(newCategory+" "+weight);
 
                 refreshLayout();
             }

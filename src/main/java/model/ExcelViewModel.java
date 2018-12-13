@@ -6,11 +6,20 @@ public class ExcelViewModel {
     private String[] cols;
     private Object[][] data;
     private Set<String> filters;
+    private int[] stuId;
 
     public ExcelViewModel(String[] cols, Object[][] data, Set<String> filters) {
         this.cols = cols;
         this.data = data;
         this.filters = filters;
+    }
+
+    public void setStuId(int[] stuId) {
+        this.stuId = stuId;
+    }
+
+    public int[] getStuId() {
+        return stuId;
     }
 
     public Set<String> getFilters() {
