@@ -10,7 +10,7 @@ public class Grade implements TableReady {
 	public Grade(Student student, Assignment assignment) {
 		this.student = student;
 		this.assignment = assignment;
-		this.lostPoints = 0;
+		this.lostPoints = new Integer(0);
 	}
 	
 	public void setLabel(boolean label) {
@@ -22,13 +22,10 @@ public class Grade implements TableReady {
 		return this.label;
 	}
 	
-	public void setPoints(Integer points) {
+	public void setLostPoints(Integer points) {
 		this.lostPoints = points;
 	}
-	
-	public Integer getPoints() {
-		return this.lostPoints;
-	}
+
 	
 	public Object[] getDataRow() {
 		Object[] row = new Object[5];
@@ -45,4 +42,17 @@ public class Grade implements TableReady {
 		String[] cols = {"First Name", "Last Name", "Assignment", "Negative Score", "Label"};
 		return cols;
 	}
+
+	public Student getStudent() {
+		return student;
+	}
+
+	public Assignment getAssignment() {
+		return assignment;
+	}
+
+	public Integer getLostPoints() {
+		return lostPoints;
+	}
 }
+

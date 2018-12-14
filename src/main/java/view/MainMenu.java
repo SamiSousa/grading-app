@@ -126,7 +126,7 @@ public class MainMenu{
 
         if (cur != null) {
             if (cur.toString().equals(newCourseNode().toString())) {
-                // todo add new
+
                 System.out.println("new course");
                 AddNewDialog addNew = new AddNewDialog((JFrame) SwingUtilities.getWindowAncestor(currentPanel));
                 addNew.setVisible(true);
@@ -139,7 +139,7 @@ public class MainMenu{
                 }
             }
             else if (cur.toString().equals(newSemesterNode().toString())) {
-                // todo add new semester
+
                 System.out.println("new semester");
                 AddSemesterDialog addNew = new AddSemesterDialog((JFrame) SwingUtilities.getWindowAncestor(currentPanel));
                 addNew.setVisible(true);
@@ -148,23 +148,23 @@ public class MainMenu{
                         addNewSemesterNode(addNew.getSemesterName(), cur);
                     }
                 }
-            }else {
+
+            }else if(cur.isLeaf()){
                 CourseNode clickedClassNode = (CourseNode)cur.getParent();
                 ClassModel model = clickedClassNode.getClassModel();
                 if(cur.toString().equals("grade center")) {
-                    System.out.println("grade");
-
+                    clickedClassNode.setGradeCenter(new GradeCenter(clickedClassNode));
                     setCourseView(clickedClassNode, clickedClassNode.getGradeCenter());
+
                 }
                 if (cur.toString().equals("student info")){
                     setCourseView(clickedClassNode, clickedClassNode.getStudentInfo());
                 }
                 if (cur.toString().equals("class configuration")){
-                    JPanel panel = new JPanel();
                     JScrollPane scroll = new JScrollPane(clickedClassNode.getClassConfig());
-                    panel.add(scroll);
-                    setCourseView(clickedClassNode, panel);
+                    setCourseView(clickedClassNode, scroll);
                 }
+
             }
         }
         else
@@ -177,11 +177,12 @@ public class MainMenu{
         JPanel coursePanel = new JPanel(new BorderLayout());
         coursePanel.add(lbClassName, BorderLayout.NORTH);
         coursePanel.add(view, BorderLayout.CENTER);
-        
+
     	currentPanel.removeAll();
         currentPanel.add(coursePanel);
         currentPanel.revalidate();
         currentPanel.repaint();
+
     }
     public static MainMenu getMainMenuInstance(JPanel cur){
         if(MainMenuInstance == null){

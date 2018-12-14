@@ -49,7 +49,7 @@ public class TableAdapter {
     public void setCellColorRender(DefaultTableCellRenderer render) {
 
         for (int i =0; i<tableModel.getColumnCount();i++) {
-            if(tableModel.getColumnName(i).equals("Lost points")){
+            if(tableModel.getColumnName(i).equals("Lost Points")){
                 tableModel.getColumnModel().getColumn(i).setCellRenderer(render);
                 break;
             }

@@ -27,6 +27,7 @@ CREATE TABLE Assignment (
     CategoryID INT NOT NULL,
     Name VARCHAR(255) NOT NULL,
     MaxPoints INT NOT NULL,
+    Weight INT,
     FOREIGN KEY (ClassID) REFERENCES Class(ClassID),
     FOREIGN KEY (CategoryID) REFERENCES AssignmentCategory(CategoryID)
 );
