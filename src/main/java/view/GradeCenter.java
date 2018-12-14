@@ -133,6 +133,9 @@ public class GradeCenter extends JPanel{
     }
     public static ExcelViewModel constructExcelView(Map<Integer, GradeModel> gradeList, Set<String> colSet, List<Integer> stuIds){
         List<String> colNames = new ArrayList<>();
+        for(int id:stuIds){
+            stuIds.remove(id);
+        }
         colNames.add("Name");
         for(int stuId :gradeList.keySet()){
             GradeModel grade = gradeList.get(stuId);
@@ -170,6 +173,7 @@ public class GradeCenter extends JPanel{
     }
     public static ExcelViewModel constructGradingView(Map<Integer, GradeModel> gradeList, List<Integer> stuIds){
         String[] cols = new String[]{"Name","Assignment","Max Points","Lost Points"};
+
         int totalLength = 0;
         for(int stuId :gradeList.keySet()){
             totalLength += gradeList.get(stuId).getGradesCount();
@@ -224,7 +228,7 @@ class GradeListener implements TableModelListener {
         int col = e.getColumn();
         TableModel model = (TableModel)e.getSource();
         Object data = model.getValueAt(row, col);
-        if(filter == "All"){
+        if(filter.equals("All")){
             GradeModel changedModel = map.get(stuIds.get(row));
             Grade changedGrade = changedModel.getGrades().get(col-1);
             int assignmentId = changedGrade.getAssignment().getAssignmentId();
@@ -309,12 +313,14 @@ class JComboBoxListener implements ActionListener{
 //            tableDisplay.getAdapter().setCellColorRender(new TableCellRender());
             return;
         }
-
+        GradeCenter.constructGradingView(map,stuIds);
         int leng = data[0].length;
+        List<Integer> list = new ArrayList<>();
         List<Integer> indexList = new ArrayList<>();
         for(int i=0;i<data.length;i++){
             if(data[i][filterIndex].equals(filter)){
                 indexList.add(i);
+                list.add(stuIds.get(i));
             }
         }
         Object[][] res = new Object[indexList.size()][leng];
@@ -327,6 +333,7 @@ class JComboBoxListener implements ActionListener{
         model.addEditableCol(3);
         tableDisplay.setTableModel(model);
         tableDisplay.getAdapter().setCellColorRender(new TableCellRender());
+        tableDisplay.getAdapter().getTableModel().getModel().addTableModelListener(new GradeListener(map,list,filter));
     }
 
 }

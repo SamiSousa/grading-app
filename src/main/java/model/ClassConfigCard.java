@@ -79,7 +79,9 @@ public class ClassConfigCard extends JPanel {
             int selectedRow = display.getAdapter().getTableModel().getSelectedRow();
             int rowCount = display.getAdapter().getTableModel().getRowCount();
             if(selectedRow != -1 && rowCount > 1){
+                DeleteGrade gradeDelete = new DeleteGrade(form.get(selectedRow).getAssignmentId());
                 DeleteAssignment query = new DeleteAssignment(form.get(selectedRow).getAssignmentId());
+                gradeDelete.execute();
                 query.execute();
                 form.remove(selectedRow);
                 refreshLayout();
@@ -97,8 +99,11 @@ public class ClassConfigCard extends JPanel {
         JButton btnDelete = new JButton("delete category");
 
         btnDelete.addActionListener(e -> {
+            DeleteGrade gradeDelete = new DeleteGrade(categoryId,classId);
             DeleteAssignment assignmentDelete = new DeleteAssignment(categoryId,classId);
             DeleteCategory query = new DeleteCategory(categoryId,classId);
+
+            gradeDelete.execute();
             assignmentDelete.execute();
             query.execute();
             setVisible(false);
