@@ -26,6 +26,10 @@ public class GradeModel {
         return student.getStudentID();
     }
 
+    public void setGrade(int index, Grade grade) {
+        this.grades.set(index, grade);
+    }
+
     public Student getStudent() {
         return student;
     }

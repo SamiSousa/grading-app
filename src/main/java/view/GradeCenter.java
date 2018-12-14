@@ -4,11 +4,13 @@ import component.EditableTableDisplay;
 import component.collector.TableDataCollector;
 import data.Assignment;
 import data.Grade;
+import data.Student;
 import database.*;
 import model.CourseNode;
 import model.EditableTableModel;
 import model.ExcelViewModel;
 import model.GradeModel;
+import org.omg.CORBA.PRIVATE_MEMBER;
 
 import javax.swing.*;
 
@@ -30,15 +32,12 @@ public class GradeCenter extends JPanel{
     private String title;
     private EditableTableDisplay tableDisplay;
     private Map<Integer, GradeModel> gradeList;
-    private List<Grade> curGrades;
     private Set<String> colSet;
-    private List<Integer> stuIds;
 
     public GradeCenter(CourseNode course) {
     	this.course = course;
     	gradeList = new HashMap<>();
     	colSet = new HashSet<>();
-    	stuIds = new ArrayList<>();
         setLayout(new BorderLayout());
 
         title = "Grade center";
@@ -68,7 +67,7 @@ public class GradeCenter extends JPanel{
         filterList.add("All");
         JComboBox dropMenu = new JComboBox(filterList.toArray());
         dropMenu.setSelectedItem("All");
-        dropMenu.addActionListener(new JComboBoxListener(gradeList,tableDisplay,1,stuIds));
+        dropMenu.addActionListener(new JComboBoxListener(gradeList,tableDisplay,1));
         cs.gridx = 1;
         cs.gridy = 1;
         cs.gridwidth = 2;
@@ -78,16 +77,11 @@ public class GradeCenter extends JPanel{
         header.add(panel, BorderLayout.CENTER);
     }
     private void composeCenter() {
-
         tableDisplay = new EditableTableDisplay(this);
         EditableTableModel model = loadData();
         tableDisplay.setTableModel(model);
         tableDisplay.setPanel(this);
-        if(stuIds == null){
-            System.out.println("null");
-        }
-//        tableDisplay.getAdapter().setCellColorRender(new TableCellRender());
-        tableDisplay.getAdapter().getTableModel().getModel().addTableModelListener(new GradeListener(gradeList,stuIds,"All"));
+        tableDisplay.getAdapter().getTableModel().getModel().addTableModelListener(GradeListener.getGradeListenerInstance(gradeList,"All"));
     }
     private EditableTableModel loadData() {
         GetAllAssignmentForStudentInClass query = new GetAllAssignmentForStudentInClass(course.getClassModel().ClassID);
@@ -121,8 +115,7 @@ public class GradeCenter extends JPanel{
                 newGrade.addGrade(grade);
                 gradeList.put(stuId, newGrade);
             }
-            ExcelViewModel excelModel = constructExcelView(gradeList, colSet,stuIds);
-//            stuIds = excelModel.getStuId();
+            ExcelViewModel excelModel = constructExcelView(gradeList, colSet);
             EditableTableModel model = new EditableTableModel(excelModel.getCols(),excelModel.getData());
             for(int j=1;j<excelModel.getColCounts();j++){
                 model.addEditableCol(j);
@@ -131,11 +124,8 @@ public class GradeCenter extends JPanel{
         }
 
     }
-    public static ExcelViewModel constructExcelView(Map<Integer, GradeModel> gradeList, Set<String> colSet, List<Integer> stuIds){
+    public static ExcelViewModel constructExcelView(Map<Integer, GradeModel> gradeList, Set<String> colSet){
         List<String> colNames = new ArrayList<>();
-        for(int id:stuIds){
-            stuIds.remove(id);
-        }
         colNames.add("Name");
         for(int stuId :gradeList.keySet()){
             GradeModel grade = gradeList.get(stuId);
@@ -155,7 +145,6 @@ public class GradeCenter extends JPanel{
         for(int stuId :gradeList.keySet()) {
             GradeModel grade = gradeList.get(stuId);
             List<Grade> grades = grade.getGrades();
-            stuIds.add(stuId);
             data[i][0] = grade.getStudent().getFirstName()+" "+grade.getStudent().getLastName();
             for(int j = 1;j<colNames.size();j++){
                 data[i][j] = grades.get(j-1).getLostPoints();
@@ -167,46 +156,9 @@ public class GradeCenter extends JPanel{
         for(int j = 0;j<cols.length;j++){
             cols[j] = colNames.get(j);
         }
-        ExcelViewModel viewModel = new ExcelViewModel(cols,data,colSet);
-
-        return viewModel;
+        return new ExcelViewModel(cols,data,colSet);
     }
-    public static ExcelViewModel constructGradingView(Map<Integer, GradeModel> gradeList, List<Integer> stuIds){
-        String[] cols = new String[]{"Name","Assignment","Max Points","Lost Points"};
 
-        int totalLength = 0;
-        for(int stuId :gradeList.keySet()){
-            totalLength += gradeList.get(stuId).getGradesCount();
-        }
-        Object[][] data = new Object[totalLength][cols.length];
-        int i = 0;
-        for (int stuId :gradeList.keySet()){
-            GradeModel grade = gradeList.get(stuId);
-            List<Grade> info = grade.getGrades();
-            stuIds.add(stuId);
-            for (int j=0;j<info.size();j++){
-                Assignment assignment = info.get(j).getAssignment();
-                data[i][0] = grade.getStudent().getFirstName()+" "+grade.getStudent().getLastName();
-                data[i][1] = assignment.getName();
-                data[i][2] = assignment.getMaxPoints();
-                data[i][3] = info.get(j).getLostPoints();
-                i++;
-            }
-        }
-        for(int k=0;k<data.length;k++){
-            for(int j=0;j<data[k].length;j++){
-                if(data[k][j] == null){
-                    System.out.print(k+" "+j+" null");
-                } else {
-                    System.out.print(data[k][j]+" ");
-                }
-            }
-            System.out.println();
-        }
-        ExcelViewModel viewModel = new ExcelViewModel(cols,data,new HashSet<>());
-
-        return viewModel;
-    }
     public CourseNode getCourse() {
     	return this.course;
     }
@@ -215,55 +167,74 @@ public class GradeCenter extends JPanel{
 class GradeListener implements TableModelListener {
     private Map<Integer,GradeModel> map;
     private String filter;
-    private List<Integer> stuIds;
-    GradeListener(Map<Integer,GradeModel> map,List<Integer> studentIds, String filter){
+    private List<Integer> gradeIds;
+    private static GradeListener gradeListenerInstance;
+
+    private GradeListener(Map<Integer,GradeModel> map,String filter){
         this.filter = filter;
         this.map = map;
-        this.stuIds = studentIds;
+        this.gradeIds = new ArrayList<>();
+    }
+    public static GradeListener getGradeListenerInstance(Map<Integer,GradeModel> map,String filter){
+        if(gradeListenerInstance == null){
+            gradeListenerInstance = new GradeListener(map,filter);
+        } else{
+            gradeListenerInstance.setFilter(filter);
+            gradeListenerInstance.setMap(map);
+        }
+        return gradeListenerInstance;
     }
 
+    public void setMap(Map<Integer, GradeModel> map) {
+        this.map = map;
+    }
+
+    public void setFilter(String filter){
+        this.filter = filter;
+    }
+    public void setGradeIds(List<Integer> gradeIdList){
+        this.gradeIds = gradeIdList;
+    }
     @Override
     public void tableChanged(TableModelEvent e) {
         int row = e.getFirstRow();
         int col = e.getColumn();
         TableModel model = (TableModel)e.getSource();
         Object data = model.getValueAt(row, col);
+        String name = (String) model.getValueAt(row, 0);
+        GetStudentByName queryStudent = new GetStudentByName(name);
+        Student temp = queryStudent.execute().get(0);
+        GradeModel changedModel = map.get(temp.getStudentID());
+        Grade changedGrade;
+
         if(filter.equals("All")){
-            GradeModel changedModel = map.get(stuIds.get(row));
-            Grade changedGrade = changedModel.getGrades().get(col-1);
-            int assignmentId = changedGrade.getAssignment().getAssignmentId();
-            int studentId = changedGrade.getStudent().getStudentID();
-            changedGrade.setLostPoints((int) data);
-            GetGrade query = new GetGrade(assignmentId, studentId);
-            List<Integer> res = query.execute();
-            if(res.size() == 0){
-                InsertGrade iGrade = new InsertGrade(assignmentId, studentId);
-                iGrade.execute();
-            }
-            UpdateGrade uGrade = new UpdateGrade((int) data, assignmentId, studentId);
-            uGrade.execute();
-//        } else {
-//            switch (col){
-//                case 0:
-//                    form.get(row).setName((String) data);
-//                    break;
-//                case 1:
-//                    form.get(row).setMaxPoints((Integer) data);
-//                    break;
-//                case 2:
-//                    form.get(row).setWeight((Integer) data);
-//                    break;
-//            }
+            changedGrade = changedModel.getGrades().get(col-1);
+            changedModel.setGrade(col-1,changedGrade);
+        } else {
+            changedGrade = changedModel.getGrades().get(gradeIds.get(row));
+            changedModel.setGrade(gradeIds.get(row),changedGrade);
         }
 
+        int assignmentId = changedGrade.getAssignment().getAssignmentId();
+        int studentId = changedGrade.getStudent().getStudentID();
+        changedGrade.setLostPoints((int) data);
+        map.put(temp.getStudentID(),changedModel);
 
-//        UpdateAssignment query = new UpdateAssignment(form.get(row));
-//        query.execute();
+        GetGrade query = new GetGrade(assignmentId, studentId);
+        List<Integer> res = query.execute();
+        if(res.size() == 0){
+            InsertGrade iGrade = new InsertGrade(assignmentId, studentId);
+            iGrade.execute();
+        }
+        UpdateGrade uGrade = new UpdateGrade((int) data, assignmentId, studentId);
+        uGrade.execute();
+
     }
 }
 class TableCellRender extends DefaultTableCellRenderer {
     private Color background = getBackground();
     private Color  foreground = getForeground();
+
     public Component getTableCellRendererComponent(
             JTable table, Object value, boolean isSelected,
             boolean hasFocus, int row, int column)
@@ -289,14 +260,14 @@ class JComboBoxListener implements ActionListener{
     private Object[][] data;
     private int filterIndex;
     private List<Integer> stuIds;
-    public JComboBoxListener(Map<Integer,GradeModel> map, EditableTableDisplay tableDisplay, int filterindex,List<Integer> stuIds){
+    public JComboBoxListener(Map<Integer,GradeModel> map, EditableTableDisplay tableDisplay, int filterindex){
         this.map = map;
         this.tableDisplay = tableDisplay;
         this.filterIndex=filterindex;
-        ExcelViewModel viewModel = GradeCenter.constructGradingView(map,stuIds);
+        this.stuIds = new ArrayList<>();
+        ExcelViewModel viewModel = constructGradingView(map);
         cols = viewModel.getCols();
         data = viewModel.getData();
-        this.stuIds = stuIds;
     }
     public void actionPerformed(ActionEvent e) {
         JComboBox cb = (JComboBox)e.getSource();
@@ -307,13 +278,20 @@ class JComboBoxListener implements ActionListener{
     private void updateLabel(String filter){
 
         if(filter.equals("All")){
-            ExcelViewModel excelModel = GradeCenter.constructExcelView(map, new HashSet<>(),stuIds);
+            ExcelViewModel excelModel = GradeCenter.constructExcelView(map, new HashSet<>());
             EditableTableModel model = new EditableTableModel(excelModel.getCols(),excelModel.getData());
+            for(int j=1;j<excelModel.getColCounts();j++){
+                model.addEditableCol(j);
+            }
             tableDisplay.setTableModel(model);
 //            tableDisplay.getAdapter().setCellColorRender(new TableCellRender());
+            GradeListener currentGradeListener = GradeListener.getGradeListenerInstance(map,"All");
+            tableDisplay.getAdapter().getTableModel().getModel().removeTableModelListener(currentGradeListener);
+            tableDisplay.getAdapter().getTableModel().getModel().addTableModelListener(currentGradeListener);
             return;
         }
-        GradeCenter.constructGradingView(map,stuIds);
+        ExcelViewModel excelModel = constructGradingView(map);
+        data = excelModel.getData();
         int leng = data[0].length;
         List<Integer> list = new ArrayList<>();
         List<Integer> indexList = new ArrayList<>();
@@ -333,7 +311,36 @@ class JComboBoxListener implements ActionListener{
         model.addEditableCol(3);
         tableDisplay.setTableModel(model);
         tableDisplay.getAdapter().setCellColorRender(new TableCellRender());
-        tableDisplay.getAdapter().getTableModel().getModel().addTableModelListener(new GradeListener(map,list,filter));
+
+        GradeListener currentGradeListener = GradeListener.getGradeListenerInstance(map,filter);
+        tableDisplay.getAdapter().getTableModel().getModel().removeTableModelListener(currentGradeListener);
+        currentGradeListener.setGradeIds(list);
+        tableDisplay.getAdapter().getTableModel().getModel().addTableModelListener(currentGradeListener);
+    }
+    private ExcelViewModel constructGradingView(Map<Integer, GradeModel> gradeList){
+        String[] cols = new String[]{"Name","Assignment","Max Points","Lost Points"};
+        stuIds = new ArrayList<>();
+        int totalLength = 0;
+        for(int stuId :gradeList.keySet()){
+            totalLength += gradeList.get(stuId).getGradesCount();
+        }
+        Object[][] data = new Object[totalLength][cols.length];
+        int i = 0;
+        for (int stuId :gradeList.keySet()){
+            GradeModel grade = gradeList.get(stuId);
+            List<Grade> info = grade.getGrades();
+            for (int j=0;j<info.size();j++){
+                Assignment assignment = info.get(j).getAssignment();
+                data[i][0] = grade.getStudent().getFirstName()+" "+grade.getStudent().getLastName();
+                data[i][1] = assignment.getName();
+                data[i][2] = assignment.getMaxPoints();
+                data[i][3] = info.get(j).getLostPoints();
+                stuIds.add(j);
+                i++;
+            }
+        }
+        return new ExcelViewModel(cols,data,new HashSet<>());
+
     }
 
 }
