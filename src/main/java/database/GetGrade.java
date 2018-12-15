@@ -27,6 +27,7 @@ public class GetGrade extends SQLQuery<Integer>  {
 
     @Override
     public String getQueryString() {
-        return "SELECT * FROM Grade WHERE AssignmentID = "+assignmentId+" AND StudentID = "+studentId;
+        return "SELECT * FROM Grade " +
+                "WHERE AssignmentID = "+assignmentId+" AND StudentID = "+studentId;
     }
 }
