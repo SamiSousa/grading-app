@@ -24,6 +24,15 @@ public class Student implements TableReady {
 		this.year = year;
 	}
 	
+	public Student(int studentID, String[] data) {
+		this.studentID = studentID;
+		this.firstName = data[0];
+		this.lastName = data[1];
+		this.buID = data[2];
+		this.email = data[3];
+		this.year = data[4];
+	}
+	
 	public String getFirstName() {
 		return this.firstName;
 	}
@@ -80,8 +89,8 @@ public class Student implements TableReady {
 		while(it.hasNext()) {
 			String[] studentInfo = it.next();
 			students[i] = new Student(-1, studentInfo[0], studentInfo[1], studentInfo[2], studentInfo[3], studentInfo[4]);
-			i++;
 			System.out.println(students[i]);
+			i++;
 		}
 		
 		return students;
@@ -90,7 +99,18 @@ public class Student implements TableReady {
 	public Object[] getDataRow() {
 		Object[] row = new Object[5];
 		
-		/* TODO: fill in row with data fields */
+		row[0] = this.firstName;
+		row[1] = this.lastName;
+		row[2] = this.buID;
+		row[3] = this.email;
+		row[4] = this.year;
+		
+		return row;
+	}
+	
+	public String[] getDataRowString() {
+		String[] row = new String[5];
+		
 		row[0] = this.firstName;
 		row[1] = this.lastName;
 		row[2] = this.buID;

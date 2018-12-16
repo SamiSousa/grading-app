@@ -34,8 +34,13 @@ public class AddStudentDialog extends JDialog {
         btnAdd.addActionListener(e -> {
             String[] studentData = getStudentData();
             studentFile = getStudentFile();
-            addedStudent = InsertStudentIntoClass.insert(studentData, classID);
-            succeed = true;
+            // If file is valid, add students from file
+            if (studentFile != null) {
+            	succeed = true;
+            } else {
+            	addedStudent = new Student(-1, studentData);
+            	succeed = true;
+            }
             dispose();
         });
         JButton btnCancel = new JButton("Cancel");
@@ -153,9 +158,9 @@ public class AddStudentDialog extends JDialog {
         		txEmail.getText().length() > 0 && txYear.getText().length() > 0) {
             studentData[0] = txFirst.getText();
             studentData[1] = txLast.getText();
-            studentData[2] = txEmail.getText();
-            studentData[3] = txYear.getText();
-            studentData[4] = txId.getText();
+            studentData[2] = txId.getText();
+            studentData[3] = txEmail.getText();
+            studentData[4] = txYear.getText();
     	}
     	return studentData;
     }

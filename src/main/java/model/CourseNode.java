@@ -7,6 +7,7 @@ import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 
 import data.Student;
+import database.InsertStudentIntoClass;
 import view.ClassConfig;
 import view.GradeCenter;
 import view.StudentInfo;
@@ -14,6 +15,7 @@ import view.StudentInfo;
 import java.awt.event.*;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class CourseNode extends DefaultMutableTreeNode {
 
@@ -46,7 +48,8 @@ public class CourseNode extends DefaultMutableTreeNode {
 
     public void addStudent(Student student) {
     	if (student != null) {
-			this.students.add(student);
+			Student withId = InsertStudentIntoClass.insert(student.getDataRowString(), classModel.ClassID);
+			this.students.add(withId);
 			needsUpdate = true;
     	}
     }
