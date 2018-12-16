@@ -24,6 +24,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 import java.util.List;
 
@@ -74,8 +77,42 @@ public class GradeCenter extends JPanel{
         cs.gridwidth = 2;
         panel.add(dropMenu, cs);
 
+        JButton export = new JButton("Export to excel");
+        export.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                File scores = new File("scores.xls");
+                toExcel(tableDisplay.getAdapter().getTableModel(),scores);
+            }
+        });
+        cs.gridx = 3;
+        cs.gridy = 1;
+        panel.add(export,cs);
+
         header.add(lbClassName, BorderLayout.NORTH);
         header.add(panel, BorderLayout.CENTER);
+    }
+    private void toExcel(JTable table, File file){
+        try{
+            TableModel model = table.getModel();
+            FileWriter excel = new FileWriter(file);
+
+            for(int i = 0; i < model.getColumnCount(); i++){
+                excel.write(model.getColumnName(i) + "\t");
+            }
+
+            excel.write("\n");
+
+            for(int i=0; i< model.getRowCount(); i++) {
+                for(int j=0; j < model.getColumnCount(); j++) {
+                    excel.write(model.getValueAt(i,j).toString()+"\t");
+                }
+                excel.write("\n");
+            }
+
+            excel.close();
+
+        }catch(IOException e){ System.out.println(e); }
     }
     private void composeCenter() {
         tableDisplay = new EditableTableDisplay(this);

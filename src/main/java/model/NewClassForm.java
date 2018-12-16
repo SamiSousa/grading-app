@@ -32,7 +32,7 @@ public class NewClassForm extends JPanel{
         cs.gridwidth = 1;
         panel.add(lbClassName, cs);
 
-        txClassName = new JTextField("",25);
+        txClassName = new JTextField("",10);
         cs.gridx = 1;
         cs.gridy = 1;
         cs.gridwidth = 2;
@@ -46,7 +46,7 @@ public class NewClassForm extends JPanel{
         cs.gridwidth = 1;
         panel.add(lbStudents, cs);
 
-        txStudentFileName = new JTextField("",25);
+        txStudentFileName = new JTextField("",10);
         cs.gridx = 1;
         cs.gridy = 2;
         cs.gridwidth = 1;
@@ -72,38 +72,6 @@ public class NewClassForm extends JPanel{
 
         add(panel,BorderLayout.NORTH);
 
-//        String[] configName = {"Assignment Category",
-//                "Assignment",
-//                "Weight",
-//                "Max points"
-//                };
-//        Object[][] configValue = {
-//                {"Midterm", "Midterm",
-//                        new Integer(20), new Integer(100)},
-//                {"Project", "p1",
-//                        new Integer(10), new Integer(100)},
-//                {"Project", "p2",
-//                        new Integer(15), new Integer(100)},
-//                {"Final", "Final",
-//                        new Integer(50), new Integer(100)},
-//                {"Attendance", "attendance",
-//                        new Integer(5), new Integer(40)},
-//        };
-//        JPanel tablePanel = new JPanel();
-//        tablePanel.setPreferredSize(new Dimension(200,120));
-//        tablePanel.setMaximumSize(new Dimension(200,120));
-//        tableModel = new EditableTableModel(configName,configValue);
-//        tableModel.addEditableCol(0);
-//        tableModel.addEditableCol(1);
-//        tableModel.addEditableCol(2);
-//        tableModel.addEditableCol(3);
-//        EditableTableDisplay display = new EditableTableDisplay(this);
-//        display.setTableModel(tableModel);
-//        display.setPanel(tablePanel);
-//
-//        add(tablePanel,BorderLayout.CENTER);
-        setPreferredSize(new Dimension(500,200));
-        setMaximumSize(new Dimension(500,200));
     }
     
     public String getClassName() {

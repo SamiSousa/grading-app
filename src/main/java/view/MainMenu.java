@@ -114,9 +114,6 @@ public class MainMenu{
         DefaultMutableTreeNode cur = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
 
         TreePath tp = tree.getPathForLocation(me.getX(), me.getY());
-        String classString = tp.getPathComponent(1).toString();
-        System.out.println(classString);
-
 
         if (cur != null) {
             if (cur.toString().equals(newCourseNode().toString())) {
