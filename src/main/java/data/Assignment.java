@@ -44,7 +44,11 @@ public class Assignment implements TableReady {
 	public Integer getMaxPoints() {
 		return this.maxPoints;
 	}
-	
+
+	public Integer getCategoryId() {
+		return categoryId;
+	}
+
 	public Object[] getDataRow() {
 		Object[] row = new Object[3];
 		

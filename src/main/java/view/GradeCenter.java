@@ -1,5 +1,6 @@
 package view;
 
+import com.sun.tools.jdi.IntegerValueImpl;
 import component.EditableTableDisplay;
 import component.collector.TableDataCollector;
 import data.Assignment;
@@ -67,7 +68,7 @@ public class GradeCenter extends JPanel{
         filterList.add("All");
         JComboBox dropMenu = new JComboBox(filterList.toArray());
         dropMenu.setSelectedItem("All");
-        dropMenu.addActionListener(new JComboBoxListener(gradeList,tableDisplay,1));
+        dropMenu.addActionListener(new JComboBoxListener(gradeList,tableDisplay,1, this.getCourse().getClassModel().ClassID));
         cs.gridx = 1;
         cs.gridy = 1;
         cs.gridwidth = 2;
@@ -115,7 +116,12 @@ public class GradeCenter extends JPanel{
                 newGrade.addGrade(grade);
                 gradeList.put(stuId, newGrade);
             }
-            ExcelViewModel excelModel = constructExcelView(gradeList, colSet);
+
+            //TODO connor set final grades
+            Map<Integer, Double> finalGrades = calculateFinalGrades(gradeList, this.course.getClassModel().ClassID);
+
+
+            ExcelViewModel excelModel = constructExcelView(gradeList, colSet, finalGrades);
             EditableTableModel model = new EditableTableModel(excelModel.getCols(),excelModel.getData());
             for(int j=1;j<excelModel.getColCounts();j++){
                 model.addEditableCol(j);
@@ -124,7 +130,29 @@ public class GradeCenter extends JPanel{
         }
 
     }
-    public static ExcelViewModel constructExcelView(Map<Integer, GradeModel> gradeList, Set<String> colSet){
+
+    public static Map<Integer, Double> calculateFinalGrades(Map<Integer, GradeModel> grades, int classID) {
+        GetCategoriesInClass categories = new GetCategoriesInClass(classID);
+        List<Map.Entry<Integer, Integer>> categoryWeightsList = categories.execute();
+        Map<Integer, Integer> categoryWeights = new HashMap<>();
+        for(Map.Entry<Integer, Integer> entry: categoryWeightsList) {
+            categoryWeights.put(entry.getKey(), entry.getValue());
+        }
+
+
+        Map<Integer, Double> finalGrades = new HashMap<Integer, Double>();
+        for(Integer studentID: grades.keySet()) {
+            List<Grade> gradeList = grades.get(studentID).getGrades();
+            double finalGrade = 0;
+            for(Grade g: gradeList) {
+                double gradeDouble = (g.getAssignment().getMaxPoints() - g.getLostPoints()) * g.getAssignment().getWeight() * 1.0/ 100;
+                finalGrade += gradeDouble * categoryWeights.get(g.getAssignment().getCategoryId())* 1.0 / 100;
+            }
+            finalGrades.put(studentID, finalGrade);
+        }
+        return finalGrades;
+    }
+    public static ExcelViewModel constructExcelView(Map<Integer, GradeModel> gradeList, Set<String> colSet, Map<Integer, Double> finalGrades){
         List<String> colNames = new ArrayList<>();
         colNames.add("Name");
         for(int stuId :gradeList.keySet()){
@@ -140,15 +168,18 @@ public class GradeCenter extends JPanel{
             }
             break;
         }
+        colNames.add("Final Grade");
         Object[][] data = new Object[gradeList.size()][colNames.size()];
         int i = 0;
         for(int stuId :gradeList.keySet()) {
             GradeModel grade = gradeList.get(stuId);
             List<Grade> grades = grade.getGrades();
             data[i][0] = grade.getStudent().getFirstName()+" "+grade.getStudent().getLastName();
-            for(int j = 1;j<colNames.size();j++){
+            for(int j = 1;j<colNames.size()-1;j++){
                 data[i][j] = grades.get(j-1).getLostPoints();
             }
+
+            data[i][colNames.size()-1] = finalGrades.get(stuId);
             i++;
         }
 
@@ -260,10 +291,12 @@ class JComboBoxListener implements ActionListener{
     private Object[][] data;
     private int filterIndex;
     private List<Integer> stuIds;
-    public JComboBoxListener(Map<Integer,GradeModel> map, EditableTableDisplay tableDisplay, int filterindex){
+    private int classID;
+    public JComboBoxListener(Map<Integer,GradeModel> map, EditableTableDisplay tableDisplay, int filterindex, int classID){
         this.map = map;
         this.tableDisplay = tableDisplay;
         this.filterIndex=filterindex;
+        this.classID = classID;
         this.stuIds = new ArrayList<>();
         ExcelViewModel viewModel = constructGradingView(map);
         cols = viewModel.getCols();
@@ -278,7 +311,9 @@ class JComboBoxListener implements ActionListener{
     private void updateLabel(String filter){
 
         if(filter.equals("All")){
-            ExcelViewModel excelModel = GradeCenter.constructExcelView(map, new HashSet<>());
+            //TODO connor set final grades
+            Map<Integer, Double> finalGrades = GradeCenter.calculateFinalGrades(map, this.classID);
+            ExcelViewModel excelModel = GradeCenter.constructExcelView(map, new HashSet<>(), finalGrades);
             EditableTableModel model = new EditableTableModel(excelModel.getCols(),excelModel.getData());
             for(int j=1;j<excelModel.getColCounts();j++){
                 model.addEditableCol(j);
