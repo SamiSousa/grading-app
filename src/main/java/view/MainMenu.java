@@ -71,10 +71,7 @@ public class MainMenu{
         root.add(newSemesterNode());
         tree = new JTree(root);
         tree.setRootVisible(false);
-        
-//        setCourseView(node1, node1.getGradeCenter());
 
-//        System.out.println(MainMenu.class.getResource(""));
 
         ImageIcon listIcon = new ImageIcon(new ImageIcon(getClass().getClassLoader().getResource("004-list.png")).getImage().getScaledInstance(18, 18, Image.SCALE_SMOOTH));
         ImageIcon studentIcon = new ImageIcon(new ImageIcon(getClass().getClassLoader().getResource("003-pass.png")).getImage().getScaledInstance(18, 18, Image.SCALE_SMOOTH));
@@ -87,9 +84,6 @@ public class MainMenu{
 
         tree.setCellRenderer(renderer);
         tree.setShowsRootHandles(true);
-
-//        expandToCourseLevel(semester);
-
         tree.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent me) {
                 if (me.getClickCount() == 2){
@@ -114,9 +108,6 @@ public class MainMenu{
         DefaultMutableTreeNode cur = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
 
         TreePath tp = tree.getPathForLocation(me.getX(), me.getY());
-        String classString = tp.getPathComponent(1).toString();
-        System.out.println(classString);
-
 
         if (cur != null) {
             if (cur.toString().equals(newCourseNode().toString())) {
@@ -186,11 +177,7 @@ public class MainMenu{
     }
     public void setPanel(JPanel panel){
         JScrollPane treePanel = new JScrollPane((JTree) tree);
-//        treePanel.setLayout(new GridLayout(0, 1));
-
         panel.add(treePanel);
-//        setLayout(new BorderLayout());
-//        add(new JScrollPane((JTree) tree), "Center");
     }
     private void expandToCourseLevel(DefaultMutableTreeNode currentNode) {
         if(currentNode == null) return;

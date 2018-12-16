@@ -1,10 +1,6 @@
 package component;
 
-import database.InsertStudentIntoClass;
-import model.NewClassForm;
-
 import javax.swing.*;
-import javax.swing.border.LineBorder;
 
 import data.Student;
 
@@ -28,7 +24,13 @@ public class AddStudentDialog extends JDialog {
     public AddStudentDialog(Frame parent, int classID) {
         super(parent, "Add student", true);
 
+        JPanel panel = new JPanel(new BorderLayout());
         JPanel studentForm = populateForm();
+        JPanel loadForm = setLoadFromFile();
+        panel.add(studentForm,BorderLayout.CENTER);
+        panel.add(loadForm,BorderLayout.PAGE_END);
+        panel.setMaximumSize(new Dimension(30,10));
+
         JButton btnAdd = new JButton("Submit");
 
         btnAdd.addActionListener(e -> {
@@ -53,7 +55,7 @@ public class AddStudentDialog extends JDialog {
         bp.add(btnAdd);
         bp.add(btnCancel);
 
-        getContentPane().add(studentForm, BorderLayout.CENTER);
+        getContentPane().add(panel, BorderLayout.CENTER);
         getContentPane().add(bp, BorderLayout.PAGE_END);
 
         pack();
@@ -69,14 +71,14 @@ public class AddStudentDialog extends JDialog {
     }
     
 	private JPanel populateForm() {
-        JPanel form = new JPanel(new GridLayout(4, 5));
+        JPanel form = new JPanel(new GridLayout());
         GridBagConstraints cs = new GridBagConstraints();
         cs.fill = GridBagConstraints.HORIZONTAL;
 
         JLabel lbFirst = new JLabel("First Name: ");
         cs.gridx = 0; cs.gridy = 1;
         form.add(lbFirst, cs);
-        txFirst = new JTextField("",25);
+        txFirst = new JTextField("",5);
         cs.gridx = 0; cs.gridy = 2;
         form.add(txFirst,cs);
         lbFirst.setLabelFor(txFirst);
@@ -84,7 +86,7 @@ public class AddStudentDialog extends JDialog {
         JLabel lbLast = new JLabel("Last Name: ");
         cs.gridx = 1; cs.gridy = 1;
         form.add(lbLast, cs);
-        txLast = new JTextField("",25);
+        txLast = new JTextField("",5);
         cs.gridx = 1; cs.gridy = 2;
         form.add(txLast,cs);
         lbLast.setLabelFor(txLast);
@@ -92,7 +94,7 @@ public class AddStudentDialog extends JDialog {
         JLabel lbId = new JLabel("Student ID: ");
         cs.gridx = 2; cs.gridy = 1;
         form.add(lbId, cs);
-        txId = new JTextField("",25);
+        txId = new JTextField("",5);
         cs.gridx = 2; cs.gridy = 2;
         form.add(txId,cs);
         lbId.setLabelFor(txId);
@@ -100,7 +102,7 @@ public class AddStudentDialog extends JDialog {
         JLabel lbEmail = new JLabel("Email: ");
         cs.gridx = 3; cs.gridy = 1;
         form.add(lbEmail, cs);
-        txEmail = new JTextField("",25);
+        txEmail = new JTextField("",5);
         cs.gridx = 3; cs.gridy = 2;
         form.add(txEmail,cs);
         lbEmail.setLabelFor(txEmail);
@@ -108,49 +110,49 @@ public class AddStudentDialog extends JDialog {
         JLabel lbYear = new JLabel("Year: ");
         cs.gridx = 4; cs.gridy = 1;
         form.add(lbYear, cs);
-        txYear = new JTextField("",25);
+        txYear = new JTextField("",5);
         cs.gridx = 4; cs.gridy = 2;
         form.add(txYear,cs);
         lbYear.setLabelFor(txYear);
-        
+
+        return form;
+	}
+    private JPanel setLoadFromFile(){
+        JPanel loadPanel = new JPanel(new GridLayout());
+        GridBagConstraints cs = new GridBagConstraints();
+        cs.fill = GridBagConstraints.HORIZONTAL;
         JLabel lbStudents = new JLabel("Load Students from File: ");
         cs.gridx = 0;
-        cs.gridy = 3;
-        form.add(lbStudents, cs);
+        cs.gridy = 1;
+        loadPanel.add(lbStudents, cs);
 
-        txStudentFileName = new JTextField("",25);
+        txStudentFileName = new JTextField("",5);
         cs.gridx = 1;
-        cs.gridy = 3;
-        cs.gridwidth = 3;
-        form.add(txStudentFileName,cs);
-        
+        cs.gridy = 1;
+        cs.gridwidth = 1;
+        loadPanel.add(txStudentFileName,cs);
+
         JButton fileSelectButton = new JButton("Select File");
         fileSelectButton.setActionCommand("selectfile");
         fileSelectButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	System.out.println("Selecting student file...");
-        		int returnVal = fc.showOpenDialog(null);
-            	if (returnVal == JFileChooser.APPROVE_OPTION) {
-            		studentFile = fc.getSelectedFile();
-            		txStudentFileName.setText(fc.getSelectedFile().getAbsolutePath());
-            	} else {
-            		System.out.println("Cancelled file select");
-            	}
+                System.out.println("Selecting student file...");
+                int returnVal = fc.showOpenDialog(null);
+                if (returnVal == JFileChooser.APPROVE_OPTION) {
+                    studentFile = fc.getSelectedFile();
+                    txStudentFileName.setText(fc.getSelectedFile().getAbsolutePath());
+                } else {
+                    System.out.println("Cancelled file select");
+                }
             }
         });
-        
-        cs.gridx = 4; cs.gridy = 3; cs.gridwidth = 1;
-        form.add(fileSelectButton, cs);
-        
+        cs.gridx = 0;
+        cs.gridy = 2;
+        loadPanel.add(fileSelectButton,cs);
         lbStudents.setLabelFor(txStudentFileName);
+        return loadPanel;
 
-        add(form,BorderLayout.NORTH);
-
-        setPreferredSize(new Dimension(500,200));
-        setMaximumSize(new Dimension(500,200));
-        return form;
-	}
-
+    }
     public String[] getStudentData() {
     	// Check that each field is at least partially filled
         String[] studentData = new String[5];

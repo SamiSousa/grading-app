@@ -3,7 +3,6 @@ package model;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.KeyEvent;
 
 public class NewAssignmentForm extends JPanel{
     private JTextField txAssignmentName;

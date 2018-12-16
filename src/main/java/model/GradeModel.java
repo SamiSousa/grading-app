@@ -1,6 +1,5 @@
 package model;
 
-import data.Assignment;
 import data.Grade;
 import data.Student;
 

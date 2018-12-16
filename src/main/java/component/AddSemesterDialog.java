@@ -1,25 +1,18 @@
 package component;
 
 import java.awt.BorderLayout;
-import java.awt.Dialog;
-import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.File;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
 
-import data.Student;
 
 public class AddSemesterDialog extends JDialog {
     private boolean closed;
@@ -34,7 +27,7 @@ public class AddSemesterDialog extends JDialog {
         JLabel lbSemester = new JLabel("Semester Name: ");
         panel.add(lbSemester);
         
-        txSemester = new JTextField("", 25);
+        txSemester = new JTextField("", 10);
         panel.add(txSemester);
         lbSemester.setLabelFor(txSemester);
         
@@ -42,7 +35,6 @@ public class AddSemesterDialog extends JDialog {
         btnAdd.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
-            // todo submit new student(s) here
                 String name = getSemesterName();
                 if (name == null || name.isEmpty()) {
                 	closed = true;
@@ -64,9 +56,6 @@ public class AddSemesterDialog extends JDialog {
         JPanel bp = new JPanel();
         bp.add(btnAdd);
         bp.add(btnCancel);
-        
-        panel.setPreferredSize(new Dimension(500,200));
-        panel.setMaximumSize(new Dimension(500,200));
 
         getContentPane().add(panel, BorderLayout.CENTER);
         getContentPane().add(bp, BorderLayout.PAGE_END);
