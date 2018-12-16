@@ -34,10 +34,6 @@ public class AddStudentDialog extends JDialog {
         btnAdd.addActionListener(e -> {
             String[] studentData = getStudentData();
             studentFile = getStudentFile();
-            if(studentFile != null) {
-                loadStudents(studentFile);
-
-            }
             addedStudent = InsertStudentIntoClass.insert(studentData, classID);
             succeed = true;
             dispose();
@@ -173,10 +169,6 @@ public class AddStudentDialog extends JDialog {
     		return studentFile;
     	}
     	return null;
-    }
-
-    public void loadStudents(File studentFile) {
-
     }
     public boolean isClosed() {
         return closed;
