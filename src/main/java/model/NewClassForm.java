@@ -1,14 +1,9 @@
 package model;
 
-import component.EditableTableDisplay;
-import component.Login;
-import component.LoginDialog;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 
 public class NewClassForm extends JPanel{
@@ -25,7 +20,7 @@ public class NewClassForm extends JPanel{
         txClassName = new JTextField("",10);
         JPanel namePanel = setNamePanel(txClassName,"Class Name: ");
         JPanel studentPanel = setNamePanel(txStudentFileName,"Student Filename: ");
-        
+
         JButton fileSelectButton = new JButton("Select File");
         fileSelectButton.setActionCommand("selectfile");
         fileSelectButton.addActionListener(e -> {

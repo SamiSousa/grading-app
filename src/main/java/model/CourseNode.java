@@ -1,10 +1,7 @@
 package model;
 
-import javax.swing.*;
+
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreeNode;
-import javax.swing.tree.TreePath;
 
 import data.Student;
 import database.InsertStudentIntoClass;
@@ -12,10 +9,9 @@ import view.ClassConfig;
 import view.GradeCenter;
 import view.StudentInfo;
 
-import java.awt.event.*;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class CourseNode extends DefaultMutableTreeNode {
 

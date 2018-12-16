@@ -1,6 +1,5 @@
 package view;
 
-import component.NewAssignmentDialog;
 import component.NewCategoryDialog;
 import data.Assignment;
 import data.ClassCategory;
@@ -8,15 +7,10 @@ import database.GetAssignmentFromCategory;
 import database.GetClassCategoriesMap;
 import database.InsertCategoryIntoClass;
 import database.InsertNewAssignment;
-import model.AssignmentEntry;
 import model.ClassConfigCard;
 import model.CourseNode;
-import model.SemesterNode;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.*;
 import java.util.List;
 

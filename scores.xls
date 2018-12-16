@@ -1,4 +1,4 @@
-Name	Assignment	Max Points	Lost Points	
-Kathy Smith	assignment1	50	10	
-John Doe	assignment1	50	0	
-Mary Sue	assignment1	50	0	
+Name	assignment1 lostPoints (MP: 100)	assignment2 lostPoints (MP: 100)	project1 lostPoints (MP: 100)	midterm lostPoints (MP: 100)	final lostPoints (MP: 100)	Final Grade	
+Kathy Smith	10	0	0	0	0	98.5	
+John Doe	0	0	0	0	0	100.0	
+Mary Sue	0	0	0	0	0	100.0	

@@ -1,8 +1,6 @@
 package view;
 
-import com.sun.tools.jdi.IntegerValueImpl;
 import component.EditableTableDisplay;
-import component.collector.TableDataCollector;
 import data.Assignment;
 import data.Grade;
 import data.Student;
@@ -11,7 +9,6 @@ import model.CourseNode;
 import model.EditableTableModel;
 import model.ExcelViewModel;
 import model.GradeModel;
-import org.omg.CORBA.PRIVATE_MEMBER;
 
 import javax.swing.*;
 
@@ -22,8 +19,6 @@ import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -119,7 +114,7 @@ public class GradeCenter extends JPanel{
         EditableTableModel model = loadData();
         tableDisplay.setTableModel(model);
         tableDisplay.setPanel(this);
-        tableDisplay.getAdapter().getTableModel().getModel().addTableModelListener(GradeListener.getGradeListenerInstance(gradeList,"All"));
+        tableDisplay.getAdapter().getTableModel().getModel().addTableModelListener(GradeListener.getGradeListenerInstance(gradeList,"All",course.getClassModel().ClassID));
     }
     private EditableTableModel loadData() {
         GetAllAssignmentForStudentInClass query = new GetAllAssignmentForStudentInClass(course.getClassModel().ClassID);
@@ -157,7 +152,6 @@ public class GradeCenter extends JPanel{
             //TODO connor set final grades
             Map<Integer, Double> finalGrades = calculateFinalGrades(gradeList, this.course.getClassModel().ClassID);
 
-
             ExcelViewModel excelModel = constructExcelView(gradeList, colSet, finalGrades);
             EditableTableModel model = new EditableTableModel(excelModel.getCols(),excelModel.getData());
             for(int j=1;j<excelModel.getColCounts();j++){
@@ -175,7 +169,6 @@ public class GradeCenter extends JPanel{
         for(Map.Entry<Integer, Integer> entry: categoryWeightsList) {
             categoryWeights.put(entry.getKey(), entry.getValue());
         }
-
 
         Map<Integer, Double> finalGrades = new HashMap<Integer, Double>();
         for(Integer studentID: grades.keySet()) {
@@ -237,20 +230,27 @@ class GradeListener implements TableModelListener {
     private String filter;
     private List<Integer> gradeIds;
     private static GradeListener gradeListenerInstance;
+    private int classId;
 
-    private GradeListener(Map<Integer,GradeModel> map,String filter){
+    private GradeListener(Map<Integer,GradeModel> map,String filter, int classId){
         this.filter = filter;
         this.map = map;
         this.gradeIds = new ArrayList<>();
+        this.classId = classId;
     }
-    public static GradeListener getGradeListenerInstance(Map<Integer,GradeModel> map,String filter){
+    public static GradeListener getGradeListenerInstance(Map<Integer,GradeModel> map,String filter, int classId){
         if(gradeListenerInstance == null){
-            gradeListenerInstance = new GradeListener(map,filter);
+            gradeListenerInstance = new GradeListener(map,filter,classId);
         } else{
             gradeListenerInstance.setFilter(filter);
             gradeListenerInstance.setMap(map);
+            gradeListenerInstance.setClassId(classId);
         }
         return gradeListenerInstance;
+    }
+
+    public void setClassId(int classId) {
+        this.classId = classId;
     }
 
     public void setMap(Map<Integer, GradeModel> map) {
@@ -270,11 +270,13 @@ class GradeListener implements TableModelListener {
         TableModel model = (TableModel)e.getSource();
         Object data = model.getValueAt(row, col);
         String name = (String) model.getValueAt(row, 0);
-        GetStudentByName queryStudent = new GetStudentByName(name);
+        GetStudentByName queryStudent = new GetStudentByName(name,classId);
         Student temp = queryStudent.execute().get(0);
         GradeModel changedModel = map.get(temp.getStudentID());
         Grade changedGrade;
-
+        if(changedModel == null){
+            System.out.println(map.entrySet());
+        }
         if(filter.equals("All")){
             changedGrade = changedModel.getGrades().get(col-1);
             changedModel.setGrade(col-1,changedGrade);
@@ -357,7 +359,7 @@ class JComboBoxListener implements ActionListener{
             }
             tableDisplay.setTableModel(model);
 //            tableDisplay.getAdapter().setCellColorRender(new TableCellRender());
-            GradeListener currentGradeListener = GradeListener.getGradeListenerInstance(map,"All");
+            GradeListener currentGradeListener = GradeListener.getGradeListenerInstance(map,"All",classID);
             tableDisplay.getAdapter().getTableModel().getModel().removeTableModelListener(currentGradeListener);
             tableDisplay.getAdapter().getTableModel().getModel().addTableModelListener(currentGradeListener);
             return;
@@ -384,7 +386,7 @@ class JComboBoxListener implements ActionListener{
         tableDisplay.setTableModel(model);
         tableDisplay.getAdapter().setCellColorRender(new TableCellRender());
 
-        GradeListener currentGradeListener = GradeListener.getGradeListenerInstance(map,filter);
+        GradeListener currentGradeListener = GradeListener.getGradeListenerInstance(map,filter,classID);
         tableDisplay.getAdapter().getTableModel().getModel().removeTableModelListener(currentGradeListener);
         currentGradeListener.setGradeIds(list);
         tableDisplay.getAdapter().getTableModel().getModel().addTableModelListener(currentGradeListener);

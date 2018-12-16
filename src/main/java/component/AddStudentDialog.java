@@ -1,10 +1,6 @@
 package component;
 
-import database.InsertStudentIntoClass;
-import model.NewClassForm;
-
 import javax.swing.*;
-import javax.swing.border.LineBorder;
 
 import data.Student;
 
