@@ -34,7 +34,7 @@ public class AddSemesterDialog extends JDialog {
         JLabel lbSemester = new JLabel("Semester Name: ");
         panel.add(lbSemester);
         
-        txSemester = new JTextField("", 25);
+        txSemester = new JTextField("", 10);
         panel.add(txSemester);
         lbSemester.setLabelFor(txSemester);
         
@@ -42,7 +42,6 @@ public class AddSemesterDialog extends JDialog {
         btnAdd.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
-            // todo submit new student(s) here
                 String name = getSemesterName();
                 if (name == null || name.isEmpty()) {
                 	closed = true;
@@ -64,9 +63,6 @@ public class AddSemesterDialog extends JDialog {
         JPanel bp = new JPanel();
         bp.add(btnAdd);
         bp.add(btnCancel);
-        
-        panel.setPreferredSize(new Dimension(500,200));
-        panel.setMaximumSize(new Dimension(500,200));
 
         getContentPane().add(panel, BorderLayout.CENTER);
         getContentPane().add(bp, BorderLayout.PAGE_END);
