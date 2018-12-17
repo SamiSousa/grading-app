@@ -11,6 +11,7 @@ import model.ClassConfigCard;
 import model.CourseNode;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.*;
 import java.util.List;
 
@@ -128,6 +129,8 @@ public class ClassConfig extends JPanel{
             ClassConfigCard card = new ClassConfigCard((String)categoryInfo[0],(Integer)categoryInfo[1],(Integer) categoryInfo[2],courseId,assignmentInfo.get((String)categoryInfo[0]),thisComponent);
             categories.add(card);
             add(card);
+
+            add(Box.createRigidArea(new Dimension(5, 35)));
         }
     }
     private void loadClassConfig (List<ClassCategory> list) {
@@ -155,6 +158,7 @@ public class ClassConfig extends JPanel{
             ClassConfigCard card = new ClassConfigCard(c.getName(), c.getWeight(), c.getCategoryID(), courseId, assignmentInfo.get(c.getCategoryID()), thisComponent);
             categories.add(card);
             add(card);
+            add(Box.createRigidArea(new Dimension(5, 35)));
         }
 
 
