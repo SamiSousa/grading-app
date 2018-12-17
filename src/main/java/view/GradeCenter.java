@@ -66,7 +66,9 @@ public class GradeCenter extends JPanel{
         filterList.add("All");
         JComboBox dropMenu = new JComboBox(filterList.toArray());
         dropMenu.setSelectedItem("All");
-        dropMenu.addActionListener(new JComboBoxListener(gradeList,tableDisplay,1, this.getCourse().getClassModel().ClassID));
+        JComboBoxListener jcbl = new JComboBoxListener(gradeList,tableDisplay,1, this.getCourse().getClassModel().ClassID);
+        GradeListener.setJComboBoxListener(jcbl);
+        dropMenu.addActionListener(jcbl);
         cs.gridx = 1;
         cs.gridy = 1;
         cs.gridwidth = 2;
@@ -175,7 +177,7 @@ public class GradeCenter extends JPanel{
             List<Grade> gradeList = grades.get(studentID).getGrades();
             double finalGrade = 0;
             for(Grade g: gradeList) {
-                double gradeDouble = (g.getAssignment().getMaxPoints() - g.getLostPoints()) * g.getAssignment().getWeight() * 1.0/ 100;
+                double gradeDouble = (g.getAssignment().getMaxPoints() - g.getLostPoints()) * 1.0 /g.getAssignment().getMaxPoints() * g.getAssignment().getWeight();
                 finalGrade += gradeDouble * categoryWeights.get(g.getAssignment().getCategoryId())* 1.0 / 100;
             }
             finalGrades.put(studentID, finalGrade);
@@ -190,7 +192,7 @@ public class GradeCenter extends JPanel{
             List<Grade> grades = grade.getGrades();
             for(int j = 0;j<grades.size();j++){
                 Assignment a = grades.get(j).getAssignment();
-                String col = a.getName()+" lostPoints";
+                String col = a.getName();
 //                    col += " (W: "+a.getWeight();
                 col += " (MP: "+a.getMaxPoints()+")";
                 colNames.add(col);
@@ -231,6 +233,7 @@ class GradeListener implements TableModelListener {
     private List<Integer> gradeIds;
     private static GradeListener gradeListenerInstance;
     private int classId;
+    private JComboBoxListener jcblistener;
 
     private GradeListener(Map<Integer,GradeModel> map,String filter, int classId){
         this.filter = filter;
@@ -247,6 +250,12 @@ class GradeListener implements TableModelListener {
             gradeListenerInstance.setClassId(classId);
         }
         return gradeListenerInstance;
+    }
+
+    public static void setJComboBoxListener(JComboBoxListener jcblistener) {
+        if(gradeListenerInstance != null){
+            gradeListenerInstance.jcblistener = jcblistener;
+        }
     }
 
     public void setClassId(int classId) {
@@ -298,7 +307,9 @@ class GradeListener implements TableModelListener {
         }
         UpdateGrade uGrade = new UpdateGrade((int) data, assignmentId, studentId);
         uGrade.execute();
-
+        if(filter.equals("All")) {
+            jcblistener.updateLabel("All");
+        }
     }
 }
 class TableCellRender extends DefaultTableCellRenderer {
@@ -347,7 +358,7 @@ class JComboBoxListener implements ActionListener{
         updateLabel(petName);
 
     }
-    private void updateLabel(String filter){
+    public void updateLabel(String filter){
 
         if(filter.equals("All")){
             //TODO connor set final grades
