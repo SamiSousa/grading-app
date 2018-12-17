@@ -41,7 +41,7 @@ public class LoginDialog extends JDialog {
         btnLogin = new JButton("Login");
 
         btnLogin.addActionListener(e -> {
-            if (Login.authenticate("admin", getPassword())) {
+            if (Login.authenticate(getPassword())) {
                 succeeded = true;
                 dispose();
             } else {

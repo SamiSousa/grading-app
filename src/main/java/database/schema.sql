@@ -58,7 +58,3 @@ CREATE TABLE Grade (
     FOREIGN KEY (AssignmentID) REFERENCES Assignment(AssignmentID),
     FOREIGN KEY (StudentID) REFERENCES Student(StudentID)
 );
-
-INSERT INTO Semester(Name) VALUES ("Fall 2018");
-INSERT INTO Class(ClassID, CourseNumber, SemesterID) VALUES (1, "CS591", 1);
-INSERT INTO Class(ClassID, CourseNumber, SemesterID) VALUES (3, "CS506", 1);
