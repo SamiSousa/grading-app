@@ -1,9 +1,13 @@
 package main;
 
 import component.LoginDialog;
+import component.SetConfigDialog;
 import view.MainMenu;
 
 import java.awt.*;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
 import javax.swing.*;
 
 
@@ -22,29 +26,43 @@ public class Main {
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         curWindow.setLocation(dim.width/2-curWindow.getSize().width/2, dim.height/2-curWindow.getSize().height/2);
 
+//        setConfigIfNecessary
+        if(Config.isUserPromptRequired()) {
+            SetConfigDialog setConfigDialog = new SetConfigDialog(curWindow);
+            setConfigDialog.setVisible(true);
+            if(setConfigDialog.isDone) {
+                setConfigDialog.dispose();
+                configTopPanel();
+                curWindow.getContentPane().add(topPanel);
+                constructMainView();
+                curWindow.setVisible(true);
+            }
 
-        LoginDialog loginDlg = new LoginDialog(curWindow);
+        } else {
+            LoginDialog loginDlg = new LoginDialog(curWindow);
 
-        loginDlg.setVisible(true);
+            loginDlg.setVisible(true);
 
-        // if login successfully
-        if(loginDlg.isSucceeded()) {
-            loginDlg.dispose();
+            // if login successfully
+            if(loginDlg.isSucceeded()) {
+                loginDlg.dispose();
 
-            configTopPanel();
+                configTopPanel();
 
-            curWindow.getContentPane().add(topPanel);
+                curWindow.getContentPane().add(topPanel);
 //            topPanel.setLayout(null);
 
-            constructMainView();
+                constructMainView();
 
-            curWindow.setVisible(true);
-        }
-        if(loginDlg.isClosed()) {
-            loginDlg.dispose();
-            curWindow.dispose();
+                curWindow.setVisible(true);
+            }
+            if(loginDlg.isClosed()) {
+                loginDlg.dispose();
+                curWindow.dispose();
+            }
         }
     }
+
     private static void constructMainView() {
 
         MainMenu menu = MainMenu.getMainMenuInstance(contentPanel);
